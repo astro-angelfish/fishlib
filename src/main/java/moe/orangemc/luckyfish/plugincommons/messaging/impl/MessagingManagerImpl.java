@@ -32,9 +32,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Manager of bungee/player communication
@@ -42,6 +40,7 @@ import java.util.UUID;
 public final class MessagingManagerImpl implements MessagingManager {
     private final Plugin plugin;
     private final Map<String, MessageCallback<?>> registeredChannels = new HashMap<>();
+    private final List<String> bungeeOnlyChannels = new ArrayList<>();
     private final Map<Class<?>, TypeAdapter<?>> typeAdapterMap = new HashMap<>();
     private final BungeeMessageReceiver receiver = new BungeeMessageReceiver();
 
@@ -400,8 +399,11 @@ public final class MessagingManagerImpl implements MessagingManager {
             throw new IllegalArgumentException("Channel: " + channel + " is already registered");
         }
 
-        if (bungeeOnly && (!Bukkit.getServer().spigot().getConfig().getConfigurationSection("settings").getBoolean("settings.bungeecord"))) {
-        	throw new IllegalStateException("This channel can only be used in bungee mode but the spigot is not covered under bungee.");
+        if (bungeeOnly) {
+        	if ((!Bukkit.getServer().spigot().getConfig().getConfigurationSection("settings").getBoolean("bungeecord"))) {
+		        throw new SecurityException("This channel can only be used in bungee mode but the spigot is not covered under bungee.");
+	        }
+        	bungeeOnlyChannels.add(channel);
         }
 
         registeredChannels.put(channel, callback);
@@ -491,7 +493,11 @@ public final class MessagingManagerImpl implements MessagingManager {
                 }
 
                 try {
-                    bcb.call(object);
+                	if (bungeeOnlyChannels.contains(channel)) {
+                		bcb.call(null, object);
+	                } else {
+		                bcb.call(player, object);
+	                }
                 } catch (Exception e) {
                     MessagingManagerImpl.this.plugin.getLogger().warning("Failed while processing message from channel " + channel);
                     e.printStackTrace();

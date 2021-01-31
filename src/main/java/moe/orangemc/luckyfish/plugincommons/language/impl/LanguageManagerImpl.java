@@ -57,7 +57,7 @@ public class LanguageManagerImpl implements LanguageManager {
 
 	private void loadLanguageFiles(Plugin plugin) throws IOException {
 		for (Locale locale : Locale.getAvailableLocales()) {
-			String localeString = locale.toString().replaceAll("#.*$", "").toLowerCase();
+			String localeString = locale.toString().replaceAll("_?#[a-zA-Z0-9\\-_]+$", "").toLowerCase();
 			File targetLanguageFile = new File(languageDirectory, localeString + ".json");
 
 			if (!targetLanguageFile.exists()) {

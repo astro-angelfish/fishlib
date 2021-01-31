@@ -38,11 +38,11 @@ import java.util.function.Predicate;
  *
  * Originally from https://github.com/czm23333/IndustrialWorld/blob/master/src/main/java/com/industrialworld/command/selector/EntitySelector.java
  * with a little changes.
- * But it's still my code.
- * The quality of these code is bad so I'll optimize them soon.
+ * Anyway it's still my code.
+ * The quality of these code is poor so I'll optimize them soon.
  * NPath=2147483647
  *
- * At least czm23333 allowed me to use these code written in their project.
+ * At least czm23333 allowed me to use these code in our project.
  */
 public class EntitySelector {
 	private final CommandSender sender;

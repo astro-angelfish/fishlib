@@ -100,6 +100,14 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 
 	@Override
 	public String set(int i, String s) {
+		if (i >= this.size()) {
+			while (this.size() < i) {
+				super.add("");
+			}
+			super.add(s);
+			return "";
+		}
+
 		String result = super.set(i, s);
 		updateScoreboard();
 		return result;

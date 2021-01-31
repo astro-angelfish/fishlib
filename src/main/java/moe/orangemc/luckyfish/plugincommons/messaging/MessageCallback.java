@@ -18,6 +18,8 @@
 
 package moe.orangemc.luckyfish.plugincommons.messaging;
 
+import org.bukkit.entity.Player;
+
 /**
  * The callback of bungee message or player message
  *
@@ -26,9 +28,10 @@ package moe.orangemc.luckyfish.plugincommons.messaging;
 public interface MessageCallback<T> {
     /**
      * Calls when bungee/player sends plugin message
+     * @param player player who send this message, null if this is a bungee channel.
      * @param target message object
      */
-    void call(T target);
+    void call(Player player, T target);
 
     /**
      * Fetch the acceptable class of plugin message

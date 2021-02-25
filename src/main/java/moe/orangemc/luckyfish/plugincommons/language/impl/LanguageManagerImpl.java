@@ -58,10 +58,14 @@ public class LanguageManagerImpl implements LanguageManager {
 	private void loadLanguageFiles(Plugin plugin) throws IOException {
 		for (Locale locale : Locale.getAvailableLocales()) {
 			String localeString = locale.toString().replaceAll("_?#[a-zA-Z0-9\\-_]+$", "").toLowerCase();
+			if (!localeString.matches("[a-z]{2,2}_[a-z]{2,2}")) {
+				continue;
+			}
+
 			File targetLanguageFile = new File(languageDirectory, localeString + ".json");
 
 			if (!targetLanguageFile.exists()) {
-				InputStream inputStream = plugin.getClass().getResourceAsStream("lang/" + localeString + ".json");
+				InputStream inputStream = plugin.getClass().getResourceAsStream("/lang/" + localeString + ".json");
 				if (inputStream == null) {
 					continue;
 				}
@@ -98,6 +102,7 @@ public class LanguageManagerImpl implements LanguageManager {
 		String locale;
 		if (commandSender instanceof Player) {
 			locale = ((Player) commandSender).getLocale().toLowerCase();
+			System.out.println(locale);
 		} else {
 			locale = "en_us";
 		}
@@ -111,7 +116,7 @@ public class LanguageManagerImpl implements LanguageManager {
 		Validate.notNull(key, "key cannot be null");
 
 		if (!locale.equals("en_us")) {
-			if (!languageMap.containsKey(locale) || !languageMap.get(locale).containsKey(key)) {
+			if (!(languageMap.containsKey(locale) && languageMap.get(locale).containsKey(key))) {
 				return getTranslation("en_us", key, args);
 			}
 		} else if (!languageMap.containsKey(locale) || !languageMap.get(locale).containsKey(key)) {

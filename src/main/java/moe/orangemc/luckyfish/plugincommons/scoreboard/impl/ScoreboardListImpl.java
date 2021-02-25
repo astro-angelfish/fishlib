@@ -57,10 +57,10 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 		this.plugin = plugin;
 
 		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		objective = scoreboard.registerNewObjective("ScoreboardList@" + Integer.toHexString(hashCode()), "dummy", title, RenderType.INTEGER);
+		objective = scoreboard.registerNewObjective(Integer.toHexString(hashCode()), "dummy", title, RenderType.INTEGER);
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		backupScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		backupObjective = backupScoreboard.registerNewObjective("ScoreboardList@" + Integer.toHexString(hashCode()), "dummy", title, RenderType.INTEGER);
+		backupObjective = backupScoreboard.registerNewObjective(Integer.toHexString(hashCode()), "dummy", title, RenderType.INTEGER);
 		updateScoreboard();
 	}
 
@@ -280,7 +280,7 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 		Validate.notNull(player, "player cannot be null");
 
 		if (!playerDisplayedTo.contains(player)) {
-			throw new IllegalArgumentException("The player is not displaying my scoreboard");
+			return;
 		}
 		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 		playerDisplayedTo.remove(player);

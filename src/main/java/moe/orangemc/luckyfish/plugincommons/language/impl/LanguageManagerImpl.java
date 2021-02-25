@@ -102,7 +102,6 @@ public class LanguageManagerImpl implements LanguageManager {
 		String locale;
 		if (commandSender instanceof Player) {
 			locale = ((Player) commandSender).getLocale().toLowerCase();
-			System.out.println(locale);
 		} else {
 			locale = "en_us";
 		}

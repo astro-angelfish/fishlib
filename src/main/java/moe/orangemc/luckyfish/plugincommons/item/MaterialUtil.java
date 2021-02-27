@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.luckyfish.plugincommons.utils;
+package moe.orangemc.luckyfish.plugincommons.item;
 
 import org.bukkit.Material;
 

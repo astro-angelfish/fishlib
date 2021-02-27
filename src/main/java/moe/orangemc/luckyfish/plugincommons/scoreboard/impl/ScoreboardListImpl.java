@@ -245,9 +245,9 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 				for (Player player : playerDisplayedTo) {
 					player.setScoreboard(scoreboard);
 				}
-				Bukkit.getScheduler().runTaskLater(plugin, () -> updateTargetScoreboard(backupScoreboard, backupObjective), 1);
-			}, 1);
-		}, 1);
+				Bukkit.getScheduler().runTaskLater(plugin, () -> updateTargetScoreboard(backupScoreboard, backupObjective), 5);
+			}, 5);
+		}, 5);
 	}
 
 	private void updateTargetScoreboard(Scoreboard scoreboard, Objective objective) {

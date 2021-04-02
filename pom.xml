@@ -6,7 +6,7 @@
 
     <groupId>moe.orangemc.luckyfish</groupId>
     <artifactId>PluginCommons</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>PluginCommons</name>

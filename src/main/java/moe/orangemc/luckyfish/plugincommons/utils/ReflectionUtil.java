@@ -335,7 +335,63 @@ public final class ReflectionUtil {
         }
     }
 
-    private static Class<?>[] extractArgClasses(Object ... args) {
+	/**
+	 * Gets an enum constant from class.
+	 * @param clazz class of the enum
+	 * @param constant constant name
+	 * @return the enum constant
+	 * @throws Exception if no constant found or class found.
+	 */
+	public static Enum<?> getEnum(Class<?> clazz, String constant) throws Exception {
+		return getEnum(clazz.getName(), constant);
+	}
+
+	/**
+	 * Gets an enum constant from class and enum name.
+	 * @param clazz class of the enum
+	 * @param enumname name of the enum
+	 * @param constant constant name
+	 * @return the enum constant
+	 * @throws Exception if no constant found or class found.
+	 */
+	public static Enum<?> getEnum(Class<?> clazz, String enumname, String constant) throws Exception {
+		return getEnum(clazz.getName(), enumname, constant);
+	}
+
+	/**
+	 * Gets an enum constant from class name.
+	 * @param className class of the enum
+	 * @param constant constant name
+	 * @return the enum constant
+	 * @throws Exception if no constant found or class found.
+	 */
+	public static Enum<?> getEnum(String className, String constant) throws Exception {
+		return fetchEnumConstant(constant, Class.forName(className));
+	}
+
+	/**
+	 * Gets an enum constant from class name.
+	 * @param className class of the enum
+	 * @param enumname name of the enum
+	 * @param constant constant name
+	 * @return the enum constant
+	 * @throws Exception if no constant found or class found.
+	 */
+	public static Enum<?> getEnum(String className, String enumname, String constant) throws Exception {
+		return getEnum(className + "$" + enumname, constant);
+	}
+
+	private static Enum<?> fetchEnumConstant(String constantName, Class<?> c) throws Exception {
+		Enum<?>[] constants = (Enum<?>[]) c.getEnumConstants();
+		for (Enum<?> constant : constants) {
+			if (constant.name().equalsIgnoreCase(constantName)) {
+				return constant;
+			}
+		}
+		throw new Exception("Enum constant not found " + constantName);
+	}
+
+	private static Class<?>[] extractArgClasses(Object ... args) {
         Class<?>[] argClasses = new Class[args.length];
         for (int i = 0; i < args.length; i++) {
             Object arg = args[i];

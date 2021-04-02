@@ -343,6 +343,9 @@ public final class ReflectionUtil {
 	 * @throws Exception if no constant found or class found.
 	 */
 	public static Enum<?> getEnum(Class<?> clazz, String constant) throws Exception {
+		Validate.notNull(clazz, "clazz cannot be null");
+		Validate.notNull(constant, "constant cannot be null");
+
 		return getEnum(clazz.getName(), constant);
 	}
 
@@ -355,6 +358,10 @@ public final class ReflectionUtil {
 	 * @throws Exception if no constant found or class found.
 	 */
 	public static Enum<?> getEnum(Class<?> clazz, String enumname, String constant) throws Exception {
+		Validate.notNull(clazz, "clazz cannot be null");
+		Validate.notNull(enumname, "enumname cannot be null");
+		Validate.notNull(constant, "constant cannot be null");
+
 		return getEnum(clazz.getName(), enumname, constant);
 	}
 
@@ -366,6 +373,9 @@ public final class ReflectionUtil {
 	 * @throws Exception if no constant found or class found.
 	 */
 	public static Enum<?> getEnum(String className, String constant) throws Exception {
+		Validate.notNull(className, "className cannot be null");
+		Validate.notNull(constant, "constant cannot be null");
+
 		return fetchEnumConstant(constant, Class.forName(className));
 	}
 
@@ -378,6 +388,10 @@ public final class ReflectionUtil {
 	 * @throws Exception if no constant found or class found.
 	 */
 	public static Enum<?> getEnum(String className, String enumname, String constant) throws Exception {
+		Validate.notNull(className, "className cannot be null");
+		Validate.notNull(enumname, "enumname cannot be null");
+		Validate.notNull(constant, "constant cannot be null");
+
 		return getEnum(className + "$" + enumname, constant);
 	}
 

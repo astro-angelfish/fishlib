@@ -237,8 +237,6 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 
 	protected void updateScoreboard() {
 		// Use two scoreboards to avoid blinking.
-		System.out.println("Update.");
-		System.out.println("Players: " + playerDisplayedTo);
 		for (Player player : playerDisplayedTo) {
 			player.setScoreboard(backupScoreboard);
 		}
@@ -274,6 +272,9 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 	public void displayToPlayer(Player player) {
 		Validate.notNull(player, "player cannot be null");
 
+		if (playerDisplayedTo.contains(player)) {
+			return;
+		}
 		player.setScoreboard(this.scoreboard);
 		playerDisplayedTo.add(player);
 	}

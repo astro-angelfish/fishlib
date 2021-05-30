@@ -20,6 +20,7 @@ package moe.orangemc.luckyfish.plugincommons.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,4 +84,10 @@ public interface SubCommandBase {
     default List<String> tabComplete(CommandSender sender, String[] args) {
         return new ArrayList<>();
     }
+
+	/**
+	 * Called when the plugin is needed.
+	 * @return the plugin provided the command.
+	 */
+	Plugin getProvidingPlugin();
 }

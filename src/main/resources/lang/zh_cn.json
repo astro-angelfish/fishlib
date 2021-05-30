@@ -1,0 +1,5 @@
+{
+  "command.help.description": "获取帮助信息，也就是你眼前的这条消息.",
+  "command.help.usage": "[命令]",
+  "command.no_permission": "你没有使用此命令的权限(┙>∧<)┙へ┻┻"
+}

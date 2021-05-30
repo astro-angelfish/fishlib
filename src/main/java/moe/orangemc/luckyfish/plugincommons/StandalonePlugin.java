@@ -21,12 +21,18 @@ package moe.orangemc.luckyfish.plugincommons;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class StandalonePlugin extends JavaPlugin {
+	private static StandalonePlugin instance;
 	@Override
 	public void onLoad() {
+		instance = this;
 		try {
 			Class.forName("moe.orangemc.luckyfish.plugincommons.PluginCommons");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static StandalonePlugin getInstance() {
+		return instance;
 	}
 }

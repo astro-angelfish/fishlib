@@ -18,12 +18,16 @@
 
 package moe.orangemc.luckyfish.plugincommons.command;
 
+import moe.orangemc.luckyfish.plugincommons.PluginCommons;
+import moe.orangemc.luckyfish.plugincommons.StandalonePlugin;
+import moe.orangemc.luckyfish.plugincommons.language.LanguageManager;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +79,12 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 
         if (subCommandBase.getPermissionRequired() != null) {
             if (!sender.hasPermission(subCommandBase.getPermissionRequired())) {
-                sender.sendMessage(prefix + ChatColor.RED + "你没有使用此命令的权限(┙>∧<)┙へ┻┻");
+            	if (StandalonePlugin.getInstance() == null) {
+		            sender.sendMessage(prefix + ChatColor.RED + "你没有使用此命令的权限(┙>∧<)┙へ┻┻");
+	            } else {
+            		LanguageManager languageManager = PluginCommons.getLanguageManager(StandalonePlugin.getInstance());
+            		sender.sendMessage(languageManager.getTranslationBySender(sender, "command.no_permission"));
+	            }
                 return true;
             }
         }
@@ -151,12 +160,18 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 
         @Override
         public String getDescription() {
-            return "获取帮助信息，也就是你眼前的这条消息";
+        	if (getProvidingPlugin() == null) {
+        		return "获取帮助信息，也就是你眼前的这条消息.";
+	        }
+            return "command.help.description";
         }
 
         @Override
         public String getUsage() {
-            return "[命令]";
+        	if (getProvidingPlugin() == null) {
+        		return "[命令]";
+	        }
+            return "command.help.usage";
         }
 
         @Override
@@ -168,7 +183,12 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
             return getCommandForTabComplete(args);
         }
 
-        @Override
+	    @Override
+	    public Plugin getProvidingPlugin() {
+		    return StandalonePlugin.getInstance();
+	    }
+
+	    @Override
         public boolean execute(CommandSender sender, Command command, String[] args) {
             if (args.length == 0) {
                 commandBaseMap.forEach((name, cmd) -> {
@@ -191,7 +211,12 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
                 return execute(sender, command, new String[0]);
             }
 
-            sender.sendMessage(prefix + ChatColor.YELLOW + "/" + command.getName() + " " + commandBase.getName() + " " + commandBase.getUsage() + ChatColor.GREEN + " - " + ChatColor.GOLD + commandBase.getDescription());
+            if (commandBase.getProvidingPlugin() == null) {
+	            sender.sendMessage(prefix + ChatColor.YELLOW + "/" + command.getName() + " " + commandBase.getName() + " " + commandBase.getUsage() + ChatColor.GREEN + " - " + ChatColor.GOLD + commandBase.getDescription());
+            } else {
+	            LanguageManager languageManager = PluginCommons.getLanguageManager(commandBase.getProvidingPlugin());
+	            sender.sendMessage(prefix + ChatColor.YELLOW + "/" + command.getName() + " " + commandBase.getName() + " " + languageManager.getTranslationBySender(sender, commandBase.getUsage()) + ChatColor.GREEN + " - " + ChatColor.GOLD + languageManager.getTranslationBySender(sender, commandBase.getDescription()));
+            }
 
             return true;
         }

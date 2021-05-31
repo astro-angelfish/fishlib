@@ -18,6 +18,7 @@
 
 package moe.orangemc.luckyfish.plugincommons.inventory.control.handler;
 
+import moe.orangemc.luckyfish.plugincommons.inventory.control.ProgressBar;
 import org.bukkit.entity.Player;
 
 /**
@@ -27,7 +28,8 @@ public interface ProgressBarUpdater extends ControlHandler {
     /**
      * Calls when a progress bar is being updated
      * @param who the owner of the inventory which the progress bar have been put in
+     * @param progressBar the progressbar updated
      * @return rate of the progress bar, 0 is empty and 1 is full
      */
-    double update(Player who);
+    double update(Player who, ProgressBar progressBar);
 }

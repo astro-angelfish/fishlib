@@ -20,6 +20,7 @@ package moe.orangemc.luckyfish.plugincommons.inventory.impl.control;
 
 import moe.orangemc.luckyfish.plugincommons.inventory.control.ProgressBar;
 import moe.orangemc.luckyfish.plugincommons.inventory.control.handler.ProgressBarUpdater;
+import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -29,8 +30,8 @@ import org.bukkit.inventory.ItemStack;
  */
 public class ProgressBarImpl extends ControlImpl implements ProgressBar {
     private final int length;
-    private final ItemStack emptyItem;
-    private final ItemStack filledItem;
+    private ItemStack emptyItem;
+    private ItemStack filledItem;
     private final ProgressBarUpdater updater;
 
     public ProgressBarImpl(int length, ItemStack emptyItem, ItemStack filledItem, ProgressBarUpdater updater) {
@@ -59,7 +60,7 @@ public class ProgressBarImpl extends ControlImpl implements ProgressBar {
         }
         double rate = 0;
         if (updater != null) {
-            rate = updater.update((Player) getInventoryPutIn().getHolder());
+            rate = updater.update((Player) getInventoryPutIn().getHolder(), this);
         }
         for (int i = 0; i < length; i ++) {
             double slotRate = (i + 0.0) / length;
@@ -80,4 +81,18 @@ public class ProgressBarImpl extends ControlImpl implements ProgressBar {
     public ItemStack getFilledItem() {
         return filledItem;
     }
+
+	@Override
+	public void setEmptyItem(ItemStack item) {
+		Validate.notNull(item, "emptyItem cannot be null");
+		this.emptyItem = item.clone();
+		this.update();
+	}
+
+	@Override
+	public void setFilledItem(ItemStack item) {
+		Validate.notNull(item, "filledItem cannot be null");
+		this.filledItem = item.clone();
+		this.update();
+	}
 }

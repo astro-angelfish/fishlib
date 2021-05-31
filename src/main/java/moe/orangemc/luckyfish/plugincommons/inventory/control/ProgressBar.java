@@ -26,4 +26,7 @@ public interface ProgressBar extends Control {
 	ItemStack getEmptyItem();
 
 	ItemStack getFilledItem();
+
+	void setEmptyItem(ItemStack item);
+	void setFilledItem(ItemStack item);
 }

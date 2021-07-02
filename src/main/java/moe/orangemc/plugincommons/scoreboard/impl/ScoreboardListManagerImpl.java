@@ -41,7 +41,7 @@ public class ScoreboardListManagerImpl implements ScoreboardListManager {
 
 		Bukkit.getScheduler().runTaskTimer(plugin, () -> scoreboardMap.forEach((name, scbList) -> {
 			if (scbList != null) {
-				scbList.updateScoreboard();
+				scbList.scheduleUpdateScoreboard();
 			}
 		}), 10, 10);
 	}

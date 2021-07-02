@@ -19,7 +19,6 @@
 package moe.orangemc.plugincommons.inventory.impl;
 
 import moe.orangemc.plugincommons.inventory.PluginInventory;
-import moe.orangemc.luckyfish.plugincommons.inventory.control.*;
 import moe.orangemc.plugincommons.inventory.control.handler.ButtonClickHandler;
 import moe.orangemc.plugincommons.inventory.control.handler.InventoryHandler;
 import moe.orangemc.plugincommons.inventory.control.handler.PlaceableFieldHandler;

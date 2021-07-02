@@ -27,8 +27,8 @@ into your ```pom.xml```. You would know where to put them.
 For command, there is an example
 
 ```java
-import moe.orangemc.luckyfish.plugincommons.command.CommonCommand;
-import moe.orangemc.luckyfish.plugincommons.command.SubCommandBase;
+import CommonCommand;
+import SubCommandBase;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;

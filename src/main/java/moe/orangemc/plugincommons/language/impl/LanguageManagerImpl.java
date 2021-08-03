@@ -30,10 +30,8 @@ import org.bukkit.command.ProxiedCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -83,7 +81,7 @@ public class LanguageManagerImpl implements LanguageManager {
 
 		Gson gson = new Gson();
 		try {
-			Map<String, String> languageKeyMap = gson.fromJson(new FileReader(languageFile), new TypeToken<Map<String, String>>() {
+			Map<String, String> languageKeyMap = gson.fromJson(new InputStreamReader(new FileInputStream(languageFile), StandardCharsets.UTF_8), new TypeToken<Map<String, String>>() {
 			}.getType());
 			this.languageMap.put(language, languageKeyMap);
 		} catch (JsonSyntaxException e) {

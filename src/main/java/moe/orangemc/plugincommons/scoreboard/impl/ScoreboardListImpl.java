@@ -51,7 +51,7 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 	private final List<Player> playerDisplayedTo = new ArrayList<>();
 
 	private int requests = 0;
-	private boolean finished = false;
+	private boolean finished = true;
 
 	public ScoreboardListImpl(Plugin plugin, String title) {
 		Validate.notNull(title, "title cannot be null");
@@ -64,6 +64,7 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		backupScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		backupObjective = backupScoreboard.registerNewObjective(Integer.toHexString(hashCode()), "dummy", title, RenderType.INTEGER);
+		backupObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		scheduleUpdateScoreboard();
 		Bukkit.getScheduler().runTaskTimer(plugin, this::updateScoreboard, 0, 0);
 	}

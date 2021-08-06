@@ -38,7 +38,7 @@ import java.util.function.UnaryOperator;
  * @see LinkedList
  * @see Scoreboard
  */
-public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardList {
+public class ScoreboardListImpl extends LinkedList<String> implements ScoreboardList {
 	private final Object holder = new Object();
 
 	private final Plugin plugin;
@@ -277,9 +277,19 @@ public class ScoreboardListImpl extends LinkedList<String>implements ScoreboardL
 		}
 
 		int index = size() / 2;
+		int emptyCounter = 0;
 		for (String entry : this) {
+			String place = entry;
+			if (place.trim().isEmpty()) {
+				StringBuilder emptyPlaceHolderBuilder = new StringBuilder();
+				for (int i = 0; i < emptyCounter; i ++) {
+					emptyPlaceHolderBuilder.append(" ");
+				}
+				emptyCounter ++;
+				place = emptyPlaceHolderBuilder.toString();
+			}
 			try {
-				objective.getScore(entry).setScore(index);
+				objective.getScore(place).setScore(index);
 			} catch (IllegalArgumentException iae) {
 				objective.getScore("A long entry.").setScore(index);
 			}

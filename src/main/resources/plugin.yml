@@ -1,4 +1,0 @@
-# Remove this file when you are going to use this plugin as a library.
-name: PluginCommons
-version: ${project.version}
-main: moe.orangemc.plugincommons.StandalonePlugin

@@ -40,6 +40,12 @@ public interface ScoreboardList extends List<String> {
 	void resetPlayerDisplay(Player player);
 
 	/**
+	 * Set the title of the scoreboard
+	 * @param title the new title of scoreboard
+	 */
+	void setTitle(String title);
+
+	/**
 	 * INTERNAL USE ONLY, DO NOT CALL IT.
 	 */
 	@SuppressWarnings("DeprecatedIsStillUsed")

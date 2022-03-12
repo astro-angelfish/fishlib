@@ -53,6 +53,13 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 	}
 
 	@Override
+	public void setTitle(String title) {
+		Validate.notNull(title, "title cannot be null");
+
+		objective.setDisplayName(title);
+	}
+
+	@Override
 	public boolean add(String s) {
 		boolean result = super.add(s);
 		updateScoreboard();

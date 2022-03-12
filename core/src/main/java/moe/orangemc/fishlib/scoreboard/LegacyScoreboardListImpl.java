@@ -49,8 +49,15 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 		Validate.notNull(title, "title cannot be null");
 
 		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		objective = scoreboard.registerNewObjective(title, "dummy");
+		objective = scoreboard.registerNewObjective(Integer.toHexString(hashCode()), "dummy");
+		objective.setDisplayName(title);
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+	}
+
+	@Override
+	public void setTitle(String title) {
+		Validate.notNull(title, "title cannot be null");
+		objective.setDisplayName(title);
 	}
 
 	@Override

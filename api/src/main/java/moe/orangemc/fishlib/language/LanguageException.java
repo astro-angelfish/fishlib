@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,9 +18,12 @@
 
 package moe.orangemc.fishlib.language;
 
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+
 /**
  * The exception to be thrown when failed to load language data.
  */
+@ShouldNotBeImplemented
 public final class LanguageException extends Exception {
 	public LanguageException(String s, Throwable throwable) {
 		super(s, throwable);

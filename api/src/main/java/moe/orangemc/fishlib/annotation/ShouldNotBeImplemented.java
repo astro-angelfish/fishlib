@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * Usually means this interface should not be implemented by plugin.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+@ShouldNotBeImplemented
 public @interface ShouldNotBeImplemented {
 }

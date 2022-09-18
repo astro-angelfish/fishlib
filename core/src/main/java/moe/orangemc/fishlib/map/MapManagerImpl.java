@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -49,9 +49,38 @@ public class MapManagerImpl implements MapManager {
 		ItemFrame[][] itemFrames = new ItemFrame[corner.getX() + 1][corner.getY() + 1];
 
 		framesToDisplay.forEach((loc, frame) -> itemFrames[loc.getX()][loc.getY()] = frame);
-		MapUIImpl mapUI = new MapUIImpl(itemFrames, corner);
+		return addMapUI(new MapUIImpl(itemFrames, corner), itemFrames);
+	}
+
+	@Override
+	public MapUI createMapUI(ItemFrame start, Vector2i maxSize) {
+		Validate.notNull(start, "Start item frame cannot be null");
+		Validate.notNull(maxSize, "Max size cannot be null");
+		Validate.isTrue(maxSize.getX() > 0 && maxSize.getY() > 0, "Illegal size");
+
+		ItemFrameFinder itemFrameFinder = new ItemFrameFinder(start, maxSize).startFinding();
+
+		Vector2i actualSize = itemFrameFinder.getActualSize();
+		ItemFrame[][] itemFrames = new ItemFrame[actualSize.getX() + 1][actualSize.getY() + 1];
+		itemFrameFinder.getResult().forEach((loc, itemFrame) -> itemFrames[loc.getX()][loc.getY()] = itemFrame);
+
+		return addMapUI(new MapUIImpl(itemFrames, actualSize), itemFrames);
+	}
+
+	private MapUI addMapUI(MapUIImpl mapUI, ItemFrame[][] itemFrames) {
 		this.mapUIs.add(mapUI);
-		framesToDisplay.forEach((loc, frame) -> itemFrameMap.put(frame, mapUI));
+		for (ItemFrame[] if1 : itemFrames) {
+			if (if1 == null) {
+				continue;
+			}
+			for (ItemFrame if2 : if1) {
+				if (if2 == null) {
+					continue;
+				}
+				itemFrameMap.put(if2, mapUI);
+			}
+		}
+		this.mapUIs.add(mapUI);
 		return mapUI;
 	}
 

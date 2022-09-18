@@ -1,5 +1,5 @@
 /*
- * FishLib, a Bukkit development library
+ * FishLib, a Bukkit Astro angelfish library
  * Copyright (C) Lucky_fish0w0
  *
  * This program is free software: you can redistribute it and/or modify

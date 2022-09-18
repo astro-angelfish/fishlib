@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -55,324 +55,324 @@ public final class MessagingManagerImpl implements MessagingManager {
 
     private void initTypeAdapters() {
         // int
-        registerTypeAdapter(Integer.class, new TypeAdapter<Integer>() {
-            @Override
-            public void writeToStream(Integer target, ByteArrayDataOutput bado) {
-                bado.writeInt(target);
-            }
+        registerTypeAdapter(Integer.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Integer target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target);
+	        }
 
-            @Override
-            public Integer readFromStream(ByteArrayDataInput badi) {
-                return badi.readInt();
-            }
+	        @Override
+	        public Integer readFromStream(ByteArrayDataInput badi) {
+		        return badi.readInt();
+	        }
         });
         // float
-        registerTypeAdapter(Float.class, new TypeAdapter<Float>() {
-            @Override
-            public void writeToStream(Float target, ByteArrayDataOutput bado) {
-                bado.writeFloat(target);
-            }
+        registerTypeAdapter(Float.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Float target, ByteArrayDataOutput bado) {
+		        bado.writeFloat(target);
+	        }
 
-            @Override
-            public Float readFromStream(ByteArrayDataInput badi) {
-                return badi.readFloat();
-            }
+	        @Override
+	        public Float readFromStream(ByteArrayDataInput badi) {
+		        return badi.readFloat();
+	        }
         });
         // byte
-        registerTypeAdapter(Byte.class, new TypeAdapter<Byte>() {
-            @Override
-            public void writeToStream(Byte target, ByteArrayDataOutput bado) {
-                bado.writeByte(target);
-            }
+        registerTypeAdapter(Byte.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Byte target, ByteArrayDataOutput bado) {
+		        bado.writeByte(target);
+	        }
 
-            @Override
-            public Byte readFromStream(ByteArrayDataInput badi) {
-                return badi.readByte();
-            }
+	        @Override
+	        public Byte readFromStream(ByteArrayDataInput badi) {
+		        return badi.readByte();
+	        }
         });
         // double
-        registerTypeAdapter(Double.class, new TypeAdapter<Double>() {
-            @Override
-            public void writeToStream(Double target, ByteArrayDataOutput bado) {
-                bado.writeDouble(target);
-            }
+        registerTypeAdapter(Double.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Double target, ByteArrayDataOutput bado) {
+		        bado.writeDouble(target);
+	        }
 
-            @Override
-            public Double readFromStream(ByteArrayDataInput badi) {
-                return badi.readDouble();
-            }
+	        @Override
+	        public Double readFromStream(ByteArrayDataInput badi) {
+		        return badi.readDouble();
+	        }
         });
         // long
-        registerTypeAdapter(Long.class, new TypeAdapter<Long>() {
-            @Override
-            public void writeToStream(Long target, ByteArrayDataOutput bado) {
-                bado.writeLong(target);
-            }
+        registerTypeAdapter(Long.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Long target, ByteArrayDataOutput bado) {
+		        bado.writeLong(target);
+	        }
 
-            @Override
-            public Long readFromStream(ByteArrayDataInput badi) {
-                return badi.readLong();
-            }
+	        @Override
+	        public Long readFromStream(ByteArrayDataInput badi) {
+		        return badi.readLong();
+	        }
         });
         // char
-        registerTypeAdapter(Character.class, new TypeAdapter<Character>() {
-            @Override
-            public void writeToStream(Character target, ByteArrayDataOutput bado) {
-                bado.writeChar(target);
-            }
+        registerTypeAdapter(Character.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Character target, ByteArrayDataOutput bado) {
+		        bado.writeChar(target);
+	        }
 
-            @Override
-            public Character readFromStream(ByteArrayDataInput badi) {
-                return badi.readChar();
-            }
+	        @Override
+	        public Character readFromStream(ByteArrayDataInput badi) {
+		        return badi.readChar();
+	        }
         });
         // boolean
-        registerTypeAdapter(Boolean.class, new TypeAdapter<Boolean>() {
-            @Override
-            public void writeToStream(Boolean target, ByteArrayDataOutput bado) {
-                bado.writeBoolean(target);
-            }
+        registerTypeAdapter(Boolean.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Boolean target, ByteArrayDataOutput bado) {
+		        bado.writeBoolean(target);
+	        }
 
-            @Override
-            public Boolean readFromStream(ByteArrayDataInput badi) {
-                return badi.readBoolean();
-            }
+	        @Override
+	        public Boolean readFromStream(ByteArrayDataInput badi) {
+		        return badi.readBoolean();
+	        }
         });
         // short
-        registerTypeAdapter(Short.class, new TypeAdapter<Short>() {
-            @Override
-            public void writeToStream(Short target, ByteArrayDataOutput bado) {
-                bado.writeShort(target);
-            }
+        registerTypeAdapter(Short.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Short target, ByteArrayDataOutput bado) {
+		        bado.writeShort(target);
+	        }
 
-            @Override
-            public Short readFromStream(ByteArrayDataInput badi) {
-                return badi.readShort();
-            }
+	        @Override
+	        public Short readFromStream(ByteArrayDataInput badi) {
+		        return badi.readShort();
+	        }
         });
         // void
-        registerTypeAdapter(Void.class, new TypeAdapter<Void>() {
-            @Override
-            public void writeToStream(Void target, ByteArrayDataOutput bado) {
+        registerTypeAdapter(Void.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Void target, ByteArrayDataOutput bado) {
 
-            }
+	        }
 
-            @Override
-            public Void readFromStream(ByteArrayDataInput badi) {
-                return null;
-            }
+	        @Override
+	        public Void readFromStream(ByteArrayDataInput badi) {
+		        return null;
+	        }
         });
         // string
-        registerTypeAdapter(String.class, new TypeAdapter<String>() {
-            @Override
-            public void writeToStream(String target, ByteArrayDataOutput bado) {
-                bado.writeUTF(target);
-            }
+        registerTypeAdapter(String.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(String target, ByteArrayDataOutput bado) {
+		        bado.writeUTF(target);
+	        }
 
-            @Override
-            public String readFromStream(ByteArrayDataInput badi) {
-                return badi.readUTF();
-            }
+	        @Override
+	        public String readFromStream(ByteArrayDataInput badi) {
+		        return badi.readUTF();
+	        }
         });
         // uuid
-        registerTypeAdapter(UUID.class, new TypeAdapter<UUID>() {
-            @Override
-            public void writeToStream(UUID target, ByteArrayDataOutput bado) {
-                bado.writeLong(target.getMostSignificantBits());
-                bado.writeLong(target.getLeastSignificantBits());
-            }
+        registerTypeAdapter(UUID.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(UUID target, ByteArrayDataOutput bado) {
+		        bado.writeLong(target.getMostSignificantBits());
+		        bado.writeLong(target.getLeastSignificantBits());
+	        }
 
-            @Override
-            public UUID readFromStream(ByteArrayDataInput badi) {
-                return new UUID(badi.readLong(), badi.readLong());
-            }
+	        @Override
+	        public UUID readFromStream(ByteArrayDataInput badi) {
+		        return new UUID(badi.readLong(), badi.readLong());
+	        }
         });
         // int array
-        registerTypeAdapter(int[].class, new TypeAdapter<int[]>() {
-            @Override
-            public void writeToStream(int[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (int a : target) {
-                    bado.writeInt(a);
-                }
-            }
+        registerTypeAdapter(int[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(int[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (int a : target) {
+			        bado.writeInt(a);
+		        }
+	        }
 
-            @Override
-            public int[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                int[] result = new int[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readInt();
-                }
-                return result;
-            }
+	        @Override
+	        public int[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        int[] result = new int[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readInt();
+		        }
+		        return result;
+	        }
         });
         // float array
-        registerTypeAdapter(float[].class, new TypeAdapter<float[]>() {
-            @Override
-            public void writeToStream(float[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (float a : target) {
-                    bado.writeFloat(a);
-                }
-            }
+        registerTypeAdapter(float[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(float[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (float a : target) {
+			        bado.writeFloat(a);
+		        }
+	        }
 
-            @Override
-            public float[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                float[] result = new float[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readFloat();
-                }
-                return result;
-            }
+	        @Override
+	        public float[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        float[] result = new float[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readFloat();
+		        }
+		        return result;
+	        }
         });
         // double array
-        registerTypeAdapter(double[].class, new TypeAdapter<double[]>() {
-            @Override
-            public void writeToStream(double[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (double a : target) {
-                    bado.writeDouble(a);
-                }
-            }
+        registerTypeAdapter(double[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(double[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (double a : target) {
+			        bado.writeDouble(a);
+		        }
+	        }
 
-            @Override
-            public double[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                double[] result = new double[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readDouble();
-                }
-                return result;
-            }
+	        @Override
+	        public double[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        double[] result = new double[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readDouble();
+		        }
+		        return result;
+	        }
         });
         // long array
-        registerTypeAdapter(long[].class, new TypeAdapter<long[]>() {
-            @Override
-            public void writeToStream(long[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (float a : target) {
-                    bado.writeFloat(a);
-                }
-            }
+        registerTypeAdapter(long[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(long[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (float a : target) {
+			        bado.writeFloat(a);
+		        }
+	        }
 
-            @Override
-            public long[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                long[] result = new long[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readLong();
-                }
-                return result;
-            }
+	        @Override
+	        public long[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        long[] result = new long[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readLong();
+		        }
+		        return result;
+	        }
         });
         // char array
-        registerTypeAdapter(char[].class, new TypeAdapter<char[]>() {
-            @Override
-            public void writeToStream(char[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (char a : target) {
-                    bado.writeChar(a);
-                }
-            }
+        registerTypeAdapter(char[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(char[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (char a : target) {
+			        bado.writeChar(a);
+		        }
+	        }
 
-            @Override
-            public char[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                char[] result = new char[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readChar();
-                }
-                return result;
-            }
+	        @Override
+	        public char[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        char[] result = new char[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readChar();
+		        }
+		        return result;
+	        }
         });
         // boolean array
-        registerTypeAdapter(boolean[].class, new TypeAdapter<boolean[]>() {
-            @Override
-            public void writeToStream(boolean[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (boolean a : target) {
-                    bado.writeBoolean(a);
-                }
-            }
+        registerTypeAdapter(boolean[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(boolean[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (boolean a : target) {
+			        bado.writeBoolean(a);
+		        }
+	        }
 
-            @Override
-            public boolean[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                boolean[] result = new boolean[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readBoolean();
-                }
-                return result;
-            }
+	        @Override
+	        public boolean[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        boolean[] result = new boolean[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readBoolean();
+		        }
+		        return result;
+	        }
         });
         // byte array
-        registerTypeAdapter(byte[].class, new TypeAdapter<byte[]>() {
-            @Override
-            public void writeToStream(byte[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (byte a : target) {
-                    bado.writeByte(a);
-                }
-            }
+        registerTypeAdapter(byte[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(byte[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (byte a : target) {
+			        bado.writeByte(a);
+		        }
+	        }
 
-            @Override
-            public byte[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                byte[] result = new byte[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readByte();
-                }
-                return result;
-            }
+	        @Override
+	        public byte[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        byte[] result = new byte[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readByte();
+		        }
+		        return result;
+	        }
         });
         // short array
-        registerTypeAdapter(short[].class, new TypeAdapter<short[]>() {
-            @Override
-            public void writeToStream(short[] target, ByteArrayDataOutput bado) {
-                bado.writeInt(target.length);
-                for (short a : target) {
-                    bado.writeShort(a);
-                }
-            }
+        registerTypeAdapter(short[].class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(short[] target, ByteArrayDataOutput bado) {
+		        bado.writeInt(target.length);
+		        for (short a : target) {
+			        bado.writeShort(a);
+		        }
+	        }
 
-            @Override
-            public short[] readFromStream(ByteArrayDataInput badi) {
-                int length = badi.readInt();
-                short[] result = new short[length];
-                for (int i = 0; i < length; i ++) {
-                    result[i] = badi.readShort();
-                }
-                return result;
-            }
+	        @Override
+	        public short[] readFromStream(ByteArrayDataInput badi) {
+		        int length = badi.readInt();
+		        short[] result = new short[length];
+		        for (int i = 0; i < length; i++) {
+			        result[i] = badi.readShort();
+		        }
+		        return result;
+	        }
         });
         // default object
-        registerTypeAdapter(Object.class, new TypeAdapter<Object>() {
-            @Override
-            public void writeToStream(Object target, ByteArrayDataOutput bado) {
-                try {
-                    Class<?> clazz = target.getClass();
-                    Field[] fields = clazz.getDeclaredFields();
+        registerTypeAdapter(Object.class, new TypeAdapter<>() {
+	        @Override
+	        public void writeToStream(Object target, ByteArrayDataOutput bado) {
+		        try {
+			        Class<?> clazz = target.getClass();
+			        Field[] fields = clazz.getDeclaredFields();
 
-                    for (Field f : fields) {
-                        f.setAccessible(true);
-                        Object o = f.get(target);
-                        Class<?> oc = getWrappedClass(o.getClass());
-                        if (typeAdapterMap.get(getWrappedClass(oc)) != null) {
-                            // bypass type parameter
-                            TypeAdapter.class.getMethod("writeToStream", Object.class, ByteArrayDataOutput.class).invoke(typeAdapterMap.get(oc), o, bado);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+			        for (Field f : fields) {
+				        f.setAccessible(true);
+				        Object o = f.get(target);
+				        Class<?> oc = getWrappedClass(o.getClass());
+				        if (typeAdapterMap.get(getWrappedClass(oc)) != null) {
+					        // bypass type parameter
+					        TypeAdapter.class.getMethod("writeToStream", Object.class, ByteArrayDataOutput.class).invoke(typeAdapterMap.get(oc), o, bado);
+				        }
+			        }
+		        } catch (Exception e) {
+			        e.printStackTrace();
+		        }
+	        }
 
-            @Override
-            public Object readFromStream(ByteArrayDataInput badi) {
-                throw new UnsupportedOperationException("Unsupported type java.lang.Object");
-            }
+	        @Override
+	        public Object readFromStream(ByteArrayDataInput badi) {
+		        throw new UnsupportedOperationException("Unsupported type java.lang.Object");
+	        }
         });
     }
 

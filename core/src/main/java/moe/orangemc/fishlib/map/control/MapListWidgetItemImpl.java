@@ -31,6 +31,7 @@ public class MapListWidgetItemImpl extends MapClickableImpl implements MapListWi
 	public MapListWidgetItemImpl(int y, String text) {
 		super(new Vector2i(0, y));
 		this.setText(text);
+		this.setRenderer(DEFAULT_WIDGET_ITEM_RENDERER);
 	}
 
 	@Override

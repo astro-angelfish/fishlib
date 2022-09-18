@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -165,33 +165,6 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 			}
 			try {
 				AntiFlickeringUtil.replaceScore(objective, index, place);
-			} catch (IllegalArgumentException iae) {
-				objective.getScore("A long entry.").setScore(index);
-			}
-			index --;
-		}
-	}
-
-	private void updateTargetScoreboard(Scoreboard scoreboard, Objective objective) {
-		Set<String> scoreEntries = scoreboard.getEntries();
-		for (String entry : scoreEntries) {
-			scoreboard.resetScores(entry);
-		}
-
-		int index = size() / 2;
-		int emptyCounter = 0;
-		for (String entry : this) {
-			String place = entry;
-			if (place.trim().isEmpty()) {
-				StringBuilder emptyPlaceHolderBuilder = new StringBuilder();
-				for (int i = 0; i < emptyCounter; i ++) {
-					emptyPlaceHolderBuilder.append(" ");
-				}
-				emptyCounter ++;
-				place = emptyPlaceHolderBuilder.toString();
-			}
-			try {
-				objective.getScore(place).setScore(index);
 			} catch (IllegalArgumentException iae) {
 				objective.getScore("A long entry.").setScore(index);
 			}

@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,12 +29,7 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Objects;
 
-public final class MapRenderContextImpl implements MapRenderContext {
-	private final BufferedImage image;
-
-	public MapRenderContextImpl(BufferedImage image) {
-		this.image = image;
-	}
+public record MapRenderContextImpl(BufferedImage image) implements MapRenderContext {
 
 	@Override
 	public void drawText(Vector2i location, String fontName, String text, Color color, int size) {
@@ -100,17 +95,7 @@ public final class MapRenderContextImpl implements MapRenderContext {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(image);
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	@Override
 	public String toString() {
 		return "MapRenderContextImpl[" + "image=" + image + ']';
 	}
-
 }

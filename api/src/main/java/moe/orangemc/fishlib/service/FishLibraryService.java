@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.holder;
+package moe.orangemc.fishlib.service;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import moe.orangemc.fishlib.inventory.PluginInventoryManager;

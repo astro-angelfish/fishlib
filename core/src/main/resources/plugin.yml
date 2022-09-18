@@ -2,12 +2,11 @@
 name: FishLib
 version: ${project.version}
 authors:
-  - Lucky_fish0w0
+  - Astro_angelfish
   - Shiina_xi_yu
   - Hai_tun
-  - Faint_Cloudy
 main: moe.orangemc.fishlib.FishLibraryPlugin
-api-version: 1.18
+api-version: 1.19
 description: A library used by Lucky_fish0w0
 
 libraries:

@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -47,7 +47,7 @@ public class MappedMapRenderContextImpl implements MapRenderContext {
 		Validate.notNull(color, "The color cannot be null.");
 		Validate.isTrue(size > 0, "The size of the text should be greater than zero.");
 
-		Graphics2D graphics = mappedContext.getImage().createGraphics();
+		Graphics2D graphics = mappedContext.image().createGraphics();
 		Font font = new Font(fontName, Font.PLAIN, size);
 
 		FontRenderContext fontRenderContext = graphics.getFontRenderContext();
@@ -66,7 +66,7 @@ public class MappedMapRenderContextImpl implements MapRenderContext {
 		Validate.notNull(location, "Cannot draw image at nothing.");
 		Validate.notNull(image, "Cannot draw nothing.");
 
-		Graphics2D graphics = mappedContext.getImage().createGraphics();
+		Graphics2D graphics = mappedContext.image().createGraphics();
 		graphics.clip(shape);
 
 		Vector2i mapped = getMappedLocation(location);
@@ -79,7 +79,7 @@ public class MappedMapRenderContextImpl implements MapRenderContext {
 		Validate.notNull(location, "Cannot set color in null position.");
 		Validate.notNull(color, "Cannot display a null color.");
 
-		Graphics2D graphics = mappedContext.getImage().createGraphics();
+		Graphics2D graphics = mappedContext.image().createGraphics();
 		graphics.clip(shape);
 
 		graphics.setColor(color);
@@ -95,7 +95,7 @@ public class MappedMapRenderContextImpl implements MapRenderContext {
 		Validate.notNull(to, "To position cannot be null.");
 		Validate.notNull(color, "Cannot display a null color.");
 
-		Graphics2D graphics = mappedContext.getImage().createGraphics();
+		Graphics2D graphics = mappedContext.image().createGraphics();
 		graphics.clip(shape);
 		graphics.setColor(color);
 

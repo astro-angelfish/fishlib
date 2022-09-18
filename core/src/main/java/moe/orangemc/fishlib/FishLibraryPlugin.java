@@ -18,20 +18,24 @@
 
 package moe.orangemc.fishlib;
 
-import moe.orangemc.fishlib.holder.FishLibraryServiceImpl;
+import moe.orangemc.fishlib.service.FishLibraryService;
+import moe.orangemc.fishlib.service.FishLibraryServiceImpl;
 import moe.orangemc.fishlib.listener.PluginListener;
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FishLibraryPlugin extends JavaPlugin {
 	private static FishLibraryPlugin instance;
-	private static FishLibraryServiceImpl managerHolder;
+	private static FishLibraryServiceImpl fishLibraryService;
 
 	@Override
 	public void onLoad() {
 		instance = this;
-		managerHolder = new FishLibraryServiceImpl();
-		FishLibrary.setManagerHolder(managerHolder);
+		fishLibraryService = new FishLibraryServiceImpl();
+		FishLibrary.setFishLibraryService(fishLibraryService);
+		Bukkit.getServicesManager().register(FishLibraryService.class, fishLibraryService, this, ServicePriority.Highest);
 	}
 
 	@Override
@@ -43,7 +47,7 @@ public class FishLibraryPlugin extends JavaPlugin {
 		return instance;
 	}
 
-	public static FishLibraryServiceImpl getManagerHolder() {
-		return managerHolder;
+	public static FishLibraryServiceImpl getFishLibraryService() {
+		return fishLibraryService;
 	}
 }

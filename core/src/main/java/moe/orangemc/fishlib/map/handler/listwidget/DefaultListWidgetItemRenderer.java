@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,14 +22,16 @@ import moe.orangemc.fishlib.map.MapRenderContext;
 import moe.orangemc.fishlib.map.control.MapControl;
 import moe.orangemc.fishlib.map.control.MapListWidgetItemImpl;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
+import moe.orangemc.fishlib.utils.Vector2i;
+
+import java.awt.*;
 
 public class DefaultListWidgetItemRenderer implements MapControlRenderer {
 	@Override
 	public void render(MapControl control, MapRenderContext context) {
-		if (control instanceof MapListWidgetItemImpl listWidgetItem) {
-
-		} else {
-
+		if (!(control instanceof MapListWidgetItemImpl listWidgetItem)) {
+			throw new IllegalArgumentException("The control to be rendered is not a widget item");
 		}
+		context.drawText(new Vector2i(0, 0), "Arial", listWidgetItem.getText(), Color.BLACK, 10);
 	}
 }

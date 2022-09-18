@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -27,7 +27,7 @@ import java.util.Objects;
  * A two-dimension and integer version vector
  */
 @ShouldNotBeImplemented
-public class Vector2i implements Cloneable {
+public final class Vector2i implements Cloneable {
 	private int x;
 	private int y;
 
@@ -165,7 +165,12 @@ public class Vector2i implements Cloneable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getX(), getY(), "Vector2i", "By Microfish");
+		return Objects.hash(getX(), getY(), "Vector2i", "By Astro angelfish");
+	}
+
+	@Override
+	public String toString() {
+		return "Vector2i{" + "x=" + x + ", y=" + y + '}';
 	}
 
 	public Vector2i clone() {

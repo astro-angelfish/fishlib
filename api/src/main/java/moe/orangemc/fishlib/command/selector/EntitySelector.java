@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -38,7 +38,7 @@ import java.util.function.Predicate;
 /**
  * Entity selector like vanilla one.
  *
- * Originally from https://github.com/czm23333/IndustrialWorld/blob/master/src/main/java/com/industrialworld/command/selector/EntitySelector.java
+ * Originally from <a href="https://github.com/czm23333/IndustrialWorld/blob/master/src/main/java/com/industrialworld/command/selector/EntitySelector.java">...</a>
  * with a little changes.
  * Anyway it's still my code.
  * The quality of these code is poor so I'll optimize them soon.

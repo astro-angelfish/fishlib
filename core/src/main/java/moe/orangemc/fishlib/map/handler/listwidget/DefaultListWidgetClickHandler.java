@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -32,27 +32,27 @@ import java.util.List;
 public class DefaultListWidgetClickHandler implements MapClickHandler {
 	@Override
 	public void onClick(Player player, MapControl clickedControl, boolean rightClick, Vector2i clickedLocation) {
-		if (clickedControl instanceof MapListWidgetImpl widget) {
-			List<MapListWidgetItem> items = widget.getItems();
-
-			boolean found = false;
-			for (int i = 0; i < items.size(); i++) {
-				MapListWidgetItem item = items.get(i);
-				if (!found && item.getLocation().getY() < clickedLocation.getY() && item.getLocation().getY() + item.getSize().getY() > clickedLocation.getY()) {
-					if (item instanceof MapListWidgetItemImpl implementedItem) {
-						implementedItem.onClick(player, clickedControl, rightClick, clickedLocation.clone().subtract(item.getLocation()));
-						widget.setSelectedIndex(i);
-						item.setClicked(true);
-						found = true;
-					} else {
-						throw new IllegalStateException("List widget contains non-widget item: " + item + ", Is any plugin trying to implement the classes should not be implemented?");
-					}
-				} else {
-					item.setClicked(false);
-				}
-			}
-		} else {
+		if (!(clickedControl instanceof MapListWidgetImpl widget)) {
 			throw new IllegalArgumentException("Unable to render a control that is not ListWidget");
+		}
+
+		List<MapListWidgetItem> items = widget.getItems();
+
+		boolean found = false;
+		for (int i = 0; i < items.size(); i++) {
+			MapListWidgetItem item = items.get(i);
+			if (!found && item.getLocation().getY() < clickedLocation.getY() && item.getLocation().getY() + item.getSize().getY() > clickedLocation.getY()) {
+				if (!(item instanceof MapListWidgetItemImpl implementedItem)) {
+					throw new IllegalStateException("List widget contains non-widget item: " + item + ", Is any plugin trying to implement the classes should not be implemented?");
+				}
+				implementedItem.onClick(player, clickedControl, rightClick, clickedLocation.clone().subtract(item.getLocation()));
+				widget.setSelectedIndex(i);
+				item.setClicked(true);
+				found = true;
+
+			} else {
+				item.setClicked(false);
+			}
 		}
 	}
 }

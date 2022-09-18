@@ -1,6 +1,6 @@
 /*
  * FishLib, a Bukkit development library
- * Copyright (C) Lucky_fish0w0
+ * Copyright (C) Astro angelfish
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,13 +19,14 @@
 package moe.orangemc.fishlib;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
-import moe.orangemc.fishlib.holder.FishLibraryService;
+import moe.orangemc.fishlib.service.FishLibraryService;
 import moe.orangemc.fishlib.inventory.PluginInventoryManager;
 import moe.orangemc.fishlib.language.LanguageManager;
 import moe.orangemc.fishlib.map.MapManager;
 import moe.orangemc.fishlib.messaging.MessagingManager;
 import moe.orangemc.fishlib.scoreboard.ScoreboardListManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -39,9 +40,9 @@ public final class FishLibrary {
 
 	private static FishLibraryService fishLibraryService = null;
 
-	public static void setManagerHolder(FishLibraryService fishLibraryService) {
+	public static void setFishLibraryService(FishLibraryService fishLibraryService) {
 		if (FishLibrary.fishLibraryService != null) {
-			throw new IllegalArgumentException("Cannot overwrite a manager holder.");
+			throw new IllegalArgumentException("Cannot overwrite a service.");
 		}
 		FishLibrary.fishLibraryService = fishLibraryService;
 	}

@@ -18,7 +18,7 @@
 
 package moe.orangemc.fishlib.map;
 
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;

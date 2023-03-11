@@ -23,7 +23,7 @@ import moe.orangemc.fishlib.map.control.MapListWidgetImpl;
 import moe.orangemc.fishlib.map.control.MapListWidgetItem;
 import moe.orangemc.fishlib.map.control.MapListWidgetItemImpl;
 import moe.orangemc.fishlib.map.handler.MapClickHandler;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import org.bukkit.entity.Player;
 

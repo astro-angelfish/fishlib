@@ -16,17 +16,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.command.selector;
+package moe.orangemc.fishlib.command.selector.type;
 
-import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.command.selector.Selector;
+import moe.orangemc.fishlib.command.selector.SelectorImpl;
+import moe.orangemc.fishlib.command.selector.util.Sorter;
 
-/**
- * Selector syntax exception used internally.
- */
-@ShouldNotBeImplemented
-public final class SelectorSyntaxException extends Exception {
+public class SorterTypeAdapter implements SelectorArgumentTypeAdapter<Sorter> {
 	@Override
-	public synchronized Throwable fillInStackTrace() {
-		return this;
+	public Sorter fromStringReader(Selector selector, StringReader sr) throws CommandSyntaxException {
+		return ((SelectorImpl) selector).getSorter(sr.readString());
+	}
+
+	@Override
+	public Class<Sorter> getProvidingClass() {
+		return Sorter.class;
 	}
 }

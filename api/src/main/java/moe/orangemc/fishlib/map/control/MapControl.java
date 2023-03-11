@@ -20,7 +20,7 @@ package moe.orangemc.fishlib.map.control;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 @ShouldNotBeImplemented
 public interface MapControl {

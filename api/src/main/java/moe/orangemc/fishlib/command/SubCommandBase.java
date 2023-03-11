@@ -18,14 +18,10 @@
 
 package moe.orangemc.fishlib.command;
 
+import moe.orangemc.fishlib.FishLibrary;
 import moe.orangemc.fishlib.annotation.CanImplement;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The base of the sub-command
@@ -48,12 +44,6 @@ public interface SubCommandBase {
     String getDescription();
 
     /**
-     * Get the usage of the sub-command
-     * @return usage of the sub-command
-     */
-    String getUsage();
-
-    /**
      * Get the aliases of the sub-command
      * @return aliases of the sub-command
      */
@@ -69,28 +59,11 @@ public interface SubCommandBase {
         return null;
     }
 
-    /**
-     * Called when the command is executed
-     * @param sender the sender who issued this command
-     * @param command the command to be executed
-     * @param args command arguments.
-     * @return true if the argument is correct, otherwise the usage will be displayed to sender.
-     */
-    boolean execute(CommandSender sender, Command command, String[] args);
-
-    /**
-     * Called when someone tries to tab-complete
-     * @param sender the sender who tries to tab-complete
-     * @param args command arguments.
-     * @return available complements.
-     */
-    default List<String> tabComplete(CommandSender sender, String[] args) {
-        return new ArrayList<>();
-    }
-
 	/**
 	 * Called when the plugin is needed.
 	 * @return the plugin provided the command.
 	 */
-	Plugin getProvidingPlugin();
+	default Plugin getProvidingPlugin() {
+		return FishLibrary.getStandalonePlugin();
+	}
 }

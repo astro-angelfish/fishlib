@@ -18,7 +18,7 @@
 
 package moe.orangemc.fishlib.map;
 
-import moe.orangemc.fishlib.utils.ReflectionUtil;
+import moe.orangemc.fishlib.reflection.ReflectionUtil;
 import org.apache.commons.imaging.palette.Palette;
 
 import org.bukkit.map.MapPalette;
@@ -36,9 +36,9 @@ public class WrappedMapPalette implements Palette {
 	public WrappedMapPalette() {
 		try {
 			Object field = ReflectionUtil.getField(MapPalette.class, null, "colors");
-			if (field instanceof Color[] colors) {
-				this.colors = new Color[colors.length];
-				System.arraycopy(colors, 0, this.colors, 0, colors.length);
+			if (field instanceof Color[] argColors) {
+				this.colors = new Color[argColors.length];
+				System.arraycopy(argColors, 0, this.colors, 0, argColors.length);
 				init = true;
 			} else {
 				throw new IllegalStateException("Expected colors is not a Color array");

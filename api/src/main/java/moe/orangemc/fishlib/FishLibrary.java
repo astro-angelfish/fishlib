@@ -19,14 +19,14 @@
 package moe.orangemc.fishlib;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
-import moe.orangemc.fishlib.service.FishLibraryService;
+import moe.orangemc.fishlib.command.CommandHelper;
 import moe.orangemc.fishlib.inventory.PluginInventoryManager;
 import moe.orangemc.fishlib.language.LanguageManager;
 import moe.orangemc.fishlib.map.MapManager;
 import moe.orangemc.fishlib.messaging.MessagingManager;
 import moe.orangemc.fishlib.scoreboard.ScoreboardListManager;
+import moe.orangemc.fishlib.service.FishLibraryService;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -90,6 +90,10 @@ public final class FishLibrary {
 	 */
 	public static MapManager getMapManager(Plugin plugin) {
 		return fishLibraryService.getMapManager(plugin);
+	}
+
+	public static CommandHelper getCommandHelper(Plugin plugin) {
+		return fishLibraryService.getCommandHelper(plugin);
 	}
 
 	/**

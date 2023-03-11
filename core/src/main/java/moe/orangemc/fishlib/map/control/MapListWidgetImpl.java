@@ -22,7 +22,7 @@ import moe.orangemc.fishlib.map.handler.MapClickHandler;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
 import moe.orangemc.fishlib.map.handler.listwidget.DefaultListWidgetClickHandler;
 import moe.orangemc.fishlib.map.handler.listwidget.DefaultListWidgetRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;

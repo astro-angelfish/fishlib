@@ -21,7 +21,7 @@ package moe.orangemc.fishlib.map.control;
 import moe.orangemc.fishlib.map.MapRenderContext;
 import moe.orangemc.fishlib.map.handler.DefaultControlRenderer;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 import org.apache.commons.lang3.Validate;
 
 public class MapControlImpl implements MapControl {

@@ -16,14 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.utils;
+package moe.orangemc.fishlib.command.argument;
 
-public final class MathUtil {
-	private MathUtil() {
-		throw new UnsupportedOperationException();
-	}
+import com.mojang.brigadier.arguments.ArgumentType;
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
-	public static boolean isInRange(int toCheck, int min, int max) {
-		return toCheck >= min && toCheck <= max;
-	}
+@ShouldNotBeImplemented
+public interface ArgumentTypeManager {
+	<T> void registerCommandArgumentType(ArgumentType<T> argumentType, Class<T> clazz);
+
+	<T> ArgumentType<T> getCommandArgumentType(Class<T> clazz);
 }

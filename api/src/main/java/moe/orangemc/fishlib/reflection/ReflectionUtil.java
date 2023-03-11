@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.utils;
+package moe.orangemc.fishlib.reflection;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import org.apache.commons.lang.Validate;
@@ -32,7 +32,8 @@ import java.lang.reflect.Method;
  */
 @ShouldNotBeImplemented
 public final class ReflectionUtil {
-    private static String serverVersion = null;
+    private static final ServerVersion serverVersion;
+	private static Mapping serverMapping = null;
 
     private ReflectionUtil() {
     	throw new UnsupportedOperationException();
@@ -306,7 +307,7 @@ public final class ReflectionUtil {
      * Get the version of the bukkit server.
      * @return version of the bukkit server.
      */
-    public static String getServerVersion() {
+    public static ServerVersion getServerVersion() {
         return serverVersion;
     }
 
@@ -416,10 +417,27 @@ public final class ReflectionUtil {
         return argClasses;
     }
 
+	/**
+	 * Get the class mapping of the server
+	 * @return class mapping of the server
+	 */
+	public static Mapping getServerMapping() {
+		return serverMapping;
+	}
+
+	public static void setServerMapping(Mapping serverMapping) {
+		if (ReflectionUtil.serverMapping != null) {
+			throw new UnsupportedOperationException("Cannot redefine singleton server mapping.");
+		}
+		ReflectionUtil.serverMapping = serverMapping;
+	}
+
     static {
+		ServerVersion sr = null;
         try {
-            serverVersion = Bukkit.getServer().getClass().getPackage().getName().substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf('.') + 1);
+			sr = new ServerVersion(Bukkit.getServer().getClass().getPackage().getName().substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf('.') + 1));
         } catch (Exception ignored) {
         }
+		serverVersion = sr;
     }
 }

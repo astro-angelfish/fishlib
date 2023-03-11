@@ -20,7 +20,7 @@ package moe.orangemc.fishlib.map.control;
 
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
 import moe.orangemc.fishlib.map.handler.listwidget.DefaultListWidgetItemRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 public class MapListWidgetItemImpl extends MapClickableImpl implements MapListWidgetItem {
 	private static final MapControlRenderer DEFAULT_WIDGET_ITEM_RENDERER = new DefaultListWidgetItemRenderer();

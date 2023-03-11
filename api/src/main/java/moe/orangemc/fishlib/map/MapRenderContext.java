@@ -19,7 +19,7 @@
 package moe.orangemc.fishlib.map;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import java.awt.*;
 

@@ -18,8 +18,16 @@
 
 package moe.orangemc.fishlib.command;
 
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.tree.CommandNode;
 import moe.orangemc.fishlib.FishLibrary;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import moe.orangemc.fishlib.command.annotation.FishCommandExecutor;
+import moe.orangemc.fishlib.command.annotation.FishCommandParameter;
+import moe.orangemc.fishlib.command.argument.ArgumentTypeManager;
 import moe.orangemc.fishlib.language.LanguageManager;
 import org.apache.commons.lang.Validate;
 
@@ -28,8 +36,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.plugin.Plugin;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,21 +53,24 @@ import java.util.Map;
  */
 @ShouldNotBeImplemented
 public final class CommonCommand implements CommandExecutor, TabCompleter {
-    private final String prefix;
+	private final String prefix;
 
-    private final Map<String, SubCommandBase> commandBaseMap = new HashMap<>();
-    private final Map<String, SubCommandBase> aliasesMap = new HashMap<>();
+    private final Map<String, GeneratedSubCommand> commandBaseMap = new HashMap<>();
+    private final Map<String, GeneratedSubCommand> aliasesMap = new HashMap<>();
+
+	private final CommandDispatcher<CommandSender> commandDispatcher;
 
     public CommonCommand() {
         this("");
     }
 
     public CommonCommand(String prefix) {
-    	if (prefix == null) {
+	    if (prefix == null) {
     		prefix = "";
 	    }
 
         this.prefix = prefix;
+		this.commandDispatcher = new CommandDispatcher<>();
 
         // help command
         registerCommand(new HelpCommand());
@@ -70,17 +84,17 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 
         String commandName = args[0];
 
-        SubCommandBase subCommandBase;
+        GeneratedSubCommand subCommand;
         if (commandBaseMap.containsKey(commandName)) {
-            subCommandBase = commandBaseMap.get(commandName);
+            subCommand = commandBaseMap.get(commandName);
         } else if (aliasesMap.containsKey(commandName)) {
-            subCommandBase = aliasesMap.get(commandName);
+            subCommand = aliasesMap.get(commandName);
         } else {
             return onCommand(sender, command, label, new String[]{"help"});
         }
 
-        if (subCommandBase.getPermissionRequired() != null) {
-            if (!sender.hasPermission(subCommandBase.getPermissionRequired())) {
+        if (subCommand.commandBase.getPermissionRequired() != null) {
+            if (!sender.hasPermission(subCommand.commandBase.getPermissionRequired())) {
             	if (FishLibrary.getStandalonePlugin() == null) {
 		            sender.sendMessage(prefix + ChatColor.RED + "你没有使用此命令的权限(┙>∧<)┙へ┻┻");
 	            } else {
@@ -91,14 +105,13 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        String[] subArgs = new String[args.length - 1];
-        System.arraycopy(args, 1, subArgs, 0, subArgs.length);
+	    try {
+		    commandDispatcher.execute(String.join(" ", args), sender);
+	    } catch (CommandSyntaxException e) {
+		    return onCommand(sender, command, label, new String[]{"help", args[0]});
+	    }
 
-        if (!subCommandBase.execute(sender, command, subArgs)) {
-            return onCommand(sender, command, label, new String[]{"help", commandName});
-        }
-
-        return true;
+	    return true;
     }
 
     @Override
@@ -106,17 +119,17 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
         if (args.length > 1) {
             String commandName = args[0];
 
-            SubCommandBase subCommandBase;
+            GeneratedSubCommand generatedSubCommand;
             if (commandBaseMap.containsKey(commandName)) {
-                subCommandBase = commandBaseMap.get(commandName);
+                generatedSubCommand = commandBaseMap.get(commandName);
             } else if (aliasesMap.containsKey(commandName)) {
-                subCommandBase = aliasesMap.get(commandName);
+                generatedSubCommand = aliasesMap.get(commandName);
             } else {
                 return new ArrayList<>();
             }
 
-            if (subCommandBase.getPermissionRequired() != null) {
-                if (!sender.hasPermission(subCommandBase.getPermissionRequired())) {
+            if (generatedSubCommand.commandBase.getPermissionRequired() != null) {
+                if (!sender.hasPermission(generatedSubCommand.commandBase.getPermissionRequired())) {
                     return new ArrayList<>();
                 }
             }
@@ -124,7 +137,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
             String[] subArgs = new String[args.length - 1];
             System.arraycopy(args, 1, subArgs, 0, subArgs.length);
 
-            return subCommandBase.tabComplete(sender, subArgs);
+			// TODO: We'll complete the full suggestion provider after Bukkit provides the cursor position of the user input box.
         }
 
         return getCommandForTabComplete(args);
@@ -148,10 +161,13 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
     public void registerCommand(SubCommandBase commandBase) {
 	    Validate.notNull(commandBase, "commandBase cannot be null");
 
-        this.commandBaseMap.put(commandBase.getName(), commandBase);
-        for (String alias : commandBase.getAliases()) {
-            this.aliasesMap.put(alias, commandBase);
-        }
+		GeneratedSubCommand command = new GeneratedSubCommand(commandBase);
+
+		for (String alias : commandBase.getAliases()) {
+			this.aliasesMap.put(alias, command);
+		}
+
+	    this.commandBaseMap.put(commandBase.getName(), command);
     }
 
     private class HelpCommand implements SubCommandBase {
@@ -168,59 +184,163 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
             return "command.help.description";
         }
 
-        @Override
-        public String getUsage() {
-        	if (getProvidingPlugin() == null) {
-        		return "[命令]";
-	        }
-            return "command.help.usage";
-        }
+		@FishCommandExecutor
+		public void execute(CommandSender sender) {
+			commandBaseMap.forEach((name, cmd) -> {
+				if (cmd.commandBase.getPermissionRequired() == null || sender.hasPermission(cmd.commandBase.getPermissionRequired())) {
+					this.execute(sender, name);
+				}
+			});
+		}
 
-        @Override
-        public List<String> tabComplete(CommandSender sender, String[] args) {
-            if (args.length > 1) {
-                return new ArrayList<>();
-            }
+		@FishCommandExecutor
+        public void execute(CommandSender sender, String name) {
 
-            return getCommandForTabComplete(args);
-        }
-
-	    @Override
-	    public Plugin getProvidingPlugin() {
-		    return FishLibrary.getStandalonePlugin();
-	    }
-
-	    @Override
-        public boolean execute(CommandSender sender, Command command, String[] args) {
-            if (args.length == 0) {
-                commandBaseMap.forEach((name, cmd) -> {
-                    if (cmd.getPermissionRequired() == null || sender.hasPermission(cmd.getPermissionRequired())) {
-                        this.execute(sender, command, new String[]{name});
-                    }
-                });
-                return true;
-            }
-
-            String name = args[0];
-
-            SubCommandBase commandBase = null;
+            GeneratedSubCommand subCommand = null;
             if (commandBaseMap.containsKey(name)) {
-                commandBase = commandBaseMap.get(name);
+                subCommand = commandBaseMap.get(name);
             } else if (aliasesMap.containsKey(name)) {
-                commandBase = aliasesMap.get(name);
+                subCommand = aliasesMap.get(name);
             }
-            if (commandBase == null) {
-                return execute(sender, command, new String[0]);
-            }
-
-            if (commandBase.getProvidingPlugin() == null) {
-	            sender.sendMessage(prefix + ChatColor.YELLOW + "/" + command.getName() + " " + commandBase.getName() + " " + commandBase.getUsage() + ChatColor.GREEN + " - " + ChatColor.GOLD + commandBase.getDescription());
-            } else {
-	            LanguageManager languageManager = FishLibrary.getLanguageManager(commandBase.getProvidingPlugin());
-	            sender.sendMessage(prefix + ChatColor.YELLOW + "/" + command.getName() + " " + commandBase.getName() + " " + languageManager.getTranslationBySender(sender, commandBase.getUsage()) + ChatColor.GREEN + " - " + ChatColor.GOLD + languageManager.getTranslationBySender(sender, commandBase.getDescription()));
+            if (subCommand == null) {
+	            execute(sender);
+				return;
             }
 
-            return true;
-        }
+			StringBuilder paramStringBuilder = new StringBuilder(ChatColor.YELLOW + " ").append(CommonCommand.this).append(" ").append(subCommand.commandBase.getName()).append(" ");
+			String description;
+			if (subCommand.commandBase.getProvidingPlugin() != null) {
+				LanguageManager manager = FishLibrary.getLanguageManager(subCommand.commandBase.getProvidingPlugin());
+
+				subCommand.nameMap.forEach((m, params) -> {
+					for (String paramName : params) {
+						paramStringBuilder.append("<").append(manager.getTranslationBySender(sender, paramName)).append("> ");
+					}
+				});
+
+				description = manager.getTranslationBySender(sender, subCommand.commandBase.getDescription());
+			} else {
+				subCommand.nameMap.forEach((m, params) -> {
+					for (String paramName : params) {
+						paramStringBuilder.append("<").append(paramName).append("> ");
+					}
+				});
+
+				description = subCommand.commandBase.getDescription();
+			}
+
+			paramStringBuilder.append(ChatColor.GREEN).append("- ").append(ChatColor.GOLD).append(description);
+			sender.sendMessage(paramStringBuilder.toString());
+		}
     }
+
+	private class GeneratedSubCommand {
+		private final Map<Method, List<String>> nameMap = new HashMap<>();
+
+		private final SubCommandBase commandBase;
+
+		public GeneratedSubCommand(SubCommandBase commandBase) {
+			this.commandBase = commandBase;
+
+			ArgumentTypeManager argumentTypeManager = FishLibrary.getCommandHelper(commandBase.getProvidingPlugin()).getArgumentTypeManager();
+
+			LiteralArgumentBuilder<CommandSender> commandArgumentBuilder = LiteralArgumentBuilder.literal(commandBase.getName());
+			CommandNode<CommandSender> node = CommonCommand.this.commandDispatcher.register(commandArgumentBuilder);
+
+			for (Method cmdMethod : commandBase.getClass().getMethods()) {
+				FishCommandExecutor annotation = cmdMethod.getAnnotation(FishCommandExecutor.class);
+				if (annotation == null || cmdMethod.isSynthetic()) {
+					continue;
+				}
+				if (cmdMethod.getReturnType() != void.class || cmdMethod.getParameterTypes()[0] != CommandSender.class) {
+					throw new IllegalArgumentException("Invalid argument type or return type of method called " + cmdMethod.getName() + " in " + commandBase);
+				}
+
+				// We need to attach the root to the sub-command base.
+				RequiredArgumentBuilder<CommandSender, ?> latestNode = null;
+				RequiredArgumentBuilder<CommandSender, ?> root = null;
+
+				Parameter[] parameters = cmdMethod.getParameters();
+				nameMap.put(cmdMethod, new ArrayList<>());
+
+				for (int i = 1; i < parameters.length; i++) {
+					Parameter parameter = parameters[i];
+
+					FishCommandParameter parameterAnnotation = parameter.getAnnotation(FishCommandParameter.class);
+					if (parameterAnnotation.languageKey().isBlank() || commandBase.getProvidingPlugin() == null) {
+						if (parameterAnnotation.defaultName().isBlank()) {
+							nameMap.get(cmdMethod).add(parameter.getName());
+							continue;
+						}
+						nameMap.get(cmdMethod).add(parameterAnnotation.defaultName());
+					}
+					nameMap.get(cmdMethod).add(parameterAnnotation.languageKey());
+
+					RequiredArgumentBuilder<CommandSender, ?> currentParameterArgumentBuilder = RequiredArgumentBuilder.argument(parameter.getName(), argumentTypeManager.getCommandArgumentType(parameter.getType()));
+					if (latestNode == null) {
+						latestNode = currentParameterArgumentBuilder;
+						root = latestNode;
+					} else {
+						latestNode = latestNode.then(currentParameterArgumentBuilder);
+					}
+				}
+
+				MethodHandle handle;
+				try {
+					handle = MethodHandles.lookup().unreflect(cmdMethod);
+				} catch (IllegalAccessException e) {
+					throw new IllegalArgumentException("Invalid method: " + cmdMethod + " in command base: " + commandBase);
+				}
+
+				if (root == null) {
+					commandArgumentBuilder.executes(context -> {
+						CommandSender source = context.getSource();
+						try {
+							if (!annotation.permission().isEmpty() && !source.hasPermission(annotation.permission())) {
+								throw new CommandFailException(commandBase.getProvidingPlugin(), "command.no_permission", "You do not have permission to perform that command.");
+							}
+
+							handle.invokeWithArguments(source);
+						} catch (CommandFailException e) {
+							context.getSource().sendMessage(e.toMessage(context.getSource()));
+						} catch (CommandSyntaxException e) {
+							throw e;
+						} catch (Throwable t) {
+							throw new RuntimeException(t);
+						}
+						return 0;
+					});
+				} else {
+					latestNode.executes(context -> {
+						try {
+							CommandSender source = context.getSource();
+							if (!annotation.permission().isEmpty() && !source.hasPermission(annotation.permission())) {
+								throw new CommandFailException(commandBase.getProvidingPlugin(), "command.no_permission", "You do not have permission to perform that command.");
+							}
+
+							List<Object> argumentList = new ArrayList<>();
+							argumentList.add(source);
+							for (Parameter parameter : parameters) {
+								argumentList.add(context.getArgument(parameter.getName(), parameter.getType()));
+							}
+
+							handle.invokeWithArguments(argumentList);
+						} catch (CommandFailException e) {
+							context.getSource().sendMessage(e.toMessage(context.getSource()));
+						} catch (CommandSyntaxException e) {
+							throw e;
+						} catch (Throwable e) {
+							throw new RuntimeException(e);
+						}
+						return 0;
+					});
+					commandArgumentBuilder.then(root);
+				}
+			}
+
+			for (String alias : commandBase.getAliases()) {
+				CommonCommand.this.commandDispatcher.register(LiteralArgumentBuilder.<CommandSender>literal(alias).redirect(node));
+			}
+		}
+	}
 }

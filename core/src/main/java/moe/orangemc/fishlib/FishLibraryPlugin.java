@@ -18,9 +18,13 @@
 
 package moe.orangemc.fishlib;
 
+import moe.orangemc.fishlib.listener.PluginListener;
+import moe.orangemc.fishlib.reflection.LegacyMapping;
+import moe.orangemc.fishlib.reflection.OfficialMapping;
+import moe.orangemc.fishlib.reflection.ReflectionUtil;
+import moe.orangemc.fishlib.reflection.ServerVersion;
 import moe.orangemc.fishlib.service.FishLibraryService;
 import moe.orangemc.fishlib.service.FishLibraryServiceImpl;
-import moe.orangemc.fishlib.listener.PluginListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
@@ -36,6 +40,12 @@ public class FishLibraryPlugin extends JavaPlugin {
 		fishLibraryService = new FishLibraryServiceImpl();
 		FishLibrary.setFishLibraryService(fishLibraryService);
 		Bukkit.getServicesManager().register(FishLibraryService.class, fishLibraryService, this, ServicePriority.Highest);
+
+		if (ReflectionUtil.getServerVersion().newer(new ServerVersion("v1_16_R3"))) {
+			ReflectionUtil.setServerMapping(new OfficialMapping());
+		} else {
+			ReflectionUtil.setServerMapping(new LegacyMapping());
+		}
 	}
 
 	@Override

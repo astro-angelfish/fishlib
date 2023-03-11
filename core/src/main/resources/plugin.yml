@@ -7,7 +7,8 @@ authors:
   - Hai_tun
 main: moe.orangemc.fishlib.FishLibraryPlugin
 api-version: 1.19
-description: A library used by Lucky_fish0w0
+description: A library used by Astro_angelfish
+website: orangemc.moe
 
 libraries:
   - "org.apache.commons:commons-lang3:3.12.0"

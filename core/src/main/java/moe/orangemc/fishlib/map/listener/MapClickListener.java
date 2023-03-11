@@ -20,7 +20,7 @@ package moe.orangemc.fishlib.map.listener;
 
 import moe.orangemc.fishlib.map.MapManagerImpl;
 import moe.orangemc.fishlib.map.MapUIImpl;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import org.bukkit.Location;
 import org.bukkit.Rotation;

@@ -23,7 +23,7 @@ import moe.orangemc.fishlib.map.control.MapClickable;
 import moe.orangemc.fishlib.map.control.MapControl;
 import moe.orangemc.fishlib.map.control.MapListWidget;
 import moe.orangemc.fishlib.map.handler.MapRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 @ShouldNotBeImplemented
 public interface MapUI {

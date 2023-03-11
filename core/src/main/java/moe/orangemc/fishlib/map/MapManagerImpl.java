@@ -19,7 +19,7 @@
 package moe.orangemc.fishlib.map;
 
 import moe.orangemc.fishlib.map.listener.MapClickListener;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 import org.apache.commons.lang3.Validate;
 
 import org.bukkit.Bukkit;

@@ -19,7 +19,7 @@
 package moe.orangemc.fishlib.map.render;
 
 import moe.orangemc.fishlib.map.MapRenderContext;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 import org.apache.commons.lang3.Validate;
 
 import java.awt.*;

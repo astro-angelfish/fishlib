@@ -22,7 +22,7 @@ import moe.orangemc.fishlib.map.MapRenderContext;
 import moe.orangemc.fishlib.map.control.MapControl;
 import moe.orangemc.fishlib.map.control.MapListWidgetItemImpl;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import java.awt.*;
 

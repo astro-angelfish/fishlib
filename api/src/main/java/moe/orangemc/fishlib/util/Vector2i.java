@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.utils;
+package moe.orangemc.fishlib.util;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import org.apache.commons.lang3.Validate;

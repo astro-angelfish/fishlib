@@ -24,10 +24,10 @@
 	</licenses>
 
 	<properties>
-		<maven.compiler.source>18</maven.compiler.source>
-		<maven.compiler.target>18</maven.compiler.target>
-		<java.version>18</java.version>
-		<maven.compiler.release>18</maven.compiler.release>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<java.version>17</java.version>
+		<maven.compiler.release>17</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -54,6 +54,12 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+							<relocations>
+								<relocation>
+									<pattern>de.tr7zw.changeme.nbtapi</pattern>
+									<shadedPattern>moe.orangemc.fishlib.vendor.nbtapi</shadedPattern>
+								</relocation>
+							</relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -102,14 +108,25 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+		<repository>
+			<id>codemc-repo</id>
+			<url>https://repo.codemc.io/repository/maven-public/</url>
+			<layout>default</layout>
+		</repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
+			<!-- NMS is required -->
             <artifactId>spigot</artifactId>
-            <version>1.19.2-R0.1-SNAPSHOT</version>
+            <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+			<groupId>de.tr7zw</groupId>
+			<artifactId>item-nbt-api</artifactId>
+			<version>2.11.1</version>
+		</dependency>
 	</dependencies>
 </project>

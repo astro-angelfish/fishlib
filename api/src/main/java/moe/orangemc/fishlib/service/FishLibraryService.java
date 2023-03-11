@@ -19,6 +19,7 @@
 package moe.orangemc.fishlib.service;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import moe.orangemc.fishlib.command.CommandHelper;
 import moe.orangemc.fishlib.inventory.PluginInventoryManager;
 import moe.orangemc.fishlib.language.LanguageManager;
 import moe.orangemc.fishlib.map.MapManager;
@@ -63,6 +64,8 @@ public interface FishLibraryService {
 	 * @return the {@see MapManager} of the plugin.
 	 */
 	MapManager getMapManager(Plugin plugin);
+
+	CommandHelper getCommandHelper(Plugin plugin);
 
 	/**
 	 * Get the instance of the standalone plugin

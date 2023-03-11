@@ -19,6 +19,8 @@
 package moe.orangemc.fishlib.service;
 
 import moe.orangemc.fishlib.FishLibraryPlugin;
+import moe.orangemc.fishlib.command.CommandHelper;
+import moe.orangemc.fishlib.command.CommandHelperImpl;
 import moe.orangemc.fishlib.inventory.PluginInventoryManager;
 import moe.orangemc.fishlib.inventory.PluginInventoryManagerImpl;
 import moe.orangemc.fishlib.language.LanguageException;
@@ -43,6 +45,7 @@ public class FishLibraryServiceImpl implements FishLibraryService {
 	private final Map<Plugin, ScoreboardListManagerImpl> scoreboardListManagers = new HashMap<>();
 	private final Map<Plugin, LanguageManagerImpl> languageManagers = new HashMap<>();
 	private final Map<Plugin, MapManagerImpl> mapManagers = new HashMap<>();
+	private final Map<Plugin, CommandHelperImpl> commandHelpers = new HashMap<>();
 
 	@Override
 	public PluginInventoryManager getPluginInventoryManager(Plugin plugin) {
@@ -106,6 +109,18 @@ public class FishLibraryServiceImpl implements FishLibraryService {
 			mapManagers.put(plugin, mapManager);
 		}
 		return mapManager;
+	}
+
+	@Override
+	public CommandHelper getCommandHelper(Plugin plugin) {
+		Validate.notNull(plugin);
+
+		CommandHelperImpl commandHelper = commandHelpers.get(plugin);
+		if (commandHelper == null) {
+			commandHelper = new CommandHelperImpl(plugin);
+			commandHelpers.put(plugin, commandHelper);
+		}
+		return commandHelper;
 	}
 
 	public void clearPlugin(Plugin plugin) {

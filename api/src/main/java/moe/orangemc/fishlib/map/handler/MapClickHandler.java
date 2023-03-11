@@ -20,7 +20,7 @@ package moe.orangemc.fishlib.map.handler;
 
 import moe.orangemc.fishlib.annotation.CanImplement;
 import moe.orangemc.fishlib.map.control.MapControl;
-import moe.orangemc.fishlib.utils.Vector2i;
+import moe.orangemc.fishlib.util.Vector2i;
 
 import org.bukkit.entity.Player;
 

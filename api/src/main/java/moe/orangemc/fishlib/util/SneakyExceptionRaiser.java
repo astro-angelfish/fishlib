@@ -18,7 +18,7 @@
 
 package moe.orangemc.fishlib.util;
 
-public class SneakyExceptionRaiser {
+public final class SneakyExceptionRaiser {
 	private SneakyExceptionRaiser() {
 		throw new UnsupportedOperationException();
 	}

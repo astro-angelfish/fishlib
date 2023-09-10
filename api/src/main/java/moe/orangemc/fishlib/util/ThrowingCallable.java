@@ -18,6 +18,9 @@
 
 package moe.orangemc.fishlib.util;
 
+import moe.orangemc.fishlib.annotation.CanImplement;
+
+@CanImplement
 public interface ThrowingCallable<V> {
 	V call() throws Throwable;
 }

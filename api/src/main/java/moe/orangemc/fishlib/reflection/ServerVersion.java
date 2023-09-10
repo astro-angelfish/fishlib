@@ -20,8 +20,10 @@ package moe.orangemc.fishlib.reflection;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
-public class ServerVersion implements Comparable<ServerVersion> {
+@ShouldNotBeImplemented
+public final class ServerVersion implements Comparable<ServerVersion> {
 	private final String serverVersionString;
 
 	private final int minecraftMajorVersion;

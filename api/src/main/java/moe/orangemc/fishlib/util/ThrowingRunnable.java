@@ -16,19 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.command.annotation;
+package moe.orangemc.fishlib.util;
 
-import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-@ShouldNotBeImplemented
-public @interface FishCommandParameter {
-	String languageKey() default "";
-	String name();
+public interface ThrowingRunnable {
+	void run() throws Throwable;
 }

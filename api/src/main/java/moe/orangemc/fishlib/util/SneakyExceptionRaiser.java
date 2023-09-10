@@ -16,19 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.command.annotation;
+package moe.orangemc.fishlib.util;
 
-import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+public class SneakyExceptionRaiser {
+	private SneakyExceptionRaiser() {
+		throw new UnsupportedOperationException();
+	}
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+	@SuppressWarnings("unchecked")
+	public static <T extends Throwable> void raise(Throwable exception) throws T {
+		throw (T)exception;
+	}
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-@ShouldNotBeImplemented
-public @interface FishCommandParameter {
-	String languageKey() default "";
-	String name();
+	public static <T> T anyCall(ThrowingCallable<T> callableAnyThrow) {
+		try {
+			return callableAnyThrow.call();
+		} catch (Throwable e) {
+			raise(e);
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static void anyCall(ThrowingRunnable action) {
+		try {
+			action.run();
+		} catch (Throwable e) {
+			raise(e);
+			throw new RuntimeException(e);
+		}
+	}
 }

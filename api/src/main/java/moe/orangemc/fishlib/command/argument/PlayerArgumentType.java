@@ -22,10 +22,12 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -33,7 +35,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class PlayerArgumentType implements ArgumentType<Player> {
+public class PlayerArgumentType implements ArgumentType<Player>, SuggestionProvider<CommandSender> {
 	private static final List<String> EXAMPLES = Arrays.asList("Astro_angelfish", "ShiinaSekiu", "Karlatemp");
 
 	@Override
@@ -44,7 +46,9 @@ public class PlayerArgumentType implements ArgumentType<Player> {
 	@Override
 	public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			builder.suggest(p.getName());
+			if (p.getName().startsWith(builder.getRemaining().toLowerCase())) {
+				builder.suggest(p.getName());
+			}
 		}
 		return builder.buildFuture();
 	}
@@ -52,5 +56,10 @@ public class PlayerArgumentType implements ArgumentType<Player> {
 	@Override
 	public Collection<String> getExamples() {
 		return EXAMPLES;
+	}
+
+	@Override
+	public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSender> context, SuggestionsBuilder builder) {
+		return listSuggestions(context, builder);
 	}
 }

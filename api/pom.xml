@@ -96,9 +96,6 @@
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.8.2</version>
-				<configuration>
-					<altDeploymentRepository>internal.repo::default::file:///home/astro-angelfish/mvn-repo</altDeploymentRepository>
-				</configuration>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -107,6 +104,25 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<serverId>bunnytime</serverId>
+					<nexusUrl>http:/./maven.bunnytime.top/repository/bunnytime-public/</nexusUrl>
+					<skipStaging>true</skipStaging>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
@@ -117,5 +133,11 @@
 		</resources>
 	</build>
 
-
+	<!--Currently we borrow nexus deploy server from bunnytime -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>bunnytime</id>
+			<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

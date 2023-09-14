@@ -97,7 +97,7 @@ public class SelectorManagerImpl implements SelectorManager {
 	@Override
 	public void registerSelectMode(SelectMode mode) {
 		Validate.notNull(mode, "mode cannot be null");
-		Validate.isTrue(!selectModeMap.containsKey(mode.getSymbol()), "duplicated mode symbol");
+		Validate.isTrue(!selectModeMap.containsKey(mode.getSymbol()), "duplicated mode symbol: " + mode.getSymbol() + " with mode: " + mode + ", already registered to: " + selectModeMap.get(mode.getSymbol()));
 
 		selectModeMap.put(mode.getSymbol(), mode);
 	}

@@ -1,5 +1,5 @@
 {
   "command.help.description": "Gets the help command. Which you are staring at.",
-  "command.help.usage": "[command]",
+  "command.help.arg1": "command",
   "command.no_permission": "You are not allowed to use this command(┙>∧<)┙へ┻┻"
 }

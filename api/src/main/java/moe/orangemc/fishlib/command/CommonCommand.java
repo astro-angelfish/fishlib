@@ -195,7 +195,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 		}
 
 		@FishCommandExecutor
-        public void execute(CommandSender sender, String name) {
+        public void execute(CommandSender sender, @FishCommandParameter(languageKey = "command.help.arg1", name = "command") String name) {
 
             GeneratedSubCommand subCommand = null;
             if (commandBaseMap.containsKey(name)) {
@@ -280,7 +280,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 						ArgumentType<?> type = argumentTypeManager.getCommandArgumentType(parameter.getType());
 						if (parameter.getType() != CommandSender.class) {
 							if (type == null) {
-								throw new IllegalArgumentException("Unknown argument type: " + parameter.getType().getName());
+								throw new IllegalArgumentException("Unknown argument type: " + parameter.getType().getName() + ", you might want to register it with " + ArgumentTypeManager.class + " first.");
 							}
 							if (parameter.getAnnotation(FishCommandParameter.class) == null) {
 								throw new IllegalArgumentException("Missing @CommandParameter annotation on parameter " + parameter.getName());
@@ -340,7 +340,8 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 										argumentList.add(commandBase);
 										argumentList.add(context.getSource());
 
-										for (Parameter parameter : parameters) {
+										for (int i = 1; i < parameters.length; i++) {
+											Parameter parameter = parameters[i];
 											FishCommandParameter commandParameter = parameter.getAnnotation(FishCommandParameter.class);
 											argumentList.add(context.getArgument(commandParameter.name(), parameter.getType()));
 										}

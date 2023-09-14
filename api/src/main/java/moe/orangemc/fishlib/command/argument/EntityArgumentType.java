@@ -26,12 +26,12 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import moe.orangemc.fishlib.FishLibrary;
-import moe.orangemc.fishlib.command.argument.type.EntityList;
 import moe.orangemc.fishlib.command.selector.Selector;
 import moe.orangemc.fishlib.command.util.FishLibCommandReader;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -39,18 +39,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class EntityArgumentType implements ArgumentType<EntityList>, SuggestionProvider<CommandSender> {
+public class EntityArgumentType implements ArgumentType<Entity[]>, SuggestionProvider<CommandSender> {
 	private static final List<String> EXAMPLES = Arrays.asList("Astro_angelfish", "11451419-1981-4011-4514-19198101", "@a", "@e[type=fish]");
 
 	@Override
-	public EntityList parse(StringReader reader) throws CommandSyntaxException {
+	public Entity[] parse(StringReader reader) throws CommandSyntaxException {
 		if (!(reader instanceof FishLibCommandReader fishReader)) {
-			return new EntityList();
+			return new Entity[0];
 		}
 
 		Selector selector = FishLibrary.getCommandHelper(fishReader.getOwner()).getSelectorManager().createSelector(fishReader.getSender());
 		selector.updatePrompt(reader);
-		return selector.selectEntities();
+		return selector.selectEntities().toArray(new Entity[0]);
 	}
 
 	@Override

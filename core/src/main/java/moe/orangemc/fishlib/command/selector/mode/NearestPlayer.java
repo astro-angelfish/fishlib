@@ -34,7 +34,7 @@ import java.util.List;
 public class NearestPlayer implements SelectMode {
 	@Override
 	public char getSymbol() {
-		return 's';
+		return 'p';
 	}
 
 	@Override

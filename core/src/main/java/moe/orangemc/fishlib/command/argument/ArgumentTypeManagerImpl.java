@@ -19,9 +19,9 @@
 package moe.orangemc.fishlib.command.argument;
 
 import com.mojang.brigadier.arguments.*;
-import moe.orangemc.fishlib.command.argument.type.EntityList;
 import org.apache.commons.lang3.Validate;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class ArgumentTypeManagerImpl implements ArgumentTypeManager {
 		Validate.notNull(argumentType, "argument type cannot be null");
 		Validate.notNull(clazz, "argument class cannot be null");
 		Validate.isTrue(!argumentTypeMap.containsKey(clazz), "duplicated argument type");
-		Validate.isTrue(!Collection.class.isAssignableFrom(clazz) && !Map.class.isAssignableFrom(clazz) && !Set.class.isAssignableFrom(clazz), "collections or sets should not be used as argument type. use a wrapper class instead");
+		Validate.isTrue(!Collection.class.isAssignableFrom(clazz) && !Map.class.isAssignableFrom(clazz) && !Set.class.isAssignableFrom(clazz), "collections or sets should not be used as argument type. use a wrapper class or array instead");
 
 		argumentTypeMap.put(clazz, argumentType);
 	}
@@ -50,15 +50,13 @@ public class ArgumentTypeManagerImpl implements ArgumentTypeManager {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> ArgumentType<T> getCommandArgumentType(Class<T> clazz) {
-		if (!argumentTypeMap.containsKey(clazz)) {
-			throw new UnsupportedOperationException("Unsupported argument type: " + clazz);
-		}
+		Validate.notNull(clazz, "argument class cannot be null");
 
 		return argumentTypeMap.get(clazz);
 	}
 
 	private void registerDefaultArgumentTypes() {
-		registerCommandArgumentType(new EntityArgumentType(), EntityList.class);
+		registerCommandArgumentType(new EntityArgumentType(), Entity[].class);
 		registerCommandArgumentType(new PlayerArgumentType(), Player.class);
 
 		registerCommandArgumentType(IntegerArgumentType.integer(), int.class);

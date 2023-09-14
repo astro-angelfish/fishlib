@@ -43,6 +43,6 @@ public class LevelArgument implements SelectorArgument<IntegerRangeArgumentType>
 
 	@Override
 	public Class<IntegerRangeArgumentType> getAcceptableClass() {
-		return null;
+		return IntegerRangeArgumentType.class;
 	}
 }

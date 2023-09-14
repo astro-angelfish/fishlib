@@ -1,10 +1,8 @@
 # Remove this file when you are going to use this plugin as a library.
-name: FishLib
+name: fishlib
 version: ${project.version}
 authors:
   - Astro_angelfish
-  - Shiina_xi_yu
-  - Hai_tun
 main: moe.orangemc.fishlib.FishLibraryPlugin
 api-version: 1.19
 description: A library used by Astro_angelfish

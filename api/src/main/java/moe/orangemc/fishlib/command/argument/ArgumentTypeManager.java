@@ -21,9 +21,24 @@ package moe.orangemc.fishlib.command.argument;
 import com.mojang.brigadier.arguments.ArgumentType;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * The manager of the argument types.
+ * @see ArgumentType
+ */
 @ShouldNotBeImplemented
 public interface ArgumentTypeManager {
+	/**
+	 * Register a new argument type.
+	 * @param argumentType the argument type
+	 * @param clazz the class of the argument type
+	 */
 	<T> void registerCommandArgumentType(ArgumentType<T> argumentType, Class<T> clazz);
 
+	/**
+	 * Get the argument type by the class.
+	 * returns null if the argument type is not registered.
+	 * @param clazz the class of the argument type
+	 * @return the argument type, null if the argument type is not registered.
+	 */
 	<T> ArgumentType<T> getCommandArgumentType(Class<T> clazz);
 }

@@ -120,8 +120,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<serverId>bunnytime</serverId>
-					<nexusUrl>http:/./maven.bunnytime.top/repository/bunnytime-public/</nexusUrl>
+					<serverId>bunnytime-public</serverId>
+					<nexusUrl>http://maven.bunnytime.top/repository/bunnytime-public/</nexusUrl>
 					<skipStaging>true</skipStaging>
 				</configuration>
 			</plugin>
@@ -137,7 +137,7 @@
 	<!--Currently we borrow nexus deploy server from bunnytime -->
 	<distributionManagement>
 		<snapshotRepository>
-			<id>bunnytime</id>
+			<id>bunnytime-public</id>
 			<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
 		</snapshotRepository>
 	</distributionManagement>

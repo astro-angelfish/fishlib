@@ -196,4 +196,9 @@ public class PluginInventoryImpl implements PluginInventory {
 	public void removeControl(InventoryControl control) {
 		inventoryControls.remove(control);
 	}
+
+	@Override
+	public int getSize() {
+		return internalInventory.getSize();
+	}
 }

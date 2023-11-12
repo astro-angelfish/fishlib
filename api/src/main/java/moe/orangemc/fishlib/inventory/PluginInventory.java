@@ -147,4 +147,6 @@ public interface PluginInventory {
 	InventoryControl getControl(int x, int y);
 
 	void removeControl(InventoryControl control);
+
+	int getSize();
 }

@@ -21,12 +21,17 @@ package moe.orangemc.fishlib.item;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Material helper.
  */
 @ShouldNotBeImplemented
 public final class MaterialUtil {
+	private static final Map<NamespacedKey, Material> BY_KEY = new ConcurrentHashMap<>();
 	private MaterialUtil() {
 		throw new AssertionError("Well you can not access this.");
 	}
@@ -87,4 +92,19 @@ public final class MaterialUtil {
 		    default -> false;
 	    };
     }
+
+	/**
+	 * Get the material by key.
+	 * @param key the key of the material.
+	 * @return the material.
+	 */
+	public static Material getMaterial(NamespacedKey key) {
+		return BY_KEY.get(key);
+	}
+
+	static {
+		for (Material mat : Material.values()) {
+			BY_KEY.put(mat.getKey(), mat);
+		}
+	}
 }

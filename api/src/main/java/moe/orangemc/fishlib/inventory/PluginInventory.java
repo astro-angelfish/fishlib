@@ -130,4 +130,21 @@ public interface PluginInventory {
 	 * @param handler handler of this inventory
 	 */
 	void setHandler(InventoryHandler handler);
+
+	/**
+	 * Find the control at the slot
+	 * @param slot the slot to be checked
+	 * @return the control at the slot, null if nothing found
+	 */
+	InventoryControl getControl(int slot);
+
+	/**
+	 * Find the control at the position
+	 * @param x the x position to be checked
+	 * @param y the y position to be checked
+	 * @return the control at the position, null if nothing found
+	 */
+	InventoryControl getControl(int x, int y);
+
+	void removeControl(InventoryControl control);
 }

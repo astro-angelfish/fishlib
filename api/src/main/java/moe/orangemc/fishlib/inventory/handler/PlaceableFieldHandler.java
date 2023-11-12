@@ -23,6 +23,8 @@ import moe.orangemc.fishlib.annotation.CanImplement;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Set;
+
 /**
  * The handler handles placeable field events.
  */
@@ -55,4 +57,12 @@ public interface PlaceableFieldHandler {
      * @return true if callee agrees to swap the item
      */
     boolean onSwap(int index, Player who, ItemStack oldItem, ItemStack newItem);
+
+	/**
+	 * Calls when the field is being removed
+	 * Default it ignores everything and consumes everything in the field
+	 *
+	 * @param visitors the players who are visiting the inventory
+	 */
+	default void onRemove(Set<Player> visitors) {}
 }

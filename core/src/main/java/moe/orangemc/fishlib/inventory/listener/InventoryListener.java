@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Don't use it :)
- * And don't stare at these shitty code
+ * And don't stare at these smelly code
  */
 public final class InventoryListener implements Listener {
     private final PluginInventoryManager manager;
@@ -81,6 +81,8 @@ public final class InventoryListener implements Listener {
             default:
                 return;
         }
+
+		// They might have put multi placeable field at once.
         Set<Integer> remainItems = new HashSet<>(event.getInventorySlots());
         List<InventoryControl> inventoryControls = new LinkedList<>(inventory.getControls());
         inventoryControls.removeIf(control -> !(control instanceof InventoryPlaceableFieldImpl));
@@ -93,7 +95,7 @@ public final class InventoryListener implements Listener {
             return false;
         });
 
-        if (remainItems.size() != 0) {
+        if (!remainItems.isEmpty()) {
             event.setCancelled(true);
             return;
         }
@@ -145,140 +147,101 @@ public final class InventoryListener implements Listener {
             }
         }
 
+	    InventoryControl matched = inventory.getControl(event.getSlot());
+
         // check buttons.
-        for (InventoryControl inventoryControl : inventoryControls) {
-            if (!(inventoryControl instanceof InventoryButtonImpl)) {
-                continue;
-            }
-            InventoryButtonImpl button = (InventoryButtonImpl) inventoryControl;
-            if (event.getClickedInventory() == lookingInventory && event.getSlot() == button.getStartIndex()) {
-            	try {
-		            button.getHandler().onClick((Player) event.getWhoClicked(), button, event.isLeftClick());
-	            } catch (Throwable t) {
-		            Bukkit.getLogger().warning("Could pass click event to button");
-		            t.printStackTrace();
-	            }
-                event.setCancelled(true);
-                return;
-            }
-        }
-
-        boolean processed = false;
-        // check placeable fields.
-        for (InventoryControl inventoryControl : inventoryControls) {
-            if (!(inventoryControl instanceof InventoryPlaceableFieldImpl)) {
-                continue;
-            }
-
-            InventoryPlaceableFieldImpl field = (InventoryPlaceableFieldImpl) inventoryControl;
-            switch (event.getAction()) {
-                case PLACE_ALL:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), event.getCursor(), field)) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-                case PLACE_ONE:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        ItemStack itemStack = event.getCursor().clone();
-                        itemStack.setAmount(1);
-                        if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), itemStack, field)) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-                case DROP_ALL_SLOT:
-                case PICKUP_ALL:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        ItemStack itemStack = event.getCurrentItem().clone();
-                        if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, itemStack)) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-                case DROP_ONE_SLOT:
-                case PICKUP_ONE:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-	                    ItemStack itemStack = event.getCurrentItem().clone();
-	                    itemStack.setAmount(1);
-                        if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-                case SWAP_WITH_CURSOR:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        if (processItemSwap(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCursor(), event.getCurrentItem())) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-                case HOTBAR_SWAP:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        ItemStack hotbarItem = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
-                        if (hotbarItem != null && hotbarItem.getType() != Material.AIR) {
-                            if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), hotbarItem, field)) {
-                                event.setCancelled(true);
-                            }
-                        } else {
-                            if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
-                                event.setCancelled(true);
-                            }
-                        }
-                    }
-                    break;
-                case HOTBAR_MOVE_AND_READD:
-                    if (!inventory.checkInventory(event.getClickedInventory())) {
-                        processed = true;
-                    } else if (field.isSlotInsideField(event.getSlot())) {
-                        processed = true;
-                        ItemStack hotbarItem = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
-                        if (processItemSwap(event.getSlot(), (Player) event.getWhoClicked(), field, hotbarItem, event.getCurrentItem())) {
-                            event.setCancelled(true);
-                        }
-                    }
-                    break;
-	            case PICKUP_HALF:
-	            	if (!inventory.checkInventory(event.getClickedInventory())) {
-	            		processed = true;
-		            } else if (field.isSlotInsideField(event.getSlot())) {
-			            processed = true;
-			            ItemStack itemStack = event.getCurrentItem().clone();
-			            itemStack.setAmount((int) Math.ceil(itemStack.getAmount() / 2.0));
-			            if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
-				            event.setCancelled(true);
-			            }
-		            }
-	            	break;
-            }
-
-            if (processed) {
-                break;
-            }
-        }
-
-        if (!processed) {
-            event.setCancelled(true);
-        }
+	    if (matched instanceof InventoryButtonImpl button) {
+		    if (event.getClickedInventory() == lookingInventory && event.getSlot() == button.getStartIndex()) {
+			    try {
+				    button.getHandler().onClick((Player) event.getWhoClicked(), button, event.isLeftClick());
+			    } catch (Throwable t) {
+				    Bukkit.getLogger().warning("Could pass click event to button");
+				    t.printStackTrace();
+			    }
+			    event.setCancelled(true);
+			    return;
+		    }
+	    } else if (matched instanceof InventoryPlaceableFieldImpl field && inventory.checkInventory(event.getClickedInventory())) {
+			// They are just experimented one by one. And these are how bukkit defines every action.
+		    switch (event.getAction()) {
+			    case PLACE_ALL:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), event.getCursor(), field)) {
+						    event.setCancelled(true);
+					    }
+					    return;
+				    }
+				    break;
+			    case PLACE_ONE:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack itemStack = event.getCursor().clone();
+					    itemStack.setAmount(1);
+					    if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), itemStack, field)) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+			    case DROP_ALL_SLOT:
+			    case PICKUP_ALL:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack itemStack = event.getCurrentItem().clone();
+					    if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, itemStack)) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+			    case DROP_ONE_SLOT:
+			    case PICKUP_ONE:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack itemStack = event.getCurrentItem().clone();
+					    itemStack.setAmount(1);
+					    if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+			    case SWAP_WITH_CURSOR:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    if (processItemSwap(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCursor(), event.getCurrentItem())) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+			    case HOTBAR_SWAP:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack hotbarItem = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+					    if (hotbarItem != null && hotbarItem.getType() != Material.AIR) {
+						    if (processItemPut(event.getSlot(), (Player) event.getWhoClicked(), hotbarItem, field)) {
+							    event.setCancelled(true);
+						    }
+					    } else {
+						    if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
+							    event.setCancelled(true);
+						    }
+					    }
+				    }
+				    break;
+			    case HOTBAR_MOVE_AND_READD:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack hotbarItem = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+					    if (processItemSwap(event.getSlot(), (Player) event.getWhoClicked(), field, hotbarItem, event.getCurrentItem())) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+			    case PICKUP_HALF:
+				    if (field.isSlotInsideField(event.getSlot())) {
+					    ItemStack itemStack = event.getCurrentItem().clone();
+					    itemStack.setAmount((int) Math.ceil(itemStack.getAmount() / 2.0));
+					    if (processItemRemove(event.getSlot(), (Player) event.getWhoClicked(), field, event.getCurrentItem())) {
+						    event.setCancelled(true);
+					    }
+				    }
+				    break;
+		    }
+	    } else { // We are likely to have nothing to check and the user did an invalid operation.
+			event.setCancelled(true);
+	    }
 
         if (event.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
         	event.setCancelled(false);
@@ -294,15 +257,15 @@ public final class InventoryListener implements Listener {
 
             AtomicBoolean exitForcibly = new AtomicBoolean(false);
             for (InventoryControl inventoryControl : inventoryControls) {
-	            if (!(inventoryControl instanceof InventoryPlaceableFieldImpl)) {
-	            	if (inventoryControl instanceof InventoryButton) {
-	            		if (((InventoryButton) inventoryControl).getItem().isSimilar(event.getCursor())) {
+	            if (!(inventoryControl instanceof InventoryPlaceableFieldImpl field)) {
+	            	if (inventoryControl instanceof InventoryButton button) {
+	            		if (button.getItem().isSimilar(event.getCursor())) {
 	            			event.setCancelled(true);
 	            			return;
 			            }
 		            }
-	            	if (inventoryControl instanceof InventoryProgressBar) {
-	            		if (((InventoryProgressBar) inventoryControl).getEmptyItem().isSimilar(event.getCursor()) || ((InventoryProgressBar) inventoryControl).getFilledItem().isSimilar(event.getCursor())) {
+	            	if (inventoryControl instanceof InventoryProgressBar progressBar) {
+	            		if (progressBar.getEmptyItem().isSimilar(event.getCursor()) || progressBar.getFilledItem().isSimilar(event.getCursor())) {
 	            			event.setCancelled(true);
 	            			return;
 			            }
@@ -312,8 +275,7 @@ public final class InventoryListener implements Listener {
 		            continue;
 	            }
 
-                InventoryPlaceableFieldImpl field = (InventoryPlaceableFieldImpl) inventoryControl;
-                if (amount.get() >= maxAmount) {
+	            if (amount.get() >= maxAmount) {
                     break;
                 }
                 Map<Integer, ItemStack> content = new HashMap<>(field.getContent());

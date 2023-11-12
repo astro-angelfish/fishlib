@@ -93,4 +93,8 @@ public class InventoryProgressBarImpl extends InventoryControlImpl implements In
 		Validate.notNull(item, "filledItem cannot be null");
 		this.filledItem = item.clone();
 	}
+
+	public int getLength() {
+		return length;
+	}
 }

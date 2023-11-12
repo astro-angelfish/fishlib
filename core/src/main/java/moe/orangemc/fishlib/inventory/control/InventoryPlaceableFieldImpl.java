@@ -64,13 +64,13 @@ public class InventoryPlaceableFieldImpl extends InventoryControlImpl implements
     }
 
     @Override
-    public void setContent(Map<Integer, ItemStack> content, boolean needSynchronize) {
+    public void setContent(Map<Integer, ItemStack> content, boolean synchronizeRequired) {
 	    Validate.notNull(content, "content cannot be null");
 
         this.content.clear();
         this.content.putAll(content);
 
-        if (needSynchronize) {
+        if (synchronizeRequired) {
             synchronizeToInventory();
         }
     }

@@ -158,4 +158,42 @@ public class PluginInventoryImpl implements PluginInventory {
     public void setHandler(InventoryHandler handler) {
         this.handler = handler;
     }
+
+	@Override
+	public InventoryControl getControl(int slot) {
+		return getControl(slot % 9, slot / 9);
+	}
+
+	@Override
+	public InventoryControl getControl(int x, int y) {
+		for (InventoryControl ctrl : this.inventoryControls) {
+			if (!(ctrl instanceof InventoryControlImpl impl)) {
+				continue;
+			}
+
+			if (impl.getStartIndex() == x + y * 9) {
+				return ctrl;
+			}
+
+			if (ctrl instanceof InventoryPlaceableFieldImpl ranged) {
+				if (ranged.isSlotInsideField(x + y * 9)) {
+					return ctrl;
+				}
+			}
+
+			if (ctrl instanceof InventoryProgressBarImpl ranged) {
+				if (x >= ranged.getStartIndex() % 9 && x < ranged.getStartIndex() % 9 + ranged.getLength() &&
+						y >= ranged.getStartIndex() / 9 && y < ranged.getStartIndex() / 9 + 1) {
+					return ctrl;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public void removeControl(InventoryControl control) {
+		inventoryControls.remove(control);
+	}
 }

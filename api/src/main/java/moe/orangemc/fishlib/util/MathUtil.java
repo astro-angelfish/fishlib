@@ -18,6 +18,8 @@
 
 package moe.orangemc.fishlib.util;
 
+import java.util.function.Function;
+
 public final class MathUtil {
 	private MathUtil() {
 		throw new UnsupportedOperationException();
@@ -25,5 +27,25 @@ public final class MathUtil {
 
 	public static boolean isInRange(int toCheck, int min, int max) {
 		return toCheck >= min && toCheck <= max;
+	}
+
+	public static double performBisection(double min, double max, Function<Double, Double> function) {
+		return performBisection(min, max, function, 1e-6);
+	}
+
+	public static double performBisection(double min, double max, Function<Double, Double> function, double epsilon) {
+		double mid = (min + max) / 2;
+		while (max - min > epsilon) {
+			mid = (min + max) / 2;
+			double result = function.apply(mid);
+			if (result > 0) {
+				max = mid;
+			} else if (result < 0) {
+				min = mid;
+			} else {
+				return mid;
+			}
+		}
+		return mid;
 	}
 }

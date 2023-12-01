@@ -58,6 +58,7 @@ public class ArgumentTypeManagerImpl implements ArgumentTypeManager {
 	private void registerDefaultArgumentTypes() {
 		registerCommandArgumentType(new EntityArgumentType(), Entity[].class);
 		registerCommandArgumentType(new PlayerArgumentType(), Player.class);
+		registerCommandArgumentType(new StringArrayArgumentType(), String[].class);
 
 		registerCommandArgumentType(IntegerArgumentType.integer(), int.class);
 		registerCommandArgumentType(DoubleArgumentType.doubleArg(), double.class);

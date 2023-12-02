@@ -30,7 +30,11 @@ public class StringArrayArgumentType implements ArgumentType<String[]> {
 	public String[] parse(StringReader reader) throws CommandSyntaxException {
 		List<String> list = new ArrayList<>();
 		while (reader.canRead()) {
-			list.add(reader.readString());
+			String read = reader.readString();
+			if (read.isBlank()) {// No idea why `reader.canRead()` returns true when the same function in StringReader#readString() returns false.
+				break;
+			}
+			list.add(read);
 		}
 		return list.toArray(new String[0]);
 	}

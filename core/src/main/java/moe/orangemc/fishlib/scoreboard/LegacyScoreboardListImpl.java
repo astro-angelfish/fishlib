@@ -152,7 +152,9 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 	public void updateScoreboard() {
 		Set<String> scoreEntries = scoreboard.getEntries();
 		for (String entry : scoreEntries) {
-			scoreboard.resetScores(entry);
+			if (!contains(entry) && !entry.isBlank()) {
+				scoreboard.resetScores(entry);
+			}
 		}
 
 		int index = size() / 2;
@@ -169,6 +171,12 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 				objective.getScore("A long entry.").setScore(index);
 			}
 			index --;
+		}
+
+		for (String entry : scoreboard.getEntries()) {
+			if (entry.isBlank() && entry.length() > emptyCounter) {
+				scoreboard.resetScores(entry);
+			}
 		}
 	}
 

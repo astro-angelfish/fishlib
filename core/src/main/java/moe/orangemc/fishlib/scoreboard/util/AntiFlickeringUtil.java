@@ -22,8 +22,8 @@ import org.bukkit.scoreboard.Objective;
 
 public class AntiFlickeringUtil {
 	public static String getEntryFromScore(Objective o, int score) {
-		if(o == null) return null;
-		if(!hasScoreTaken(o, score)) return null;
+		if (o == null) return null;
+		if (!hasScoreTaken(o, score)) return null;
 		for (String s : o.getScoreboard().getEntries()) {
 			if(o.getScore(s).getScore() == score) {
 				return o.getScore(s).getEntry();
@@ -42,11 +42,11 @@ public class AntiFlickeringUtil {
 	}
 
 	public static void replaceScore(Objective o, int score, String name) {
-		if(hasScoreTaken(o, score)) {
-			if(getEntryFromScore(o, score).equals(name)) {
+		if (hasScoreTaken(o, score)) {
+			if (getEntryFromScore(o, score).equals(name)) {
 				return;
 			}
-			if(!(getEntryFromScore(o, score).equals(name))) {
+			if (!(getEntryFromScore(o, score).equals(name))) {
 				o.getScoreboard().resetScores(getEntryFromScore(o, score));
 			}
 		}

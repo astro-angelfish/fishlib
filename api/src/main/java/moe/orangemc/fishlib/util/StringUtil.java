@@ -26,4 +26,12 @@ public class StringUtil {
 	public static boolean isBlankChar(char c) {
 		return Character.isWhitespace(c) || c == '\ufeff' || c == '\u202a' || c == '\0' || c == '\u3164' || c == '\u2800' || c == '\u180e';
 	}
+
+	public static boolean isBlank(String s) {
+		if (s == null) return true;
+		for (char c : s.toCharArray()) {
+			if (!isBlankChar(c)) return false;
+		}
+		return true;
+	}
 }

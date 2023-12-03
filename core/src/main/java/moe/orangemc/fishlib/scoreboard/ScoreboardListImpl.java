@@ -151,7 +151,9 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 	public void updateScoreboard() {
 		Set<String> scoreEntries = scoreboard.getEntries();
 		for (String entry : scoreEntries) {
-			scoreboard.resetScores(entry);
+			if (!contains(entry) && !entry.isBlank()) { // Blank string generated in a different way. We might want to deal with them in a different way.
+				scoreboard.resetScores(entry);
+			}
 		}
 
 		int index = size() / 2;
@@ -168,6 +170,12 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 				objective.getScore("A long entry.").setScore(index);
 			}
 			index --;
+		}
+
+		for (String entry : scoreboard.getEntries()) {
+			if (entry.isBlank() && entry.length() > emptyCounter) {
+				scoreboard.resetScores(entry);
+			}
 		}
 	}
 

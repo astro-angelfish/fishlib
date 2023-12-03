@@ -60,6 +60,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
     private final Map<String, GeneratedSubCommand> aliasesMap = new HashMap<>();
 
 	private final CommandDispatcher<CommandSender> commandDispatcher;
+	private String lastLabel;
 
     public CommonCommand() {
         this("");
@@ -82,6 +83,9 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
             return onCommand(sender, command, label, new String[]{"help"});
         }
+		if (label != null) {
+			this.lastLabel = label;
+		}
 
         String commandName = args[0];
 
@@ -109,6 +113,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 	    try {
 		    commandDispatcher.execute(String.join(" ", args), sender);
 	    } catch (CommandSyntaxException e) {
+			e.printStackTrace();
 		    return onCommand(sender, command, label, new String[]{"help", args[0]});
 	    }
 
@@ -171,7 +176,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 	    this.commandBaseMap.put(commandBase.getName(), command);
     }
 
-    private class HelpCommand implements SubCommandBase {
+    private final class HelpCommand implements SubCommandBase {
         @Override
         public String getName() {
             return "help";
@@ -208,7 +213,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 				return;
             }
 
-			StringBuilder paramStringBuilder = new StringBuilder(ChatColor.YELLOW + " ").append(CommonCommand.this).append(" ").append(subCommand.commandBase.getName()).append(" ");
+			StringBuilder paramStringBuilder = new StringBuilder(ChatColor.YELLOW + "/").append(CommonCommand.this.lastLabel).append(" ").append(subCommand.commandBase.getName()).append(" ");
 			String description;
 			if (subCommand.commandBase.getProvidingPlugin() != null) {
 				LanguageManager manager = FishLibrary.getLanguageManager(subCommand.commandBase.getProvidingPlugin());
@@ -235,7 +240,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 		}
     }
 
-	private class GeneratedSubCommand {
+	private final class GeneratedSubCommand {
 		private final Map<Method, List<String>> nameMap = new HashMap<>();
 
 		private final SubCommandBase commandBase;

@@ -111,9 +111,8 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
         }
 
 	    try {
-		    commandDispatcher.execute(String.join(" ", args), sender);
+		    commandDispatcher.execute(String.join(" ", args).strip(), sender);
 	    } catch (CommandSyntaxException e) {
-			e.printStackTrace();
 		    return onCommand(sender, command, label, new String[]{"help", args[0]});
 	    }
 
@@ -395,8 +394,9 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 						}
 						return sender.hasPermission(commandBase.getPermissionRequired());
 					}));
-					CommonCommand.this.commandDispatcher.register(builder);
 				});
+
+				commandDispatcher.register(builder);
 			}
 		}
 	}

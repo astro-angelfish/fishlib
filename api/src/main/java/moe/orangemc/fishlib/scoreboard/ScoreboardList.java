@@ -45,10 +45,7 @@ public interface ScoreboardList extends List<String> {
 	 */
 	void setTitle(String title);
 
-	/**
-	 * INTERNAL USE ONLY, DO NOT CALL IT.
-	 */
-	@SuppressWarnings("DeprecatedIsStillUsed")
-	@Deprecated
 	void updateScoreboard();
+
+	void setAutoUpdate(boolean autoUpdate);
 }

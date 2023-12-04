@@ -41,6 +41,7 @@ import java.util.function.UnaryOperator;
 public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardList {
 	private final Scoreboard scoreboard;
 	private final Objective objective;
+	private boolean autoUpdate = true;
 
 	private final List<Player> playerDisplayedTo = new ArrayList<>();
 
@@ -199,6 +200,11 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 		}
 		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 		playerDisplayedTo.remove(player);
+	}
+
+	@Override
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate = autoUpdate;
 	}
 
 	@Override

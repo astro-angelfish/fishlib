@@ -40,6 +40,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -113,6 +115,12 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 	    try {
 		    commandDispatcher.execute(String.join(" ", args).strip(), sender);
 	    } catch (CommandSyntaxException e) {
+			if (CommandSyntaxException.ENABLE_COMMAND_STACK_TRACES) {
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				e.printStackTrace(pw);
+				subCommand.commandBase.getProvidingPlugin().getLogger().warning(sw.toString());
+			}
 		    return onCommand(sender, command, label, new String[]{"help", args[0]});
 	    }
 

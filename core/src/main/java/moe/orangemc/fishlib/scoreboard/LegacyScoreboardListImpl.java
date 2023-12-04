@@ -42,6 +42,7 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 
 	private final Scoreboard scoreboard;
 	private final Objective objective;
+	private boolean autoUpdate = true;
 
 	private final List<Player> playerDisplayedTo = new ArrayList<>();
 
@@ -63,21 +64,33 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 	@Override
 	public boolean add(String s) {
 		boolean result = super.add(s);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	public boolean remove(Object o) {
 		boolean result = super.remove(o);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	public void clear() {
 		super.clear();
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 	}
 
 	@Override
@@ -87,64 +100,100 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 				super.add("");
 			}
 			super.add(s);
-			this.updateScoreboard();
+
+			if (autoUpdate) {
+				this.updateScoreboard();
+			}
+
 			return "";
 		}
 
 		String result = super.set(i, s);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	public void add(int i, String s) {
 		super.add(i, s);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public String remove(int i) {
 		String result = super.remove(i);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	protected void removeRange(int i, int i1) {
 		super.removeRange(i, i1);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> collection) {
 		boolean result = super.removeAll(collection);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> collection) {
 		boolean result = super.retainAll(collection);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
 	@Override
 	public void replaceAll(UnaryOperator<String> unaryOperator) {
 		super.replaceAll(unaryOperator);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public void sort(Comparator<? super String> comparator) {
 		super.sort(comparator);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public boolean removeIf(Predicate<? super String> predicate) {
 		boolean result = super.removeIf(predicate);
-		this.updateScoreboard();
+
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
+
 		return result;
 	}
 
@@ -210,5 +259,10 @@ public class LegacyScoreboardListImpl extends ArrayList<String> implements Score
 	@Override
 	public int hashCode() {
 		return holder.hashCode() ^ 114514;
+	}
+
+	@Override
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate = autoUpdate;
 	}
 }

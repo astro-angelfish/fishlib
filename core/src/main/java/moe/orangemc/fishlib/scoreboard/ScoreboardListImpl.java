@@ -62,22 +62,32 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 
 	@Override
 	public boolean add(String s) {
+		if (size() >= 16) {
+			throw new IllegalStateException("Scoreboard list cannot have more than 16 entries.");
+		}
+
 		boolean result = super.add(s);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	public boolean remove(Object o) {
 		boolean result = super.remove(o);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	public void clear() {
 		super.clear();
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
@@ -87,64 +97,87 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 				super.add("");
 			}
 			super.add(s);
-			updateScoreboard();
+			if (autoUpdate) {
+				this.updateScoreboard();
+			}
 			return "";
 		}
 
 		String result = super.set(i, s);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	public void add(int i, String s) {
+		if (i > 16 || size() > 16) {
+			throw new IllegalStateException("Scoreboard list cannot have more than 16 entries.");
+		}
 		super.add(i, s);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public String remove(int i) {
 		String result = super.remove(i);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	protected void removeRange(int i, int i1) {
 		super.removeRange(i, i1);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> collection) {
 		boolean result = super.removeAll(collection);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> collection) {
 		boolean result = super.retainAll(collection);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 
 	@Override
 	public void replaceAll(UnaryOperator<String> unaryOperator) {
 		super.replaceAll(unaryOperator);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public void sort(Comparator<? super String> comparator) {
 		super.sort(comparator);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 	}
 
 	@Override
 	public boolean removeIf(Predicate<? super String> predicate) {
 		boolean result = super.removeIf(predicate);
-		updateScoreboard();
+		if (autoUpdate) {
+			this.updateScoreboard();
+		}
 		return result;
 	}
 

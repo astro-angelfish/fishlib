@@ -31,9 +31,7 @@ public class StringArrayArgumentType implements ArgumentType<String[]> {
 		List<String> list = new ArrayList<>();
 		while (reader.canRead()) {
 			String read = reader.readString();
-			if (read.isBlank()) {// No idea why `reader.canRead()` returns true when the same function in StringReader#readString() returns false.
-				break;
-			}
+			reader.skipWhitespace();
 			list.add(read);
 		}
 		return list.toArray(new String[0]);

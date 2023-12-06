@@ -146,6 +146,10 @@ public interface PluginInventory {
 	 */
 	InventoryControl getControl(int x, int y);
 
+	/**
+	 * Remove a control and set everything to empty
+	 * @param control the control to be removed
+	 */
 	void removeControl(InventoryControl control);
 
 	int getSize();

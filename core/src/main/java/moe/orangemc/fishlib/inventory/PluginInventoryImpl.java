@@ -195,6 +195,19 @@ public class PluginInventoryImpl implements PluginInventory {
 	@Override
 	public void removeControl(InventoryControl control) {
 		inventoryControls.remove(control);
+
+		internalInventory.setItem(((InventoryControlImpl) control).getStartIndex(), null);
+		if (control instanceof InventoryProgressBarImpl progressBar) {
+			for (int i = 0; i < progressBar.getLength(); i ++) {
+				internalInventory.setItem(progressBar.getStartIndex() + i, null);
+			}
+		} else if (control instanceof InventoryPlaceableFieldImpl placeableField) {
+			for (int i = 0; i < placeableField.getWidth(); i ++) {
+				for (int j = 0; j < placeableField.getHeight(); j ++) {
+					internalInventory.setItem(placeableField.getStartIndex() + i + j * 9, null);
+				}
+			}
+		}
 	}
 
 	@Override

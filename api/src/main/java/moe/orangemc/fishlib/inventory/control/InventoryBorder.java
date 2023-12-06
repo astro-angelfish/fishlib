@@ -61,4 +61,12 @@ public class InventoryBorder {
 
         return slotPut;
     }
+
+	/**
+	 * Gets the border style item
+	 * @return the border style item
+	 */
+	public final ItemStack getBorderStyle() {
+		return borderStyle.clone();
+	}
 }

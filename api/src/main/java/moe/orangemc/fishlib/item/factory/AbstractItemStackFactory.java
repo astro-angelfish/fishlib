@@ -291,17 +291,20 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 	 * @return the generic item stack factory
 	 */
 	public ItemStackFactory toGeneric() {
-		return new ItemStackFactory(this.material)
+		ItemStackFactory factory = new ItemStackFactory(this.material)
 				.setUnbreakable(this.unbreakable)
 				.withRepairCost(this.repairCost)
 				.withDisplayName(this.displayName)
 				.withLore(this.lore)
-				.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]))
 				.withAttributeModifiers(this.attributeModifierMap)
 				.withEnchantments(this.enchantmentMap)
 				.withAmount(this.amount)
 				.withDamage(damage)
 				.addAllItemMetaPostHooks(this.postItemMetaHooks);
+		if (this.itemFlags != null) {
+			factory.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]));
+		}
+		return factory;
 	}
 
 	/**
@@ -313,16 +316,19 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 			throw new ClassCastException("Cannot cast " + this + " to generic armor item stack factory");
 		}
 
-		return new ArmorItemStackFactory(this.material)
+		ArmorItemStackFactory armorItemStackFactory = new ArmorItemStackFactory(this.material)
 				.setUnbreakable(this.unbreakable)
 				.withRepairCost(this.repairCost)
 				.withDisplayName(this.displayName)
 				.withLore(this.lore)
-				.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]))
 				.withAttributeModifiers(this.attributeModifierMap)
 				.withEnchantments(this.enchantmentMap)
 				.withAmount(this.amount)
 				.withDamage(damage)
 				.addAllItemMetaPostHooks(this.postItemMetaHooks);
+		if (this.itemFlags != null) {
+			armorItemStackFactory.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]));
+		}
+		return armorItemStackFactory;
 	}
 }

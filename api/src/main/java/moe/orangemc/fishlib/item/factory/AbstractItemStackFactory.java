@@ -104,13 +104,15 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 	}
 
 	/**
-	 * Attach lore to the item stack to be constructed.
+	 * Clone and attach the lore to the item stack to be constructed.
 	 * @param lore the lore to be applied
 	 * @return the factory itself
 	 */
 	@SuppressWarnings("unchecked")
 	public T withLore(List<String> lore) {
-		this.lore = lore;
+		if (lore != null) {
+			this.lore = new ArrayList<>(lore);
+		}
 		return (T) this;
 	}
 

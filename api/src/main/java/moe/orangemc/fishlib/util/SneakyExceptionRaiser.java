@@ -36,7 +36,7 @@ public final class SneakyExceptionRaiser {
 		}
 	}
 
-	public static <T extends AutoCloseable, E extends Throwable> void autoClosableCall(ThrowingSupplier<T> supplier, ThrowingConsumer<T> consumer) throws E {
+	public static <T extends AutoCloseable> void autoClosableCall(ThrowingSupplier<T> supplier, ThrowingConsumer<T> consumer) {
 		try (T t = supplier.get()) {
 			consumer.accept(t);
 		} catch (Throwable t) {

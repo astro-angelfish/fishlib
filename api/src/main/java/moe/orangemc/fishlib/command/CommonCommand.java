@@ -347,7 +347,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 							ArgumentBuilder<CommandSender, ?> argumentBuilder = iterator.next();
 							if (!iterator.hasNext()) {
 								argumentBuilder.executes((context) -> {
-									SneakyExceptionRaiser.anyCall(() -> {
+									SneakyExceptionRaiser.voidCall(() -> {
 										List<Object> argumentList = new ArrayList<>();
 										argumentList.add(commandBase);
 										argumentList.add(context.getSource());

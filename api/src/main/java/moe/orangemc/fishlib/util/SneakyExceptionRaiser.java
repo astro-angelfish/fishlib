@@ -36,7 +36,15 @@ public final class SneakyExceptionRaiser {
 		}
 	}
 
-	public static void anyCall(ThrowingRunnable action) {
+	public static <T extends AutoCloseable, E extends Throwable> void autoClosableCall(ThrowingSupplier<T> supplier, ThrowingConsumer<T> consumer) throws E {
+		try (T t = supplier.get()) {
+			consumer.accept(t);
+		} catch (Throwable t) {
+			raise(t);
+		}
+	}
+
+	public static void voidCall(ThrowingRunnable action) {
 		try {
 			action.run();
 		} catch (Throwable e) {

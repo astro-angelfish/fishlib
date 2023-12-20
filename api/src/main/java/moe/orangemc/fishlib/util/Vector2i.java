@@ -21,13 +21,14 @@ package moe.orangemc.fishlib.util;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import org.apache.commons.lang3.Validate;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A two-dimension and integer version vector
  */
 @ShouldNotBeImplemented
-public final class Vector2i implements Cloneable {
+public final class Vector2i implements Cloneable, Serializable {
 	private int x;
 	private int y;
 

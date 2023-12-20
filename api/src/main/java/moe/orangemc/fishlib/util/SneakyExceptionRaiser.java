@@ -24,7 +24,7 @@ public final class SneakyExceptionRaiser {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T extends Throwable> void raise(Throwable exception) throws T {
+	public static <T extends Throwable, R> R raise(Throwable exception) throws T {
 		throw (T)exception;
 	}
 
@@ -32,8 +32,7 @@ public final class SneakyExceptionRaiser {
 		try {
 			return callableAnyThrow.call();
 		} catch (Throwable e) {
-			raise(e);
-			throw new RuntimeException(e);
+			return raise(e);
 		}
 	}
 
@@ -42,7 +41,6 @@ public final class SneakyExceptionRaiser {
 			action.run();
 		} catch (Throwable e) {
 			raise(e);
-			throw new RuntimeException(e);
 		}
 	}
 }

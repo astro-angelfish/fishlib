@@ -19,12 +19,14 @@
 package moe.orangemc.fishlib.reflection;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import moe.orangemc.fishlib.util.SneakyExceptionRaiser;
 import org.apache.commons.lang.Validate;
 
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -45,11 +47,10 @@ public final class ReflectionUtil {
      * @param name The name of the method.
      * @param args The arguments for the method call
      * @return the result of dispatching the method represented by this object on obj with parameters args
-     * @throws Exception If something wrong happened in the method call
      * @see Method#invoke(Object, Object...)
      * @see Class#getMethod(String, Class[])
      */
-    public static Object invokeMethod(Object target, String name, Object ... args) throws Exception {
+    public static Object invokeMethod(Object target, String name, Object ... args) {
 	    Validate.notNull(name, "name cannot be null");
 	    Validate.notNull(target, "target cannot be null");
 
@@ -65,7 +66,7 @@ public final class ReflectionUtil {
                 result = invokeMethod(target, name, argClasses, args);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
         }
 
@@ -79,11 +80,10 @@ public final class ReflectionUtil {
      * @param argClasses the argument classes for the method call
      * @param args the arguments for the method call
      * @return the result of dispatching the method represented by this object on obj with parameters args
-     * @throws Exception if something wrong happened in the method call
      * @see Method#invoke(Object, Object...)
      * @see Class#getMethod(String, Class[])
      */
-    public static Object invokeMethod(Object target, String name, Class<?>[] argClasses, Object ... args) throws Exception {
+    public static Object invokeMethod(Object target, String name, Class<?>[] argClasses, Object ... args) {
 	    Validate.notNull(name, "name cannot be null");
 	    Validate.notNull(target, "target cannot be null");
 
@@ -98,11 +98,10 @@ public final class ReflectionUtil {
      * @param name the name of the method.
      * @param args the arguments for the method call
      * @return the result of dispatching the method represented by this object on obj with parameters args
-     * @throws Exception if something wrong happened in the method call
      * @see Method#invoke(Object, Object...)
      * @see Class#getMethod(String, Class[])
      */
-    public static Object invokeMethod(Class<?> forceClass, Object target, String name, Object ... args) throws Exception {
+    public static Object invokeMethod(Class<?> forceClass, Object target, String name, Object ... args) {
 	    Validate.notNull(target, "target cannot be null");
 	    Validate.notNull(forceClass, "forceClass cannot be null");
 	    Validate.notNull(name, "name cannot be null");
@@ -119,7 +118,7 @@ public final class ReflectionUtil {
                 result = invokeMethod(forceClass, target, name, argClasses, args);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
         }
 
@@ -134,11 +133,10 @@ public final class ReflectionUtil {
      * @param argClasses the argument classes for the method call
      * @param args the arguments for the method call
      * @return the result of dispatching the method represented by this object on obj with parameters args
-     * @throws Exception if something wrong happened in the method call
      * @see Method#invoke(Object, Object...)
      * @see Class#getMethod(String, Class[])
      */
-    public static Object invokeMethod(Class<?> forceClass, Object target, String name, Class<?>[] argClasses, Object ... args) throws Exception {
+    public static Object invokeMethod(Class<?> forceClass, Object target, String name, Class<?>[] argClasses, Object ... args) {
 	    Validate.notNull(target, "target cannot be null");
 	    Validate.notNull(forceClass, "forceClass cannot be null");
 	    Validate.notNull(name, "name cannot be null");
@@ -154,8 +152,10 @@ public final class ReflectionUtil {
                 return notPublicMethod.invoke(target, args);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+			return SneakyExceptionRaiser.raise(e);
         }
     }
 
@@ -165,11 +165,10 @@ public final class ReflectionUtil {
      * @param target object from which the represented field's value is to be extracted
      * @param name the field name
      * @return the value of the represented field in object obj; primitive values are wrapped in an appropriate object before being returned
-     * @throws Exception if something wrong happened.
      * @see Field#get(Object)
      * @see Class#getField(String)
      */
-    public static Object getField(Class<?> forceClass, Object target, String name) throws Exception {
+    public static Object getField(Class<?> forceClass, Object target, String name) {
 	    Validate.notNull(forceClass, "forceClass cannot be null");
 	    Validate.notNull(name, "name cannot be null");
 
@@ -183,8 +182,10 @@ public final class ReflectionUtil {
                 return notPublicField.get(target);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
+        } catch (IllegalAccessException e) {
+			return SneakyExceptionRaiser.raise(e);
         }
     }
 
@@ -193,11 +194,10 @@ public final class ReflectionUtil {
      * @param target object from which the represented field's value is to be extracted
      * @param name the field name
      * @return the value of the represented field in object obj; primitive values are wrapped in an appropriate object before being returned
-     * @throws Exception if something wrong happened.
      * @see Field#get(Object)
      * @see Class#getField(String)
      */
-    public static Object getField(Object target, String name) throws Exception {
+    public static Object getField(Object target, String name) {
 	    Validate.notNull(target, "target cannot be null");
 	    Validate.notNull(name, "name cannot be null");
 
@@ -210,11 +210,10 @@ public final class ReflectionUtil {
      * @param className The class name of the object.
      * @param args the arguments for the constructor call
      * @return a new object created by calling the constructor this object represents
-     * @throws Exception if something wrong happened
      * @see Constructor#newInstance(Object...)
      * @see Class#getConstructor(Class[])
      */
-    public static Object newInstance(String className, Object ... args) throws Exception {
+    public static Object newInstance(String className, Object ... args) {
 	    Validate.notNull(className, "className cannot be null");
 
         Class<?>[] argClasses = extractArgClasses(args);
@@ -227,7 +226,7 @@ public final class ReflectionUtil {
                 return newInstance(className, argClasses, args);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
         }
     }
@@ -237,11 +236,10 @@ public final class ReflectionUtil {
      * @param clazz class of the object.
      * @param args the arguments for the constructor call
      * @return a new object created by calling the constructor this object represents
-     * @throws Exception if something wrong happened
      * @see Constructor#newInstance(Object...)
      * @see Class#getConstructor(Class[])
      */
-    public static Object newInstance(Class<?> clazz, Object ... args) throws Exception {
+    public static Object newInstance(Class<?> clazz, Object ... args) {
 	    Validate.notNull(clazz, "clazz cannot be null");
 
         Class<?>[] argClasses = extractArgClasses(args);
@@ -253,7 +251,7 @@ public final class ReflectionUtil {
                 return newInstance(clazz, argClasses, args);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
         }
     }
@@ -263,15 +261,14 @@ public final class ReflectionUtil {
      * @param argClasses the argument classes for the constructor call
      * @param args the arguments for the constructor call
      * @return a new object created by calling the constructor this object represents
-     * @throws Exception if something wrong happened
      * @see Constructor#newInstance(Object...)
      * @see Class#getConstructor(Class[])
      */
-    public static Object newInstance(String className, Class<?>[] argClasses, Object ... args) throws Exception {
+    public static Object newInstance(String className, Class<?>[] argClasses, Object ... args) {
 	    Validate.notNull(className, "className cannot be null");
 	    Validate.notNull(argClasses, "argClasses cannot be null");
 
-        return newInstance(Class.forName(className), argClasses, args);
+        return SneakyExceptionRaiser.anyCall(() -> newInstance(Class.forName(className), argClasses, args));
     }
 
     /**
@@ -280,11 +277,10 @@ public final class ReflectionUtil {
      * @param argClasses the argument classes for the constructor call
      * @param args the arguments for the constructor call
      * @return a new object created by calling the constructor this object represents
-     * @throws Exception if something wrong happened
      * @see Constructor#newInstance(Object...)
      * @see Class#getConstructor(Class[])
      */
-    public static Object newInstance(Class<?> clazz, Class<?>[] argClasses, Object ... args) throws Exception {
+    public static Object newInstance(Class<?> clazz, Class<?>[] argClasses, Object ... args) {
 	    Validate.notNull(clazz, "clazz cannot be null");
 	    Validate.notNull(argClasses, "argClasses cannot be null");
 
@@ -296,11 +292,12 @@ public final class ReflectionUtil {
                 constructor = clazz.getDeclaredConstructor(argClasses);
             } catch (Exception ex) {
                 e.addSuppressed(ex);
-                throw e;
+                return SneakyExceptionRaiser.raise(e);
             }
         }
 
-        return constructor.newInstance(args);
+	    Constructor<?> finalConstructor = constructor;
+	    return SneakyExceptionRaiser.anyCall(() -> finalConstructor.newInstance(args));
     }
 
     /**
@@ -343,9 +340,8 @@ public final class ReflectionUtil {
 	 * @param clazz class of the enum
 	 * @param constant constant name
 	 * @return the enum constant
-	 * @throws Exception if no constant found or class found.
 	 */
-	public static Enum<?> getEnum(Class<?> clazz, String constant) throws Exception {
+	public static Enum<?> getEnum(Class<?> clazz, String constant) {
 		Validate.notNull(clazz, "clazz cannot be null");
 		Validate.notNull(constant, "constant cannot be null");
 
@@ -358,9 +354,8 @@ public final class ReflectionUtil {
 	 * @param enumname name of the enum
 	 * @param constant constant name
 	 * @return the enum constant
-	 * @throws Exception if no constant found or class found.
 	 */
-	public static Enum<?> getEnum(Class<?> clazz, String enumname, String constant) throws Exception {
+	public static Enum<?> getEnum(Class<?> clazz, String enumname, String constant) {
 		Validate.notNull(clazz, "clazz cannot be null");
 		Validate.notNull(enumname, "enumname cannot be null");
 		Validate.notNull(constant, "constant cannot be null");
@@ -373,13 +368,12 @@ public final class ReflectionUtil {
 	 * @param className class of the enum
 	 * @param constant constant name
 	 * @return the enum constant
-	 * @throws Exception if no constant found or class found.
 	 */
-	public static Enum<?> getEnum(String className, String constant) throws Exception {
+	public static Enum<?> getEnum(String className, String constant) {
 		Validate.notNull(className, "className cannot be null");
 		Validate.notNull(constant, "constant cannot be null");
 
-		return fetchEnumConstant(constant, Class.forName(className));
+		return SneakyExceptionRaiser.anyCall(() -> fetchEnumConstant(constant, Class.forName(className)));
 	}
 
 	/**
@@ -388,9 +382,8 @@ public final class ReflectionUtil {
 	 * @param enumname name of the enum
 	 * @param constant constant name
 	 * @return the enum constant
-	 * @throws Exception if no constant found or class found.
 	 */
-	public static Enum<?> getEnum(String className, String enumname, String constant) throws Exception {
+	public static Enum<?> getEnum(String className, String enumname, String constant) {
 		Validate.notNull(className, "className cannot be null");
 		Validate.notNull(enumname, "enumname cannot be null");
 		Validate.notNull(constant, "constant cannot be null");
@@ -398,14 +391,14 @@ public final class ReflectionUtil {
 		return getEnum(className + "$" + enumname, constant);
 	}
 
-	private static Enum<?> fetchEnumConstant(String constantName, Class<?> c) throws Exception {
+	private static Enum<?> fetchEnumConstant(String constantName, Class<?> c) {
 		Enum<?>[] constants = (Enum<?>[]) c.getEnumConstants();
 		for (Enum<?> constant : constants) {
 			if (constant.name().equalsIgnoreCase(constantName)) {
 				return constant;
 			}
 		}
-		throw new Exception("Enum constant not found " + constantName);
+		return SneakyExceptionRaiser.raise(new Exception("Enum constant not found " + constantName));
 	}
 
 	private static Class<?>[] extractArgClasses(Object ... args) {

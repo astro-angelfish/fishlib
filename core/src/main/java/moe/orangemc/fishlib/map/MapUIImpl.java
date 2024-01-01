@@ -53,18 +53,17 @@ public class MapUIImpl implements MapUI {
 	private final BufferedImage buffer;
 
 	private final List<MapControlImpl> controls = new LinkedList<>();
-	private MapRenderer renderer = new DefaultRenderer();
 	private final WrappedMapPalette palette = new WrappedMapPalette();
-
 	private final AtomicBoolean ticking = new AtomicBoolean(false);
+	private MapRenderer renderer = new DefaultRenderer();
 
 	public MapUIImpl(ItemFrame[][] frames, Vector2i corner) {
 		bukkitMapCanvasRenderers = new BukkitMapCanvasRenderer[corner.getX() + 1][corner.getY() + 1];
 		this.corner = corner;
 		buffer = new BufferedImage(corner.getX() * 128 + 128, corner.getY() * 128 + 128, BufferedImage.TYPE_INT_RGB);
 
-		for (int x = 0; x <= corner.getX(); x ++) {
-			for (int y = 0; y <= corner.getY(); y ++) {
+		for (int x = 0; x <= corner.getX(); x++) {
+			for (int y = 0; y <= corner.getY(); y++) {
 				ItemFrame frame = frames[x][y];
 				if (frame == null) {
 					bukkitMapCanvasRenderers[x][y] = null;
@@ -95,15 +94,15 @@ public class MapUIImpl implements MapUI {
 	}
 
 	private void swapBuffer() {
-		for (int x = 0; x <= corner.getX(); x ++) {
-			for (int y = 0; y <= corner.getY(); y ++) {
+		for (int x = 0; x <= corner.getX(); x++) {
+			for (int y = 0; y <= corner.getY(); y++) {
 				BukkitMapCanvasRenderer md = bukkitMapCanvasRenderers[x][y];
 				if (md == null) {
 					continue;
 				}
 				int[][] subBuffer = new int[128][128];
-				for (int subX = 0; subX < 128; subX ++) {
-					for (int subY = 0; subY < 128; subY ++) {
+				for (int subX = 0; subX < 128; subX++) {
+					for (int subY = 0; subY < 128; subY++) {
 						subBuffer[subX][subY] = buffer.getRGB(128 * x + subX, 128 * y + subY);
 					}
 				}

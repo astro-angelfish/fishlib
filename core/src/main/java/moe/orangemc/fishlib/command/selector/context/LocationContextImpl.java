@@ -24,11 +24,10 @@ import moe.orangemc.fishlib.command.selector.util.WorldHelper;
 import org.bukkit.Location;
 
 public class LocationContextImpl implements LocationContext {
+	private final Location baseLocation;
 	private double x = Double.NaN;
 	private double y = Double.NaN;
 	private double z = Double.NaN;
-
-	private final Location baseLocation;
 
 	public LocationContextImpl(Selector selector) {
 		baseLocation = WorldHelper.getLocation(selector.getSender());

@@ -42,6 +42,7 @@ public class PotionItemStackFactory extends AbstractItemStackFactory<PotionItemS
 
 	/**
 	 * Set the custom effects of the potion.
+	 *
 	 * @param customEffects The custom effects
 	 * @return The factory itself
 	 */
@@ -52,6 +53,7 @@ public class PotionItemStackFactory extends AbstractItemStackFactory<PotionItemS
 
 	/**
 	 * Add a custom effect to the potion.
+	 *
 	 * @param customEffect The custom effect to add
 	 * @return The factory itself
 	 */
@@ -62,6 +64,7 @@ public class PotionItemStackFactory extends AbstractItemStackFactory<PotionItemS
 
 	/**
 	 * Set the base potion type of the potion.
+	 *
 	 * @param basePotionType The base potion type
 	 * @return The factory itself
 	 */
@@ -72,6 +75,7 @@ public class PotionItemStackFactory extends AbstractItemStackFactory<PotionItemS
 
 	/**
 	 * Set the color of the potion.
+	 *
 	 * @param color The color
 	 * @return The factory itself
 	 */

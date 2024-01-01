@@ -29,63 +29,63 @@ import org.bukkit.inventory.ItemStack;
  * The progress bar
  */
 public class InventoryProgressBarImpl extends InventoryControlImpl implements InventoryProgressBar {
-    private final int length;
-    private ItemStack emptyItem;
-    private ItemStack filledItem;
-    private final ProgressBarUpdater updater;
+	private final int length;
+	private final ProgressBarUpdater updater;
+	private ItemStack emptyItem;
+	private ItemStack filledItem;
 
-    public InventoryProgressBarImpl(int length, ItemStack emptyItem, ItemStack filledItem, ProgressBarUpdater updater) {
-        this.length = length;
-        this.emptyItem = emptyItem;
-        this.filledItem = filledItem;
-        this.updater = updater;
-    }
+	public InventoryProgressBarImpl(int length, ItemStack emptyItem, ItemStack filledItem, ProgressBarUpdater updater) {
+		this.length = length;
+		this.emptyItem = emptyItem;
+		this.filledItem = filledItem;
+		this.updater = updater;
+	}
 
-    @Override
-    public void onAdd(Inventory inventory, int startIndex) {
-        super.onAdd(inventory, startIndex);
-        if (startIndex % 9 + length > 9) {
-            throw new IllegalArgumentException("Progress bar is too long");
-        }
+	@Override
+	public void onAdd(Inventory inventory, int startIndex) {
+		super.onAdd(inventory, startIndex);
+		if (startIndex % 9 + length > 9) {
+			throw new IllegalArgumentException("Progress bar is too long");
+		}
 
-        for (int a = 0; a < length; a ++) {
-            inventory.setItem(a + startIndex, emptyItem);
-        }
-    }
+		for (int a = 0; a < length; a++) {
+			inventory.setItem(a + startIndex, emptyItem);
+		}
+	}
 
-    @Override
-    public void update() {
-        if (getInventoryPutIn() == null) {
-            return;
-        }
-        double rate = 0;
-        if (updater != null) {
-            rate = updater.update((Player) getInventoryPutIn().getHolder(), this);
-        }
-        for (int i = 0; i < length; i ++) {
-            double slotRate = (i + 0.0) / length;
-            if (slotRate < rate) {
-                getInventoryPutIn().setItem(getStartIndex() + i, filledItem);
-            } else {
-                getInventoryPutIn().setItem(getStartIndex() + i, emptyItem);
-            }
-        }
-    }
+	@Override
+	public void update() {
+		if (getInventoryPutIn() == null) {
+			return;
+		}
+		double rate = 0;
+		if (updater != null) {
+			rate = updater.update((Player) getInventoryPutIn().getHolder(), this);
+		}
+		for (int i = 0; i < length; i++) {
+			double slotRate = (i + 0.0) / length;
+			if (slotRate < rate) {
+				getInventoryPutIn().setItem(getStartIndex() + i, filledItem);
+			} else {
+				getInventoryPutIn().setItem(getStartIndex() + i, emptyItem);
+			}
+		}
+	}
 
-    @Override
-    public ItemStack getEmptyItem() {
-        return emptyItem;
-    }
-
-    @Override
-    public ItemStack getFilledItem() {
-        return filledItem;
-    }
+	@Override
+	public ItemStack getEmptyItem() {
+		return emptyItem;
+	}
 
 	@Override
 	public void setEmptyItem(ItemStack item) {
 		Validate.notNull(item, "emptyItem cannot be null");
 		this.emptyItem = item.clone();
+	}
+
+	@Override
+	public ItemStack getFilledItem() {
+		return filledItem;
 	}
 
 	@Override

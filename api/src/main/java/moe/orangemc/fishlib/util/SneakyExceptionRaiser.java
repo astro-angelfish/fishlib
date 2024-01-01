@@ -25,7 +25,7 @@ public final class SneakyExceptionRaiser {
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Throwable, R> R raise(Throwable exception) throws T {
-		throw (T)exception;
+		throw (T) exception;
 	}
 
 	public static <T> T anyCall(ThrowingCallable<T> callableAnyThrow) {

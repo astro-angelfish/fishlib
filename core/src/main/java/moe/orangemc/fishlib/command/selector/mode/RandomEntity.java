@@ -42,7 +42,7 @@ public class RandomEntity implements SelectMode {
 
 	@Override
 	public List<Entity> postSelectEntities(Selector selector) {
-		List<Entity> currentEntities =selector.getContext(SelectedEntitiesContext.class).getSelectedEntities();
+		List<Entity> currentEntities = selector.getContext(SelectedEntitiesContext.class).getSelectedEntities();
 
 		if (currentEntities.stream().anyMatch((e) -> e instanceof Player)) {
 			currentEntities.removeIf((e) -> !(e instanceof Player));

@@ -29,18 +29,20 @@ import org.bukkit.command.CommandSender;
 public interface LanguageManager {
 	/**
 	 * Get translation string from a command sender
+	 *
 	 * @param commandSender command sender to get translation
-	 * @param key translation key
-	 * @param args translation arguments
+	 * @param key           translation key
+	 * @param args          translation arguments
 	 * @return the translated string
 	 */
 	String getTranslationBySender(CommandSender commandSender, String key, Object... args);
 
 	/**
 	 * Get translation string by direct locale string
+	 *
 	 * @param locale locale string
-	 * @param key translation key
-	 * @param args translation arguments
+	 * @param key    translation key
+	 * @param args   translation arguments
 	 * @return the translated string
 	 */
 	String getTranslation(String locale, String key, Object... args);

@@ -34,6 +34,7 @@ public class LeatherArmorItemStackFactory extends AbstractArmorItemStackFactory<
 
 	/**
 	 * Set the color of the leather armor.
+	 *
 	 * @param color The color
 	 * @return The factory itself
 	 */
@@ -44,6 +45,7 @@ public class LeatherArmorItemStackFactory extends AbstractArmorItemStackFactory<
 
 	/**
 	 * Set the color of the leather armor.
+	 *
 	 * @param color The color
 	 * @return The factory itself
 	 */
@@ -54,9 +56,10 @@ public class LeatherArmorItemStackFactory extends AbstractArmorItemStackFactory<
 
 	/**
 	 * Set the color of the leather armor.
-	 * @param red The red value
+	 *
+	 * @param red   The red value
 	 * @param green The green value
-	 * @param blue The blue value
+	 * @param blue  The blue value
 	 * @return The factory itself
 	 */
 	public LeatherArmorItemStackFactory withColor(int red, int green, int blue) {
@@ -66,6 +69,7 @@ public class LeatherArmorItemStackFactory extends AbstractArmorItemStackFactory<
 
 	/**
 	 * Set the color of the leather armor.
+	 *
 	 * @param color The color
 	 * @return The factory itself
 	 */

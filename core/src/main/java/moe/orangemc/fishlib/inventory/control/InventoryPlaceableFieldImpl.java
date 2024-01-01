@@ -32,111 +32,111 @@ import java.util.Map;
  * A field that player can put items in.
  */
 public class InventoryPlaceableFieldImpl extends InventoryControlImpl implements InventoryPlaceableField {
-    private final int width;
-    private final int height;
-    private final PlaceableFieldHandler handler;
+	private final int width;
+	private final int height;
+	private final PlaceableFieldHandler handler;
 
-    private final Map<Integer, ItemStack> content = new HashMap<>();
+	private final Map<Integer, ItemStack> content = new HashMap<>();
 
-    public InventoryPlaceableFieldImpl(int width, int height, PlaceableFieldHandler handler) {
-        this.width = width;
-        this.height = height;
-        this.handler = handler;
-    }
+	public InventoryPlaceableFieldImpl(int width, int height, PlaceableFieldHandler handler) {
+		this.width = width;
+		this.height = height;
+		this.handler = handler;
+	}
 
 	@Override
-    public int getWidth() {
-        return width;
-    }
+	public int getWidth() {
+		return width;
+	}
 
-    @Override
-    public int getHeight() {
-        return height;
-    }
+	@Override
+	public int getHeight() {
+		return height;
+	}
 
-    public PlaceableFieldHandler getHandler() {
-        return handler;
-    }
+	public PlaceableFieldHandler getHandler() {
+		return handler;
+	}
 
-    @Override
-    public Map<Integer, ItemStack> getContent() {
-        return new HashMap<>(content);
-    }
+	@Override
+	public Map<Integer, ItemStack> getContent() {
+		return new HashMap<>(content);
+	}
 
-    @Override
-    public void setContent(Map<Integer, ItemStack> content, boolean synchronizeRequired) {
-	    Validate.notNull(content, "content cannot be null");
+	@Override
+	public void setContent(Map<Integer, ItemStack> content) {
+		Validate.notNull(content, "content cannot be null");
 
-        this.content.clear();
-        this.content.putAll(content);
+		this.setContent(content, true);
+	}
 
-        if (synchronizeRequired) {
-            synchronizeToInventory();
-        }
-    }
+	@Override
+	public void setContent(Map<Integer, ItemStack> content, boolean synchronizeRequired) {
+		Validate.notNull(content, "content cannot be null");
 
-    @Override
-    public void setContent(Map<Integer, ItemStack> content) {
-	    Validate.notNull(content, "content cannot be null");
+		this.content.clear();
+		this.content.putAll(content);
 
-        this.setContent(content, true);
-    }
+		if (synchronizeRequired) {
+			synchronizeToInventory();
+		}
+	}
 
-    public void onAdd(Inventory inventoryPlacedIn, int startIndex) {
-        int startX = getStartIndex() % 9;
-        int startY = getStartIndex() / 9;
-        if (startX + width > 9 || startY + height > inventoryPlacedIn.getSize() / 9) {
-            throw new IllegalArgumentException("Inventory is too small to fit in");
-        }
-        super.onAdd(inventoryPlacedIn, startIndex);
-        synchronizeToInventory();
-    }
+	public void onAdd(Inventory inventoryPlacedIn, int startIndex) {
+		int startX = getStartIndex() % 9;
+		int startY = getStartIndex() / 9;
+		if (startX + width > 9 || startY + height > inventoryPlacedIn.getSize() / 9) {
+			throw new IllegalArgumentException("Inventory is too small to fit in");
+		}
+		super.onAdd(inventoryPlacedIn, startIndex);
+		synchronizeToInventory();
+	}
 
 	@Override
 	public void clear() {
-    	content.clear();
-    	synchronizeToInventory();
-    }
+		content.clear();
+		synchronizeToInventory();
+	}
 
-    private void synchronizeToInventory() {
-        if (getInventoryPutIn() == null) {
-            return;
-        }
-        int startX = getStartIndex() % 9;
-        int startY = getStartIndex() / 9;
-        for (int x = 0; x < width; x ++) {
-            for (int y = 0; y < height; y ++) {
-                getInventoryPutIn().setItem(startX + x + (startY + y) * 9, new ItemStack(Material.AIR));
-            }
-        }
-        this.content.forEach((index, content) -> {
-            int targetX = index % width + startX;
-            int targetY = index / width + startY;
+	private void synchronizeToInventory() {
+		if (getInventoryPutIn() == null) {
+			return;
+		}
+		int startX = getStartIndex() % 9;
+		int startY = getStartIndex() / 9;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				getInventoryPutIn().setItem(startX + x + (startY + y) * 9, new ItemStack(Material.AIR));
+			}
+		}
+		this.content.forEach((index, content) -> {
+			int targetX = index % width + startX;
+			int targetY = index / width + startY;
 
-            getInventoryPutIn().setItem(targetX + targetY * 9, content);
-        });
-    }
+			getInventoryPutIn().setItem(targetX + targetY * 9, content);
+		});
+	}
 
-    @Override
-    public boolean isSlotInsideField(int slot) {
-        int offset = slot - getStartIndex();
-        int x = offset % 9;
-        int y = offset / 9;
+	@Override
+	public boolean isSlotInsideField(int slot) {
+		int offset = slot - getStartIndex();
+		int x = offset % 9;
+		int y = offset / 9;
 
-        return x >= 0 && x < width && y >= 0 && y < height;
-    }
+		return x >= 0 && x < width && y >= 0 && y < height;
+	}
 
-    @Override
-    public int locateRelativeOffsetOfSlot(int slot) {
-        if (!isSlotInsideField(slot)) {
-            return -1;
-        }
+	@Override
+	public int locateRelativeOffsetOfSlot(int slot) {
+		if (!isSlotInsideField(slot)) {
+			return -1;
+		}
 
-        int startX = getStartIndex() % 9;
-        int startY = getStartIndex() / 9;
-        int offsetX = (slot % 9 - startX) % width;
-        int offsetY = slot / 9 - startY;
+		int startX = getStartIndex() % 9;
+		int startY = getStartIndex() / 9;
+		int offsetX = (slot % 9 - startX) % width;
+		int offsetY = slot / 9 - startY;
 
-        return offsetY * width + offsetX;
-    }
+		return offsetY * width + offsetX;
+	}
 }

@@ -32,10 +32,8 @@ import java.util.List;
 public class MapListWidgetImpl extends MapClickableImpl implements MapListWidget {
 	private static final MapControlRenderer WIDGET_DEFAULT_RENDERER = new DefaultListWidgetRenderer();
 	private static final MapClickHandler WIDGET_DEFAULT_CLICK_HANDLER = new DefaultListWidgetClickHandler();
-
-	private int selectedIndex = -1;
-
 	private final List<MapListWidgetItemImpl> itemList = new ArrayList<>();
+	private int selectedIndex = -1;
 
 	public MapListWidgetImpl(Vector2i location) {
 		super(location);

@@ -32,6 +32,7 @@ import java.util.List;
 public interface PluginInventoryManager {
 	/**
 	 * Creates an inventory
+	 *
 	 * @param player the owner
 	 * @param height height of the inventory
 	 * @return the inventory created
@@ -40,18 +41,21 @@ public interface PluginInventoryManager {
 
 	/**
 	 * Destroies an inventory
+	 *
 	 * @param inventory the inventory to be destoried
 	 */
 	void destroyInventory(PluginInventory inventory);
 
 	/**
 	 * Get a list of inventories
+	 *
 	 * @return a list of inventories
 	 */
 	List<PluginInventory> getInventoryList();
 
 	/**
 	 * Get a PluginInventory by bukkit inventory
+	 *
 	 * @param inventory the bukkit inventory
 	 * @return the PluginInventory instance
 	 */

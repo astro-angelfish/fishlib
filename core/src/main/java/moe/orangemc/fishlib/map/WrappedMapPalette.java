@@ -29,9 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WrappedMapPalette implements Palette {
+	private final Map<Integer, Integer> colorMap = new HashMap<>();
 	private boolean init = false;
 	private Color[] colors;
-	private final Map<Integer, Integer> colorMap = new HashMap<>();
 
 	public WrappedMapPalette() {
 		try {

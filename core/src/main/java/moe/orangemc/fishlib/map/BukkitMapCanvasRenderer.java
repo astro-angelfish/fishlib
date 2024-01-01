@@ -35,8 +35,8 @@ public class BukkitMapCanvasRenderer extends MapRenderer {
 
 	@Override
 	public void render(MapView map, MapCanvas canvas, Player player) {
-		for (int x = 0; x < 128; x ++) {
-			for (int y = 0; y < 128; y ++) {
+		for (int x = 0; x < 128; x++) {
+			for (int y = 0; y < 128; y++) {
 				if (dirtyMap[x][y] || !cleanPlayer.contains(player)) {
 					canvas.setPixel(x, y, imageMap[x][y]);
 				}
@@ -45,8 +45,8 @@ public class BukkitMapCanvasRenderer extends MapRenderer {
 	}
 
 	public void setRenderImage(int[][] subBuffer) {
-		for (int x = 0; x < 128; x ++) {
-			for (int y = 0; y < 128; y ++) {
+		for (int x = 0; x < 128; x++) {
+			for (int y = 0; y < 128; y++) {
 				int index = mapPalette.getPaletteIndex(subBuffer[x][y]);
 				byte color = (byte) (index < 128 ? index : -129 + (index - 127));
 				if (imageMap[x][y] != color) {

@@ -37,6 +37,7 @@ public class AbstractArmorItemStackFactory<T extends AbstractArmorItemStackFacto
 
 	/**
 	 * Set the armor trim.
+	 *
 	 * @param armorTrim The armor trim
 	 * @return The factory itself
 	 */

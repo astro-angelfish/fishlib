@@ -40,6 +40,7 @@ public class KnowledgeBookItemStackFactory extends AbstractItemStackFactory<Know
 
 	/**
 	 * Set the recipes of the knowledge book.
+	 *
 	 * @param recipes The recipes
 	 * @return The factory itself
 	 */
@@ -50,6 +51,7 @@ public class KnowledgeBookItemStackFactory extends AbstractItemStackFactory<Know
 
 	/**
 	 * Add a recipe to the knowledge book.
+	 *
 	 * @param recipe The recipe to add
 	 * @return The factory itself
 	 */

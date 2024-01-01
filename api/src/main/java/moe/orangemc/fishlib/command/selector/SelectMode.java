@@ -27,6 +27,8 @@ import java.util.List;
 @CanImplement
 public interface SelectMode {
 	char getSymbol();
+
 	List<Entity> preSelectEntities(Selector selector);
+
 	List<Entity> postSelectEntities(Selector selector);
 }

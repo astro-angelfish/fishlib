@@ -35,6 +35,7 @@ public class SkullItemStackFactory extends AbstractItemStackFactory<SkullItemSta
 
 	/**
 	 * Set the owner of the skull.
+	 *
 	 * @param owner The owner
 	 * @return The factory itself
 	 */
@@ -45,6 +46,7 @@ public class SkullItemStackFactory extends AbstractItemStackFactory<SkullItemSta
 
 	/**
 	 * Set the owner of the skull.
+	 *
 	 * @param profile The owner profile
 	 * @return The factory itself
 	 */

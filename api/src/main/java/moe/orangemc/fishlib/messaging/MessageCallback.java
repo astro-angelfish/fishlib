@@ -29,16 +29,18 @@ import org.bukkit.entity.Player;
  */
 @CanImplement
 public interface MessageCallback<T> {
-    /**
-     * Calls when bungee/player sends plugin message
-     * @param player player who send this message, null if this is a bungee channel.
-     * @param target message object
-     */
-    void call(Player player, T target);
+	/**
+	 * Calls when bungee/player sends plugin message
+	 *
+	 * @param player player who send this message, null if this is a bungee channel.
+	 * @param target message object
+	 */
+	void call(Player player, T target);
 
-    /**
-     * Fetch the acceptable class of plugin message
-     * @return message class which is acceptable
-     */
-    Class<T> getAcceptableClass();
+	/**
+	 * Fetch the acceptable class of plugin message
+	 *
+	 * @return message class which is acceptable
+	 */
+	Class<T> getAcceptableClass();
 }

@@ -26,7 +26,10 @@ import java.awt.*;
 @ShouldNotBeImplemented
 public interface MapRenderContext {
 	void drawText(Vector2i location, String fontName, String text, Color color, int size);
+
 	void drawImage(Vector2i location, Image image);
+
 	void setColor(Vector2i location2I, Color color);
+
 	void setColor(Vector2i from, Vector2i to, Color color);
 }

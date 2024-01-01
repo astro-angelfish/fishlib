@@ -27,9 +27,10 @@ import org.bukkit.entity.Player;
  */
 @CanImplement
 public interface InventoryHandler {
-    /**
-     * Called when inventory closes
-     * @param player the player who wants to close the inventory
-     */
-    void onClose(Player player);
+	/**
+	 * Called when inventory closes
+	 *
+	 * @param player the player who wants to close the inventory
+	 */
+	void onClose(Player player);
 }

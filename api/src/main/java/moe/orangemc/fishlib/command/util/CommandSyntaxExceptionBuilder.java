@@ -29,7 +29,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
 public class CommandSyntaxExceptionBuilder {
-	public static void raise(Plugin owner, CommandSender sender, String languageKey, String fallbackMessage, Object ... args) throws CommandSyntaxException {
+	public static void raise(Plugin owner, CommandSender sender, String languageKey, String fallbackMessage, Object... args) throws CommandSyntaxException {
 		Message errorMessage = () -> {
 			if (owner == null) {
 				return fallbackMessage;
@@ -42,7 +42,7 @@ public class CommandSyntaxExceptionBuilder {
 		throw new CommandSyntaxException(new SimpleCommandExceptionType(errorMessage), errorMessage);
 	}
 
-	public static void raise(Plugin owner, CommandSender sender, String languageKey, String fallbackMessage, StringReader input, Object ... args) throws CommandSyntaxException {
+	public static void raise(Plugin owner, CommandSender sender, String languageKey, String fallbackMessage, StringReader input, Object... args) throws CommandSyntaxException {
 		Message errorMessage = () -> {
 			if (owner == null) {
 				return fallbackMessage;

@@ -33,17 +33,19 @@ public interface InventoryPlaceableField extends InventoryControl {
 	Map<Integer, ItemStack> getContent();
 
 	/**
-	 * Sets the content of the field
-	 * @param content content of the field
-	 * @param needSynchronize true if it needs to be synchronized to inventory
-	 */
-	void setContent(Map<Integer, ItemStack> content, boolean needSynchronize);
-
-	/**
 	 * Sets the content of the field and synchronize to inventory
+	 *
 	 * @param content content of the field
 	 */
 	void setContent(Map<Integer, ItemStack> content);
+
+	/**
+	 * Sets the content of the field
+	 *
+	 * @param content         content of the field
+	 * @param needSynchronize true if it needs to be synchronized to inventory
+	 */
+	void setContent(Map<Integer, ItemStack> content, boolean needSynchronize);
 
 	/**
 	 * Clears the field.
@@ -52,6 +54,7 @@ public interface InventoryPlaceableField extends InventoryControl {
 
 	/**
 	 * Checks if the slot is inside the field
+	 *
 	 * @param slot the slot inside the field
 	 * @return true if the slot is inside the field
 	 */
@@ -59,6 +62,7 @@ public interface InventoryPlaceableField extends InventoryControl {
 
 	/**
 	 * Gets the relative position of the slot
+	 *
 	 * @param slot the absolute position
 	 * @return -1 if the slot is not inside the field, otherwise the relative position
 	 */

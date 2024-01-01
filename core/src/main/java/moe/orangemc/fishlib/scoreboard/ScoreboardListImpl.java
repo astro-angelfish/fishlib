@@ -35,15 +35,15 @@ import java.util.function.UnaryOperator;
 /**
  * An organized scoreboard based on {@link ArrayList}
  * Its display will change automatically when its content changes.
+ *
  * @see ArrayList
  * @see Scoreboard
  */
 public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardList {
 	private final Scoreboard scoreboard;
 	private final Objective objective;
-	private boolean autoUpdate = true;
-
 	private final List<Player> playerDisplayedTo = new ArrayList<>();
+	private boolean autoUpdate = true;
 
 	public ScoreboardListImpl(String title) {
 		Validate.notNull(title, "title cannot be null");
@@ -195,7 +195,7 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 		for (String entry : this) {
 			String place = entry;
 			if (place.trim().isEmpty()) {
-				emptyCounter ++;
+				emptyCounter++;
 				place = " ".repeat(Math.max(0, emptyCounter));
 			}
 			try {
@@ -203,7 +203,7 @@ public class ScoreboardListImpl extends ArrayList<String> implements ScoreboardL
 			} catch (IllegalArgumentException iae) {
 				objective.getScore("A long entry.").setScore(index);
 			}
-			index --;
+			index--;
 		}
 
 		for (String entry : scoreboard.getEntries()) {

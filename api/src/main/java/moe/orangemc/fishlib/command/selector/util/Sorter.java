@@ -24,5 +24,6 @@ import moe.orangemc.fishlib.command.selector.Selector;
 @CanImplement
 public interface Sorter {
 	String getName();
+
 	void sort(Selector selector);
 }

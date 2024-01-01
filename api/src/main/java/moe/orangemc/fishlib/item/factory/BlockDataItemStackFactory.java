@@ -34,6 +34,7 @@ public class BlockDataItemStackFactory extends AbstractItemStackFactory<BlockDat
 
 	/**
 	 * Set the block data of the item.
+	 *
 	 * @param blockData The block data
 	 * @return The factory itself
 	 */

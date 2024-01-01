@@ -34,6 +34,7 @@ public class SpawnEggItemStackFactory extends AbstractItemStackFactory<SpawnEggI
 
 	/**
 	 * Set the entity type of the spawn egg.
+	 *
 	 * @param entitySnapshot The entity type
 	 * @return The factory itself
 	 */

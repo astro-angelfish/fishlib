@@ -34,6 +34,7 @@ public class FireworkStarItemStackFactory extends AbstractItemStackFactory<Firew
 
 	/**
 	 * Set the effect of the firework star.
+	 *
 	 * @param effect The effect
 	 * @return The factory itself
 	 */

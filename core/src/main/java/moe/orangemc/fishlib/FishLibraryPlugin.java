@@ -34,6 +34,14 @@ public class FishLibraryPlugin extends JavaPlugin {
 	private static FishLibraryPlugin instance;
 	private static FishLibraryServiceImpl fishLibraryService;
 
+	public static FishLibraryPlugin getInstance() {
+		return instance;
+	}
+
+	public static FishLibraryServiceImpl getFishLibraryService() {
+		return fishLibraryService;
+	}
+
 	@Override
 	public void onLoad() {
 		instance = this;
@@ -51,13 +59,5 @@ public class FishLibraryPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new PluginListener(), this);
-	}
-
-	public static FishLibraryPlugin getInstance() {
-		return instance;
-	}
-
-	public static FishLibraryServiceImpl getFishLibraryService() {
-		return fishLibraryService;
 	}
 }

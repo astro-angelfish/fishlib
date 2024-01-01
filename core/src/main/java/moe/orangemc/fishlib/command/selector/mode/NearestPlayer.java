@@ -48,7 +48,7 @@ public class NearestPlayer implements SelectMode {
 		double lastDistance = Double.MAX_VALUE;
 
 		Location location = selector.getContext(LocationContext.class).getBaseLocation();
-		List<Entity> currentEntities =selector.getContext(SelectedEntitiesContext.class).getSelectedEntities();
+		List<Entity> currentEntities = selector.getContext(SelectedEntitiesContext.class).getSelectedEntities();
 
 		for (Entity e : currentEntities) {
 			if (e.getLocation().distanceSquared(location) < lastDistance) {

@@ -32,6 +32,7 @@ import org.bukkit.plugin.Plugin;
 public interface FishLibraryService {
 	/**
 	 * Get a {@see PluginInventoryManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see PluginInventoryManager} of the plugin.
 	 */
@@ -39,6 +40,7 @@ public interface FishLibraryService {
 
 	/**
 	 * Get a {@see MessagingManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see MessagingManager} of the plugin.
 	 */
@@ -46,6 +48,7 @@ public interface FishLibraryService {
 
 	/**
 	 * Get a {@see ScoreboardListManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see ScoreboardListManager} of the plugin.
 	 */
@@ -53,6 +56,7 @@ public interface FishLibraryService {
 
 	/**
 	 * Get a {@see LanguageManager} of the plugin
+	 *
 	 * @param plugin the plugin
 	 * @return the {@see LanguageManager} of the plugin, or null if failed to initialize language manager.
 	 */
@@ -60,6 +64,7 @@ public interface FishLibraryService {
 
 	/**
 	 * Get a {@see MapManager} of the plugin
+	 *
 	 * @param plugin the plugin
 	 * @return the {@see MapManager} of the plugin.
 	 */

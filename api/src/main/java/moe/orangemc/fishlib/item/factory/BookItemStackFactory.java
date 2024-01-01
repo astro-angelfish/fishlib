@@ -39,6 +39,7 @@ public class BookItemStackFactory extends AbstractItemStackFactory<BookItemStack
 
 	/**
 	 * Set the title of the book.
+	 *
 	 * @param title The title
 	 * @return The factory itself
 	 */
@@ -49,6 +50,7 @@ public class BookItemStackFactory extends AbstractItemStackFactory<BookItemStack
 
 	/**
 	 * Set the author of the book.
+	 *
 	 * @param author The author
 	 * @return The factory itself
 	 */
@@ -59,6 +61,7 @@ public class BookItemStackFactory extends AbstractItemStackFactory<BookItemStack
 
 	/**
 	 * Set the generation of the book.
+	 *
 	 * @param generation The generation
 	 * @return The factory itself
 	 */
@@ -69,6 +72,7 @@ public class BookItemStackFactory extends AbstractItemStackFactory<BookItemStack
 
 	/**
 	 * Set the pages of the book.
+	 *
 	 * @param pages The pages
 	 * @return The factory itself
 	 */
@@ -79,6 +83,7 @@ public class BookItemStackFactory extends AbstractItemStackFactory<BookItemStack
 
 	/**
 	 * Add a page to the book.
+	 *
 	 * @param page The page
 	 * @return The factory itself
 	 */

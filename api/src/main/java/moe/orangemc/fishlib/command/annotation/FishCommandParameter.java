@@ -30,5 +30,6 @@ import java.lang.annotation.Target;
 @ShouldNotBeImplemented
 public @interface FishCommandParameter {
 	String languageKey() default "";
+
 	String name();
 }

@@ -74,23 +74,8 @@ public class NBTArgumentType implements ComplexSelectorArgumentType<Entity> {
 		return new NBTArgumentType(nbt);
 	}
 
-	@Override
-	public boolean matches(Entity val) {
-		Set<String> keys = this.nbt.getKeys();
-		NBTEntity ne = new NBTEntity(val);
-
-		for (String key : keys) {
-			if (!isEqual(ne, nbt, key)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private static boolean isEqual(NBTCompound compA, NBTContainer compB, String key) {
-		if (compA.getType(key) != compB.getType(key))
-			return false;
+		if (compA.getType(key) != compB.getType(key)) return false;
 		return switch (compA.getType(key)) {
 			case NBTTagByte -> compA.getByte(key).equals(compB.getByte(key));
 			case NBTTagByteArray -> Arrays.equals(compA.getByteArray(key), compB.getByteArray(key));
@@ -106,5 +91,19 @@ public class NBTArgumentType implements ComplexSelectorArgumentType<Entity> {
 			case NBTTagShort -> compA.getShort(key).equals(compB.getShort(key));
 			case NBTTagString -> compA.getString(key).equals(compB.getString(key));
 		};
+	}
+
+	@Override
+	public boolean matches(Entity val) {
+		Set<String> keys = this.nbt.getKeys();
+		NBTEntity ne = new NBTEntity(val);
+
+		for (String key : keys) {
+			if (!isEqual(ne, nbt, key)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

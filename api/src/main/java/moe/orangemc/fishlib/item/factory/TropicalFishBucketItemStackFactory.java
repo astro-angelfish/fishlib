@@ -35,6 +35,7 @@ public class TropicalFishBucketItemStackFactory extends AbstractItemStackFactory
 
 	/**
 	 * Set the pattern color of the tropical fish in the bucket.
+	 *
 	 * @param color The pattern color
 	 * @return The factory itself
 	 */
@@ -45,6 +46,7 @@ public class TropicalFishBucketItemStackFactory extends AbstractItemStackFactory
 
 	/**
 	 * Set the body color of the tropical fish in the bucket.
+	 *
 	 * @param color The body color
 	 * @return The factory itself
 	 */
@@ -55,6 +57,7 @@ public class TropicalFishBucketItemStackFactory extends AbstractItemStackFactory
 
 	/**
 	 * Set the pattern of the tropical fish in the bucket.
+	 *
 	 * @param pattern The pattern
 	 * @return The factory itself
 	 */

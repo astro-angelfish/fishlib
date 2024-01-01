@@ -35,13 +35,13 @@ public class MapListWidgetItemImpl extends MapClickableImpl implements MapListWi
 	}
 
 	@Override
-	public void setText(String text) {
-		this.text = text;
+	public String getText() {
+		return text;
 	}
 
 	@Override
-	public String getText() {
-		return text;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@Override

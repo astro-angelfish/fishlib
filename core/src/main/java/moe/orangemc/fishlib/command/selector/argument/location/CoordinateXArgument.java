@@ -47,7 +47,7 @@ public class CoordinateXArgument implements SelectorArgument<Double> {
 		locationContext.setX(value);
 
 		if (Math.round(value) == value) {
-			return entity.getLocation().getBlockX() == (int)Math.round(value);
+			return entity.getLocation().getBlockX() == (int) Math.round(value);
 		}
 		return Math.abs(entity.getLocation().getX() - value) < 0.001;
 	}

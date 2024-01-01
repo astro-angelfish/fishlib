@@ -39,6 +39,7 @@ public class CrossbowItemStackFactory extends AbstractItemStackFactory<CrossbowI
 
 	/**
 	 * Set the charged projectiles of the crossbow.
+	 *
 	 * @param chargedProjectiles The charged projectiles
 	 * @return The factory itself
 	 */
@@ -49,6 +50,7 @@ public class CrossbowItemStackFactory extends AbstractItemStackFactory<CrossbowI
 
 	/**
 	 * Add a charged projectile to the crossbow.
+	 *
 	 * @param chargedProjectile The charged projectile to add
 	 * @return The factory itself
 	 */

@@ -39,6 +39,7 @@ public class BundleItemStackFactory extends AbstractItemStackFactory<BundleItemS
 
 	/**
 	 * Set the items in the bundle.
+	 *
 	 * @param items The items
 	 * @return The factory itself
 	 */
@@ -49,6 +50,7 @@ public class BundleItemStackFactory extends AbstractItemStackFactory<BundleItemS
 
 	/**
 	 * Add an item to the bundle.
+	 *
 	 * @param item The item to add
 	 * @return The factory itself
 	 */

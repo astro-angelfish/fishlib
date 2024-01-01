@@ -46,17 +46,16 @@ import java.util.function.Consumer;
 @ShouldNotBeImplemented
 public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 	private final Material material;
+	private final Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
+	private final Multimap<Attribute, AttributeModifier> attributeModifierMap = ArrayListMultimap.create();
+	private final Map<String, Consumer<ItemMeta>> postItemMetaHooks = new HashMap<>();
 	private int amount = 1;
 	private int damage = 0;
-	private final Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
 	private String displayName = null;
 	private List<String> lore = null;
 	private List<ItemFlag> itemFlags = null;
 	private boolean unbreakable = false;
 	private int repairCost = 0;
-	private final Multimap<Attribute, AttributeModifier> attributeModifierMap = ArrayListMultimap.create();
-
-	private final Map<String, Consumer<ItemMeta>> postItemMetaHooks = new HashMap<>();
 
 	protected AbstractItemStackFactory(Material material) {
 		Validate.notNull(material, "material cannot be null");
@@ -66,6 +65,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Set the amount of the item stack to be constructed
+	 *
 	 * @param amount the amount of the item stack to be constructed
 	 * @return the factory itself
 	 */
@@ -79,8 +79,9 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Add an enchantment to the item stack to be constructed.
+	 *
 	 * @param enchantment the enchantment to be applied
-	 * @param level the level of the enchantment
+	 * @param level       the level of the enchantment
 	 * @return the factory itself
 	 */
 	@SuppressWarnings("unchecked")
@@ -94,6 +95,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Attach a name to the item stack to be constructed.
+	 *
 	 * @param name the name to be applied
 	 * @return the factory itself
 	 */
@@ -105,6 +107,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Clone and attach the lore to the item stack to be constructed.
+	 *
 	 * @param lore the lore to be applied
 	 * @return the factory itself
 	 */
@@ -118,6 +121,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Add a line of lore to the item stack to be constructed.
+	 *
 	 * @param loreLine a line of the lore
 	 * @return the factory itself
 	 */
@@ -134,6 +138,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Attach a map of attribute modifiers to the item stack to be constructed
+	 *
 	 * @param attributeModifierMap the map of attribute modifiers to be applied
 	 * @return the factory itself
 	 */
@@ -145,6 +150,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Attach a map of enchantments to the item stack to be constructed
+	 *
 	 * @param enchantmentMap the map of enchantments to be applied
 	 * @return the factory itself
 	 */
@@ -156,11 +162,12 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Attach the item flags to the item stack to be constructed
+	 *
 	 * @param itemFlags flags to be attached
 	 * @return the factory itself
 	 */
 	@SuppressWarnings("unchecked")
-	public T withItemFlags(ItemFlag ... itemFlags) {
+	public T withItemFlags(ItemFlag... itemFlags) {
 		Validate.notNull(itemFlags, "itemFlags cannot be null");
 		Validate.noNullElements(itemFlags, "all elements in itemFlags cannot be null");
 
@@ -174,7 +181,8 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Attach an attribute modifier to the item stack to be constructed
-	 * @param attribute the attribute to be modified
+	 *
+	 * @param attribute         the attribute to be modified
 	 * @param attributeModifier the modifier to be applied
 	 * @return the factory itself
 	 */
@@ -190,6 +198,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Set the item stack to be constructed is unbreakable
+	 *
 	 * @param unbreakable the unbreakable value
 	 * @return the factory itself
 	 */
@@ -201,6 +210,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Set the repair cost of the item stack to be constructed
+	 *
 	 * @param repairCost the repair cost
 	 * @return the factory itself
 	 */
@@ -212,6 +222,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Set the damage value of the item stack to be constructed
+	 *
 	 * @param damage the damage value
 	 * @return the factory itself
 	 */
@@ -223,7 +234,8 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Add a hook to the item meta of the item stack to be constructed.
-	 * @param name the name of the hook
+	 *
+	 * @param name    the name of the hook
 	 * @param updater the hook
 	 * @return the factory itself
 	 */
@@ -236,6 +248,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Add a map of hooks to the item meta of the item stack to be constructed.
+	 *
 	 * @param hooks the map of hooks
 	 * @return the factory itself
 	 */
@@ -248,6 +261,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Build an item stack, finish all the setup
+	 *
 	 * @return the item stack constructed
 	 */
 	public ItemStack build() {
@@ -293,16 +307,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 	 * @return the generic item stack factory
 	 */
 	public ItemStackFactory toGeneric() {
-		ItemStackFactory factory = new ItemStackFactory(this.material)
-				.setUnbreakable(this.unbreakable)
-				.withRepairCost(this.repairCost)
-				.withDisplayName(this.displayName)
-				.withLore(this.lore)
-				.withAttributeModifiers(this.attributeModifierMap)
-				.withEnchantments(this.enchantmentMap)
-				.withAmount(this.amount)
-				.withDamage(damage)
-				.addAllItemMetaPostHooks(this.postItemMetaHooks);
+		ItemStackFactory factory = new ItemStackFactory(this.material).setUnbreakable(this.unbreakable).withRepairCost(this.repairCost).withDisplayName(this.displayName).withLore(this.lore).withAttributeModifiers(this.attributeModifierMap).withEnchantments(this.enchantmentMap).withAmount(this.amount).withDamage(damage).addAllItemMetaPostHooks(this.postItemMetaHooks);
 		if (this.itemFlags != null) {
 			factory.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]));
 		}
@@ -311,6 +316,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 
 	/**
 	 * Converts current item stack factory to a generic armor item stack factory.
+	 *
 	 * @return the generic armor item stack factory
 	 */
 	public ArmorItemStackFactory toGenericArmor() {
@@ -318,16 +324,7 @@ public class AbstractItemStackFactory<T extends AbstractItemStackFactory<T>> {
 			throw new ClassCastException("Cannot cast " + this + " to generic armor item stack factory");
 		}
 
-		ArmorItemStackFactory armorItemStackFactory = new ArmorItemStackFactory(this.material)
-				.setUnbreakable(this.unbreakable)
-				.withRepairCost(this.repairCost)
-				.withDisplayName(this.displayName)
-				.withLore(this.lore)
-				.withAttributeModifiers(this.attributeModifierMap)
-				.withEnchantments(this.enchantmentMap)
-				.withAmount(this.amount)
-				.withDamage(damage)
-				.addAllItemMetaPostHooks(this.postItemMetaHooks);
+		ArmorItemStackFactory armorItemStackFactory = new ArmorItemStackFactory(this.material).setUnbreakable(this.unbreakable).withRepairCost(this.repairCost).withDisplayName(this.displayName).withLore(this.lore).withAttributeModifiers(this.attributeModifierMap).withEnchantments(this.enchantmentMap).withAmount(this.amount).withDamage(damage).addAllItemMetaPostHooks(this.postItemMetaHooks);
 		if (this.itemFlags != null) {
 			armorItemStackFactory.withItemFlags(this.itemFlags.toArray(new ItemFlag[0]));
 		}

@@ -39,6 +39,7 @@ public class SuspiciousStewItemStackFactory extends AbstractItemStackFactory<Sus
 
 	/**
 	 * Set the custom effects of the suspicious stew.
+	 *
 	 * @param customEffects The custom effects
 	 * @return The factory itself
 	 */
@@ -49,6 +50,7 @@ public class SuspiciousStewItemStackFactory extends AbstractItemStackFactory<Sus
 
 	/**
 	 * Add a custom effect to the suspicious stew.
+	 *
 	 * @param customEffect The custom effect to add
 	 * @return The factory itself
 	 */

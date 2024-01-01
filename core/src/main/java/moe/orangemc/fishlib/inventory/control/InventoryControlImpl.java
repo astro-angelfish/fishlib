@@ -24,19 +24,19 @@ import org.bukkit.inventory.Inventory;
  * Custom control of inventory
  */
 public abstract class InventoryControlImpl implements InventoryControl {
-    private Inventory inventoryPutIn = null;
-    private int startIndex = -1;
+	private Inventory inventoryPutIn = null;
+	private int startIndex = -1;
 
-    public void onAdd(Inventory inventory, int startIndex) {
-        inventoryPutIn = inventory;
-        this.startIndex = startIndex;
-    }
+	public void onAdd(Inventory inventory, int startIndex) {
+		inventoryPutIn = inventory;
+		this.startIndex = startIndex;
+	}
 
-    public int getStartIndex() {
-        return startIndex;
-    }
+	public int getStartIndex() {
+		return startIndex;
+	}
 
-    protected Inventory getInventoryPutIn() {
-        return inventoryPutIn;
-    }
+	protected Inventory getInventoryPutIn() {
+		return inventoryPutIn;
+	}
 }

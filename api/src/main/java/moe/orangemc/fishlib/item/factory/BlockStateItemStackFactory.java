@@ -34,6 +34,7 @@ public class BlockStateItemStackFactory extends AbstractItemStackFactory<BlockSt
 
 	/**
 	 * Set the block state of the item.
+	 *
 	 * @param blockState The block state
 	 * @return The factory itself
 	 */

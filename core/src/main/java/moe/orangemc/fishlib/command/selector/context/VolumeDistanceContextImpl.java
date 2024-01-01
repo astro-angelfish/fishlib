@@ -26,7 +26,7 @@ import org.bukkit.util.BoundingBox;
 
 public class VolumeDistanceContextImpl implements VolumeDistanceContext {
 	private final Selector selector;
-	
+
 	private double x = Double.NaN;
 	private double y = Double.NaN;
 	private double z = Double.NaN;
@@ -35,21 +35,25 @@ public class VolumeDistanceContextImpl implements VolumeDistanceContext {
 		this.selector = selector;
 	}
 
-	@Override public void setX(double x) {
+	@Override
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	@Override public void setY(double y) {
+	@Override
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	@Override public void setZ(double z) {
+	@Override
+	public void setZ(double z) {
 		this.z = z;
 	}
-	
-	@Override public boolean checkEntity(Entity entity) {
+
+	@Override
+	public boolean checkEntity(Entity entity) {
 		Location baseLocation = selector.getContext(LocationContext.class).getBaseLocation();
-		
+
 		if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) {
 			return true;
 		}

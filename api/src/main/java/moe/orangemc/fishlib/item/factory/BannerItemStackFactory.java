@@ -40,6 +40,7 @@ public class BannerItemStackFactory extends AbstractItemStackFactory<BannerItemS
 
 	/**
 	 * Add a pattern to the banner.
+	 *
 	 * @param pattern The pattern to add
 	 * @return The factory itself
 	 */
@@ -50,6 +51,7 @@ public class BannerItemStackFactory extends AbstractItemStackFactory<BannerItemS
 
 	/**
 	 * Set the patterns of the banner.
+	 *
 	 * @param patterns The patterns
 	 * @return The factory itself
 	 */

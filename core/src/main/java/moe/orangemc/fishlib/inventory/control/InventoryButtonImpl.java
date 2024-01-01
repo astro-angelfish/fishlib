@@ -27,33 +27,35 @@ import org.bukkit.inventory.ItemStack;
  * Clickable button, triggers handler when player clicks it.
  */
 public class InventoryButtonImpl extends InventoryControlImpl implements InventoryButton {
-    private final ItemStack item;
-    private final ButtonClickHandler handler;
-    public InventoryButtonImpl(ItemStack item) {
-        this(item, null);
-    }
-    public InventoryButtonImpl(ItemStack item, ButtonClickHandler handler) {
-        this.item = item;
-        this.handler = handler;
-    }
+	private final ItemStack item;
+	private final ButtonClickHandler handler;
 
-    public ButtonClickHandler getHandler() {
-        return handler;
-    }
+	public InventoryButtonImpl(ItemStack item) {
+		this(item, null);
+	}
 
-    @Override
-    public void onAdd(Inventory inventory, int startIndex) {
-        super.onAdd(inventory, startIndex);
-        inventory.setItem(startIndex, item);
-    }
+	public InventoryButtonImpl(ItemStack item, ButtonClickHandler handler) {
+		this.item = item;
+		this.handler = handler;
+	}
+
+	public ButtonClickHandler getHandler() {
+		return handler;
+	}
+
+	@Override
+	public void onAdd(Inventory inventory, int startIndex) {
+		super.onAdd(inventory, startIndex);
+		inventory.setItem(startIndex, item);
+	}
+
+	@Override
+	public ItemStack getItem() {
+		return item;
+	}
 
 	@Override
 	public void setItem(ItemStack item) {
 		getInventoryPutIn().setItem(getStartIndex(), item);
 	}
-
-	@Override
-    public ItemStack getItem() {
-        return item;
-    }
 }

@@ -34,6 +34,7 @@ public class MusicInstrumentItemStackFactory extends AbstractItemStackFactory<Mu
 
 	/**
 	 * Set the instrument type of the music instrument.
+	 *
 	 * @param instrumentType The instrument type
 	 * @return The factory itself
 	 */

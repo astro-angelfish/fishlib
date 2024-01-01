@@ -34,6 +34,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Constructs a new 2 dimension vector
+	 *
 	 * @param x the x position
 	 * @param y the y position
 	 */
@@ -44,6 +45,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Get x position of the vector
+	 *
 	 * @return the x position
 	 */
 	public int getX() {
@@ -51,15 +53,8 @@ public final class Vector2i implements Cloneable, Serializable {
 	}
 
 	/**
-	 * Get y position of the vector
-	 * @return the y position
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
 	 * Set x position of the vector
+	 *
 	 * @param x the x position
 	 * @return the vector itself
 	 */
@@ -70,7 +65,17 @@ public final class Vector2i implements Cloneable, Serializable {
 	}
 
 	/**
+	 * Get y position of the vector
+	 *
+	 * @return the y position
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
 	 * Set y position of the vector
+	 *
 	 * @param y the y position
 	 * @return the vector itself
 	 */
@@ -82,6 +87,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Adds two positions to the vector
+	 *
 	 * @param x the x position
 	 * @param y the y position
 	 * @return the vector itself
@@ -97,6 +103,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Subtracts to position from the vector
+	 *
 	 * @param x the x position
 	 * @param y the y position
 	 * @return the vector itself
@@ -112,6 +119,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Multiply this vector with the scale
+	 *
 	 * @param scale the scale
 	 * @return the vector itself
 	 */
@@ -123,6 +131,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Divide this vector by the scale
+	 *
 	 * @param scale the scale
 	 * @return the vector itself
 	 */
@@ -134,6 +143,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Adds this vector with another vector
+	 *
 	 * @param another another vector to add
 	 * @return the vector itself
 	 */
@@ -146,6 +156,7 @@ public final class Vector2i implements Cloneable, Serializable {
 
 	/**
 	 * Subtracts this vector with another vector
+	 *
 	 * @param another another vector to subtract
 	 * @return the vector itself
 	 */

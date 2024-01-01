@@ -28,6 +28,7 @@ public interface InventoryButton extends InventoryControl {
 
 	/**
 	 * Set the icon of button
+	 *
 	 * @param item the new icon
 	 */
 	void setItem(ItemStack item);

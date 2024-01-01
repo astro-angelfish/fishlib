@@ -51,6 +51,7 @@ import java.util.*;
 
 /**
  * Common commands.
+ *
  * @see org.bukkit.command.CommandExecutor
  * @see org.bukkit.command.TabCompleter
  */
@@ -58,121 +59,122 @@ import java.util.*;
 public final class CommonCommand implements CommandExecutor, TabCompleter {
 	private final String prefix;
 
-    private final Map<String, GeneratedSubCommand> commandBaseMap = new HashMap<>();
-    private final Map<String, GeneratedSubCommand> aliasesMap = new HashMap<>();
+	private final Map<String, GeneratedSubCommand> commandBaseMap = new HashMap<>();
+	private final Map<String, GeneratedSubCommand> aliasesMap = new HashMap<>();
 
 	private final CommandDispatcher<CommandSender> commandDispatcher;
 	private String lastLabel;
 
-    public CommonCommand() {
-        this("");
-    }
+	public CommonCommand() {
+		this("");
+	}
 
-    public CommonCommand(String prefix) {
-	    if (prefix == null) {
-    		prefix = "";
-	    }
+	public CommonCommand(String prefix) {
+		if (prefix == null) {
+			prefix = "";
+		}
 
-        this.prefix = prefix;
+		this.prefix = prefix;
 		this.commandDispatcher = new CommandDispatcher<>();
 
-        // help command
-        registerCommand(new HelpCommand());
-    }
+		// help command
+		registerCommand(new HelpCommand());
+	}
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            return onCommand(sender, command, label, new String[]{"help"});
-        }
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (args.length == 0) {
+			return onCommand(sender, command, label, new String[]{"help"});
+		}
 		if (label != null) {
 			this.lastLabel = label;
 		}
 
-        String commandName = args[0];
+		String commandName = args[0];
 
-        GeneratedSubCommand subCommand;
-        if (commandBaseMap.containsKey(commandName)) {
-            subCommand = commandBaseMap.get(commandName);
-        } else if (aliasesMap.containsKey(commandName)) {
-            subCommand = aliasesMap.get(commandName);
-        } else {
-            return onCommand(sender, command, label, new String[]{"help"});
-        }
+		GeneratedSubCommand subCommand;
+		if (commandBaseMap.containsKey(commandName)) {
+			subCommand = commandBaseMap.get(commandName);
+		} else if (aliasesMap.containsKey(commandName)) {
+			subCommand = aliasesMap.get(commandName);
+		} else {
+			return onCommand(sender, command, label, new String[]{"help"});
+		}
 
-        if (subCommand.commandBase.getPermissionRequired() != null) {
-            if (!sender.hasPermission(subCommand.commandBase.getPermissionRequired())) {
-            	if (FishLibrary.getStandalonePlugin() == null) {
-		            sender.sendMessage(prefix + ChatColor.RED + "你没有使用此命令的权限(┙>∧<)┙へ┻┻");
-	            } else {
-            		LanguageManager languageManager = FishLibrary.getLanguageManager(FishLibrary.getStandalonePlugin());
-            		sender.sendMessage(languageManager.getTranslationBySender(sender, "command.no_permission"));
-	            }
-                return true;
-            }
-        }
+		if (subCommand.commandBase.getPermissionRequired() != null) {
+			if (!sender.hasPermission(subCommand.commandBase.getPermissionRequired())) {
+				if (FishLibrary.getStandalonePlugin() == null) {
+					sender.sendMessage(prefix + ChatColor.RED + "你没有使用此命令的权限(┙>∧<)┙へ┻┻");
+				} else {
+					LanguageManager languageManager = FishLibrary.getLanguageManager(FishLibrary.getStandalonePlugin());
+					sender.sendMessage(languageManager.getTranslationBySender(sender, "command.no_permission"));
+				}
+				return true;
+			}
+		}
 
-	    try {
-		    commandDispatcher.execute(String.join(" ", args).strip(), sender);
-	    } catch (CommandSyntaxException e) {
+		try {
+			commandDispatcher.execute(String.join(" ", args).strip(), sender);
+		} catch (CommandSyntaxException e) {
 			if (CommandSyntaxException.ENABLE_COMMAND_STACK_TRACES) {
 				StringWriter sw = new StringWriter();
 				PrintWriter pw = new PrintWriter(sw);
 				e.printStackTrace(pw);
 				subCommand.commandBase.getProvidingPlugin().getLogger().warning(sw.toString());
 			}
-		    return onCommand(sender, command, label, new String[]{"help", args[0]});
-	    }
+			return onCommand(sender, command, label, new String[]{"help", args[0]});
+		}
 
-	    return true;
-    }
+		return true;
+	}
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length > 1) {
-            String commandName = args[0];
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		if (args.length > 1) {
+			String commandName = args[0];
 
-            GeneratedSubCommand generatedSubCommand;
-            if (commandBaseMap.containsKey(commandName)) {
-                generatedSubCommand = commandBaseMap.get(commandName);
-            } else if (aliasesMap.containsKey(commandName)) {
-                generatedSubCommand = aliasesMap.get(commandName);
-            } else {
-                return new ArrayList<>();
-            }
+			GeneratedSubCommand generatedSubCommand;
+			if (commandBaseMap.containsKey(commandName)) {
+				generatedSubCommand = commandBaseMap.get(commandName);
+			} else if (aliasesMap.containsKey(commandName)) {
+				generatedSubCommand = aliasesMap.get(commandName);
+			} else {
+				return new ArrayList<>();
+			}
 
-            if (generatedSubCommand.commandBase.getPermissionRequired() != null) {
-                if (!sender.hasPermission(generatedSubCommand.commandBase.getPermissionRequired())) {
-                    return new ArrayList<>();
-                }
-            }
+			if (generatedSubCommand.commandBase.getPermissionRequired() != null) {
+				if (!sender.hasPermission(generatedSubCommand.commandBase.getPermissionRequired())) {
+					return new ArrayList<>();
+				}
+			}
 
-            String[] subArgs = new String[args.length - 1];
-            System.arraycopy(args, 1, subArgs, 0, subArgs.length);
+			String[] subArgs = new String[args.length - 1];
+			System.arraycopy(args, 1, subArgs, 0, subArgs.length);
 
 			// TODO: We'll complete the full suggestion provider after Bukkit provides the cursor position of the user input box.
-        }
+		}
 
-        return getCommandForTabComplete(args);
-    }
+		return getCommandForTabComplete(args);
+	}
 
-    private List<String> getCommandForTabComplete(String[] args) {
-        List<String> commandList = new ArrayList<>();
-        commandBaseMap.forEach((name, commandBase) -> commandList.add(name));
+	private List<String> getCommandForTabComplete(String[] args) {
+		List<String> commandList = new ArrayList<>();
+		commandBaseMap.forEach((name, commandBase) -> commandList.add(name));
 
-        if (args.length == 1 && !args[0].isEmpty()) {
-            commandList.removeIf((name) -> !name.startsWith(args[0]));
-        }
+		if (args.length == 1 && !args[0].isEmpty()) {
+			commandList.removeIf((name) -> !name.startsWith(args[0]));
+		}
 
-        return commandList;
-    }
+		return commandList;
+	}
 
-    /**
-     * Register a sub-command
-     * @param commandBase the sub-command to be registered.
-     */
-    public void registerCommand(SubCommandBase commandBase) {
-	    Validate.notNull(commandBase, "commandBase cannot be null");
+	/**
+	 * Register a sub-command
+	 *
+	 * @param commandBase the sub-command to be registered.
+	 */
+	public void registerCommand(SubCommandBase commandBase) {
+		Validate.notNull(commandBase, "commandBase cannot be null");
 
 		GeneratedSubCommand command = new GeneratedSubCommand(commandBase);
 
@@ -180,22 +182,22 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 			this.aliasesMap.put(alias, command);
 		}
 
-	    this.commandBaseMap.put(commandBase.getName(), command);
-    }
+		this.commandBaseMap.put(commandBase.getName(), command);
+	}
 
-    private final class HelpCommand implements SubCommandBase {
-        @Override
-        public String getName() {
-            return "help";
-        }
+	private final class HelpCommand implements SubCommandBase {
+		@Override
+		public String getName() {
+			return "help";
+		}
 
-        @Override
-        public String getDescription() {
-        	if (getProvidingPlugin() == null) {
-        		return "获取帮助信息，也就是你眼前的这条消息.";
-	        }
-            return "command.help.description";
-        }
+		@Override
+		public String getDescription() {
+			if (getProvidingPlugin() == null) {
+				return "获取帮助信息，也就是你眼前的这条消息.";
+			}
+			return "command.help.description";
+		}
 
 		@FishCommandExecutor
 		public void execute(CommandSender sender) {
@@ -207,18 +209,18 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 		}
 
 		@FishCommandExecutor
-        public void execute(CommandSender sender, @FishCommandParameter(languageKey = "command.help.arg1", name = "command") String name) {
+		public void execute(CommandSender sender, @FishCommandParameter(languageKey = "command.help.arg1", name = "command") String name) {
 
-            GeneratedSubCommand subCommand = null;
-            if (commandBaseMap.containsKey(name)) {
-                subCommand = commandBaseMap.get(name);
-            } else if (aliasesMap.containsKey(name)) {
-                subCommand = aliasesMap.get(name);
-            }
-            if (subCommand == null) {
-	            execute(sender);
+			GeneratedSubCommand subCommand = null;
+			if (commandBaseMap.containsKey(name)) {
+				subCommand = commandBaseMap.get(name);
+			} else if (aliasesMap.containsKey(name)) {
+				subCommand = aliasesMap.get(name);
+			}
+			if (subCommand == null) {
+				execute(sender);
 				return;
-            }
+			}
 
 			StringBuilder paramStringBuilder = new StringBuilder(ChatColor.YELLOW + "/").append(CommonCommand.this.lastLabel).append(" ").append(subCommand.commandBase.getName()).append(" ");
 			String description;
@@ -245,7 +247,7 @@ public final class CommonCommand implements CommandExecutor, TabCompleter {
 			paramStringBuilder.append(ChatColor.GREEN).append("- ").append(ChatColor.GOLD).append(description);
 			sender.sendMessage(paramStringBuilder.toString());
 		}
-    }
+	}
 
 	private final class GeneratedSubCommand {
 		private final Map<Method, List<String>> nameMap = new HashMap<>();

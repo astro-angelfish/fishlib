@@ -28,10 +28,11 @@ import org.bukkit.entity.Player;
  */
 @CanImplement
 public interface ButtonClickHandler {
-    /**
-     * Calls when a player clicks that button
-     * @param whoClicked the player clicked the button
-     * @param inventoryButtonClicked the button clicked.
-     */
-    void onClick(Player whoClicked, InventoryButton inventoryButtonClicked, boolean leftClick);
+	/**
+	 * Calls when a player clicks that button
+	 *
+	 * @param whoClicked             the player clicked the button
+	 * @param inventoryButtonClicked the button clicked.
+	 */
+	void onClick(Player whoClicked, InventoryButton inventoryButtonClicked, boolean leftClick);
 }

@@ -36,58 +36,58 @@ import java.util.List;
  */
 public class PluginInventoryManagerImpl implements PluginInventoryManager {
 	private final List<PluginInventory> inventoryList = new ArrayList<>();
-    private final List<InventoryProgressBar> inventoryProgressBarsToUpdate = new ArrayList<>();
+	private final List<InventoryProgressBar> inventoryProgressBarsToUpdate = new ArrayList<>();
 
-    public PluginInventoryManagerImpl(Plugin plugin) {
-	    Bukkit.getScheduler().runTaskTimer(plugin, this::updateProgressBar, 0, 0);
-        Bukkit.getPluginManager().registerEvents(new InventoryListener(this), plugin);
-    }
+	public PluginInventoryManagerImpl(Plugin plugin) {
+		Bukkit.getScheduler().runTaskTimer(plugin, this::updateProgressBar, 0, 0);
+		Bukkit.getPluginManager().registerEvents(new InventoryListener(this), plugin);
+	}
 
-    @Override
-    public PluginInventory createInventory(Player player, String title, int height) {
-	    Validate.notNull(player, "player cannot be null");
-	    Validate.notNull(title, "title cannot be null");
+	@Override
+	public PluginInventory createInventory(Player player, String title, int height) {
+		Validate.notNull(player, "player cannot be null");
+		Validate.notNull(title, "title cannot be null");
 
-        PluginInventory inventory = new PluginInventoryImpl(this, title, player, height);
-        inventoryList.add(inventory);
-        return inventory;
-    }
+		PluginInventory inventory = new PluginInventoryImpl(this, title, player, height);
+		inventoryList.add(inventory);
+		return inventory;
+	}
 
-    @Override
-    public void destroyInventory(PluginInventory inventory) {
-	    Validate.notNull(inventory, "inventory cannot be null");
+	@Override
+	public void destroyInventory(PluginInventory inventory) {
+		Validate.notNull(inventory, "inventory cannot be null");
 
-        inventoryList.remove(inventory);
-	    ((PluginInventoryImpl) inventory).onDestroy();
-    }
+		inventoryList.remove(inventory);
+		((PluginInventoryImpl) inventory).onDestroy();
+	}
 
-    @Override
-    public List<PluginInventory> getInventoryList() {
-        return Collections.unmodifiableList(inventoryList);
-    }
+	@Override
+	public List<PluginInventory> getInventoryList() {
+		return Collections.unmodifiableList(inventoryList);
+	}
 
-    public void registerProgressBar(InventoryProgressBar inventoryProgressBar) {
-        inventoryProgressBarsToUpdate.add(inventoryProgressBar);
-    }
+	public void registerProgressBar(InventoryProgressBar inventoryProgressBar) {
+		inventoryProgressBarsToUpdate.add(inventoryProgressBar);
+	}
 
-    public void unregisterProgressBar(InventoryProgressBar inventoryProgressBar) {
-        inventoryProgressBarsToUpdate.remove(inventoryProgressBar);
-    }
+	public void unregisterProgressBar(InventoryProgressBar inventoryProgressBar) {
+		inventoryProgressBarsToUpdate.remove(inventoryProgressBar);
+	}
 
-    private void updateProgressBar() {
-        for (InventoryProgressBar inventoryProgressBar : inventoryProgressBarsToUpdate) {
-            inventoryProgressBar.update();
-        }
-    }
+	private void updateProgressBar() {
+		for (InventoryProgressBar inventoryProgressBar : inventoryProgressBarsToUpdate) {
+			inventoryProgressBar.update();
+		}
+	}
 
-    @Override
-    public PluginInventory getInventoryByBukkitInventory(Inventory inventory) {
-        for (PluginInventory pluginInventory : inventoryList) {
-            if (pluginInventory.checkInventory(inventory)) {
-                return pluginInventory;
-            }
-        }
+	@Override
+	public PluginInventory getInventoryByBukkitInventory(Inventory inventory) {
+		for (PluginInventory pluginInventory : inventoryList) {
+			if (pluginInventory.checkInventory(inventory)) {
+				return pluginInventory;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

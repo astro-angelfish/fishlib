@@ -40,6 +40,7 @@ public class FireworkItemStackFactory extends AbstractItemStackFactory<FireworkI
 
 	/**
 	 * Set the effects of the firework.
+	 *
 	 * @param effects The effects
 	 * @return The factory itself
 	 */
@@ -50,6 +51,7 @@ public class FireworkItemStackFactory extends AbstractItemStackFactory<FireworkI
 
 	/**
 	 * Add an effect to the firework.
+	 *
 	 * @param effect The effect to add
 	 * @return The factory itself
 	 */
@@ -60,6 +62,7 @@ public class FireworkItemStackFactory extends AbstractItemStackFactory<FireworkI
 
 	/**
 	 * Set the power of the firework.
+	 *
 	 * @param power The power
 	 * @return The factory itself
 	 */

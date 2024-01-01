@@ -23,5 +23,6 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 @ShouldNotBeImplemented
 public interface Mapping {
 	Class<?> getMinecraftClass(String fullName) throws ClassNotFoundException;
+
 	Class<?> getBukkitClass(String name) throws ClassNotFoundException;
 }

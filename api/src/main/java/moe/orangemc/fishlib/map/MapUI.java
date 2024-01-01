@@ -30,6 +30,7 @@ public interface MapUI {
 	void setRenderer(MapRenderer renderer);
 
 	MapControl addControl(Vector2i location, Vector2i size);
+
 	MapClickable addClickable(Vector2i location, Vector2i size);
 
 	MapListWidget addListWidget(Vector2i location, Vector2i size);

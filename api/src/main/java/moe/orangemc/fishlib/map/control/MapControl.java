@@ -25,9 +25,11 @@ import moe.orangemc.fishlib.util.Vector2i;
 @ShouldNotBeImplemented
 public interface MapControl {
 	Vector2i getLocation();
+
 	Vector2i getSize();
 
 	void moveTo(Vector2i location);
+
 	void resize(Vector2i newSize);
 
 	void setRenderer(MapControlRenderer handler);

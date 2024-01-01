@@ -90,6 +90,7 @@ public final class ServerVersion implements Comparable<ServerVersion> {
 	public boolean newer(ServerVersion serverVersion) {
 		return this.compareTo(serverVersion) > 0;
 	}
+
 	public boolean older(ServerVersion serverVersion) {
 		return this.compareTo(serverVersion) < 0;
 	}

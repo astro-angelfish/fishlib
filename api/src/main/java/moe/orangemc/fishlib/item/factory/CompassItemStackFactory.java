@@ -34,6 +34,7 @@ public class CompassItemStackFactory extends AbstractItemStackFactory<CompassIte
 
 	/**
 	 * Set whether the compass is tracking lodestone.
+	 *
 	 * @param lodestoneTracked Whether the compass is tracking lodestone
 	 * @return The factory itself
 	 */
@@ -44,6 +45,7 @@ public class CompassItemStackFactory extends AbstractItemStackFactory<CompassIte
 
 	/**
 	 * Set the lodestone of the compass.
+	 *
 	 * @param lodestone The lodestone
 	 * @return The factory itself
 	 */

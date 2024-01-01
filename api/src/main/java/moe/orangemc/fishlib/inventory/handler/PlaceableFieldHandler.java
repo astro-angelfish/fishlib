@@ -30,33 +30,36 @@ import java.util.Set;
  */
 @CanImplement
 public interface PlaceableFieldHandler {
-    /**
-     * Calls when player tries to put item into the field
-     * @param index the relative slot the item being put into
-     * @param who the player who want to put the item
-     * @param item the item being put into
-     * @return true if callee agrees to put the item
-     */
-    boolean onPlace(int index, Player who, ItemStack item);
+	/**
+	 * Calls when player tries to put item into the field
+	 *
+	 * @param index the relative slot the item being put into
+	 * @param who   the player who want to put the item
+	 * @param item  the item being put into
+	 * @return true if callee agrees to put the item
+	 */
+	boolean onPlace(int index, Player who, ItemStack item);
 
-    /**
-     * Calls when player tries to take away an item
-     * @param index the relative slot item being taken
-     * @param who the player who want to take the item
-     * @param item the item being taken away
-     * @return true if callee agrees to take away the item
-     */
-    boolean onTake(int index, Player who, ItemStack item);
+	/**
+	 * Calls when player tries to take away an item
+	 *
+	 * @param index the relative slot item being taken
+	 * @param who   the player who want to take the item
+	 * @param item  the item being taken away
+	 * @return true if callee agrees to take away the item
+	 */
+	boolean onTake(int index, Player who, ItemStack item);
 
-    /**
-     * Calls when player tries to swap item
-     * @param index the relative slot item being swapped
-     * @param who the player who want to swap the item
-     * @param oldItem the item being taken away
-     * @param newItem the item being put into
-     * @return true if callee agrees to swap the item
-     */
-    boolean onSwap(int index, Player who, ItemStack oldItem, ItemStack newItem);
+	/**
+	 * Calls when player tries to swap item
+	 *
+	 * @param index   the relative slot item being swapped
+	 * @param who     the player who want to swap the item
+	 * @param oldItem the item being taken away
+	 * @param newItem the item being put into
+	 * @return true if callee agrees to swap the item
+	 */
+	boolean onSwap(int index, Player who, ItemStack oldItem, ItemStack newItem);
 
 	/**
 	 * Calls when the field is being removed
@@ -64,5 +67,6 @@ public interface PlaceableFieldHandler {
 	 *
 	 * @param visitors the players who are visiting the inventory
 	 */
-	default void onRemove(Set<Player> visitors) {}
+	default void onRemove(Set<Player> visitors) {
+	}
 }

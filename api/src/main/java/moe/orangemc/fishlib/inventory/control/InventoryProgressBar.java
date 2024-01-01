@@ -28,8 +28,9 @@ public interface InventoryProgressBar extends InventoryControl {
 
 	ItemStack getEmptyItem();
 
+	void setEmptyItem(ItemStack item);
+
 	ItemStack getFilledItem();
 
-	void setEmptyItem(ItemStack item);
 	void setFilledItem(ItemStack item);
 }

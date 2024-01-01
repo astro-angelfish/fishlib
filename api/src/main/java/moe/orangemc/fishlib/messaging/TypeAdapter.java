@@ -28,17 +28,19 @@ import moe.orangemc.fishlib.annotation.CanImplement;
  */
 @CanImplement
 public interface TypeAdapter<T> {
-    /**
-     * Writes an object to byte array stream
-     * @param target the object to be written
-     * @param bado the output stream being written to
-     */
-    void writeToStream(T target, ByteArrayDataOutput bado);
+	/**
+	 * Writes an object to byte array stream
+	 *
+	 * @param target the object to be written
+	 * @param bado   the output stream being written to
+	 */
+	void writeToStream(T target, ByteArrayDataOutput bado);
 
-    /**
-     * Reads an object from byte array stream
-     * @param badi the input stream being read
-     * @return the object read.
-     */
-    T readFromStream(ByteArrayDataInput badi);
+	/**
+	 * Reads an object from byte array stream
+	 *
+	 * @param badi the input stream being read
+	 * @return the object read.
+	 */
+	T readFromStream(ByteArrayDataInput badi);
 }

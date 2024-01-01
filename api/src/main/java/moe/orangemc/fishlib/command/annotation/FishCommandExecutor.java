@@ -29,5 +29,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @ShouldNotBeImplemented
 public @interface FishCommandExecutor {
-	String permission() default  "";
+	String permission() default "";
 }

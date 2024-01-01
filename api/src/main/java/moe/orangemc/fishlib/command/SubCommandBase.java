@@ -25,42 +25,48 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * The base of the sub-command
+ *
  * @see org.bukkit.command.CommandExecutor
  * @see org.bukkit.command.TabCompleter
  * @see org.bukkit.permissions.Permissible
  */
 @CanImplement
 public interface SubCommandBase {
-    /**
-     * Get the name of the sub-command
-     * @return name of the sub-command
-     */
-    String getName();
+	/**
+	 * Get the name of the sub-command
+	 *
+	 * @return name of the sub-command
+	 */
+	String getName();
 
-    /**
-     * Get the description of the sub-command
-     * @return description of the sub-command
-     */
-    String getDescription();
+	/**
+	 * Get the description of the sub-command
+	 *
+	 * @return description of the sub-command
+	 */
+	String getDescription();
 
-    /**
-     * Get the aliases of the sub-command
-     * @return aliases of the sub-command
-     */
-    default String[] getAliases() {
-        return new String[0];
-    }
+	/**
+	 * Get the aliases of the sub-command
+	 *
+	 * @return aliases of the sub-command
+	 */
+	default String[] getAliases() {
+		return new String[0];
+	}
 
-    /**
-     * Get the permission of the sub-command
-     * @return permission of the sub-command, null if no permission is required.
-     */
-    default String getPermissionRequired() {
-        return null;
-    }
+	/**
+	 * Get the permission of the sub-command
+	 *
+	 * @return permission of the sub-command, null if no permission is required.
+	 */
+	default String getPermissionRequired() {
+		return null;
+	}
 
 	/**
 	 * Called when the plugin is needed.
+	 *
 	 * @return the plugin provided the command.
 	 */
 	default Plugin getProvidingPlugin() {

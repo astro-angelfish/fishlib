@@ -43,14 +43,17 @@ public record MapClickListener(MapManagerImpl mapManager) implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		event.setCancelled(executePlayerInteract(event.getPlayer(), event.getAction()));
 	}
+
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerInteractEntity(PlayerInteractAtEntityEvent event) {
 		event.setCancelled(executePlayerInteract(event.getPlayer(), Action.RIGHT_CLICK_AIR));
 	}
+
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		event.setCancelled(executePlayerInteract(event.getPlayer(), Action.RIGHT_CLICK_AIR));
 	}
+
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (!(event.getEntity() instanceof ItemFrame)) {

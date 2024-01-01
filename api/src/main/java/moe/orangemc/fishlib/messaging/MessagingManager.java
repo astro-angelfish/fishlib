@@ -26,7 +26,8 @@ import org.bukkit.entity.Player;
 public interface MessagingManager {
 	/**
 	 * Registers a type adapter
-	 * @param target target class to be registered
+	 *
+	 * @param target      target class to be registered
 	 * @param typeAdapter target type adapter to be registered
 	 * @throws IllegalArgumentException when target class is already registered
 	 */
@@ -34,18 +35,20 @@ public interface MessagingManager {
 
 	/**
 	 * Registers a communication channel
-	 * @param channel the channel to be registered
-	 * @param callback callback when receive the message
+	 *
+	 * @param channel    the channel to be registered
+	 * @param callback   callback when receive the message
 	 * @param bungeeOnly true if the channel should be only used in bungee mode.
-	 * @throws IllegalStateException when target channel can only be used in bungee mode but the server is not configured well/is not covered under bungee.
+	 * @throws IllegalStateException    when target channel can only be used in bungee mode but the server is not configured well/is not covered under bungee.
 	 * @throws IllegalArgumentException when target channel is already registered
 	 */
 	<T> void registerChannel(String channel, MessageCallback<T> callback, boolean bungeeOnly);
 
 	/**
 	 * Sends a plugin message to player/bungee
-	 * @param channel the channel to send message on
-	 * @param targetPlayer the player to send message
+	 *
+	 * @param channel       the channel to send message on
+	 * @param targetPlayer  the player to send message
 	 * @param messageObject the message object to send message (Maybe you need to register a type adapter for it)
 	 * @throws IllegalArgumentException when target channel is not registered
 	 */
@@ -53,6 +56,7 @@ public interface MessagingManager {
 
 	/**
 	 * Checks if the message channel is registered
+	 *
 	 * @param channel the channel to be checked
 	 * @return true if channel is registered, false on otherwise
 	 */

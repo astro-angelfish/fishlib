@@ -25,7 +25,7 @@ public class AntiFlickeringUtil {
 		if (o == null) return null;
 		if (!hasScoreTaken(o, score)) return null;
 		for (String s : o.getScoreboard().getEntries()) {
-			if(o.getScore(s).getScore() == score) {
+			if (o.getScore(s).getScore() == score) {
 				return o.getScore(s).getEntry();
 			}
 		}
@@ -34,7 +34,7 @@ public class AntiFlickeringUtil {
 
 	public static boolean hasScoreTaken(Objective o, int score) {
 		for (String s : o.getScoreboard().getEntries()) {
-			if(o.getScore(s).getScore() == score) {
+			if (o.getScore(s).getScore() == score) {
 				return true;
 			}
 		}

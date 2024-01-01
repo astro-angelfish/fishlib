@@ -30,13 +30,14 @@ public class CommandFailException extends RuntimeException {
 
 	private final Object[] args;
 
-	public CommandFailException(Plugin owner, String languageKey, String rawMessage, Object ... args) {
+	public CommandFailException(Plugin owner, String languageKey, String rawMessage, Object... args) {
 		super(rawMessage, null, true, false);
 		this.owner = owner;
 		this.languageKey = languageKey;
 		this.args = args;
 	}
-	public CommandFailException(Plugin owner, String languageKey, String rawMessage, Throwable cause, Object ... args) {
+
+	public CommandFailException(Plugin owner, String languageKey, String rawMessage, Throwable cause, Object... args) {
 		super(rawMessage, cause, true, true);
 		this.owner = owner;
 		this.languageKey = languageKey;

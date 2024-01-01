@@ -28,11 +28,12 @@ import org.bukkit.entity.Player;
  */
 @CanImplement
 public interface ProgressBarUpdater {
-    /**
-     * Calls when a progress bar is being updated
-     * @param who the owner of the inventory which the progress bar have been put in
-     * @param inventoryProgressBar the progressbar updated
-     * @return rate of the progress bar, 0 is empty and 1 is full
-     */
-    double update(Player who, InventoryProgressBar inventoryProgressBar);
+	/**
+	 * Calls when a progress bar is being updated
+	 *
+	 * @param who                  the owner of the inventory which the progress bar have been put in
+	 * @param inventoryProgressBar the progressbar updated
+	 * @return rate of the progress bar, 0 is empty and 1 is full
+	 */
+	double update(Player who, InventoryProgressBar inventoryProgressBar);
 }

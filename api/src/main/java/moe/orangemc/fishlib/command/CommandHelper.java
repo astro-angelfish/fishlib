@@ -25,5 +25,6 @@ import moe.orangemc.fishlib.command.selector.SelectorManager;
 @ShouldNotBeImplemented
 public interface CommandHelper {
 	SelectorManager getSelectorManager();
+
 	ArgumentTypeManager getArgumentTypeManager();
 }

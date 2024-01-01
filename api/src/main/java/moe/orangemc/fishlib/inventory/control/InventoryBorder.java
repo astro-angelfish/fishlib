@@ -30,40 +30,42 @@ import java.util.List;
  * Border of the inventory
  */
 public class InventoryBorder {
-    private final ItemStack borderStyle;
+	private final ItemStack borderStyle;
 
-    public InventoryBorder(ItemStack borderStyle) {
-	    Validate.notNull(borderStyle, "borderStyle cannot be null");
+	public InventoryBorder(ItemStack borderStyle) {
+		Validate.notNull(borderStyle, "borderStyle cannot be null");
 
-        this.borderStyle = borderStyle;
-    }
+		this.borderStyle = borderStyle;
+	}
 
-    /**
-     * Calls when the border is being put.
-     * Override this to customize border.
-     * @param internalInventory the inventory to be put border
-     * @return Slots that used to put border.
-     */
-    public List<Integer> putBorder(Inventory internalInventory) {
-        List<Integer> slotPut = new ArrayList<>();
-        for (int x = 0; x < 9; x ++) {
-            internalInventory.setItem(x, borderStyle);
-            slotPut.add(x);
-            internalInventory.setItem(internalInventory.getSize() - x - 1, borderStyle);
-            slotPut.add(internalInventory.getSize() - x - 1);
-        }
-        for (int y = 0; y < internalInventory.getSize() / 9; y ++) {
-            internalInventory.setItem(y * 9, borderStyle);
-            slotPut.add(y * 9);
-            internalInventory.setItem(y * 9 + 8, borderStyle);
-            slotPut.add(y * 9 + 8);
-        }
+	/**
+	 * Calls when the border is being put.
+	 * Override this to customize border.
+	 *
+	 * @param internalInventory the inventory to be put border
+	 * @return Slots that used to put border.
+	 */
+	public List<Integer> putBorder(Inventory internalInventory) {
+		List<Integer> slotPut = new ArrayList<>();
+		for (int x = 0; x < 9; x++) {
+			internalInventory.setItem(x, borderStyle);
+			slotPut.add(x);
+			internalInventory.setItem(internalInventory.getSize() - x - 1, borderStyle);
+			slotPut.add(internalInventory.getSize() - x - 1);
+		}
+		for (int y = 0; y < internalInventory.getSize() / 9; y++) {
+			internalInventory.setItem(y * 9, borderStyle);
+			slotPut.add(y * 9);
+			internalInventory.setItem(y * 9 + 8, borderStyle);
+			slotPut.add(y * 9 + 8);
+		}
 
-        return slotPut;
-    }
+		return slotPut;
+	}
 
 	/**
 	 * Gets the border style item
+	 *
 	 * @return the border style item
 	 */
 	public final ItemStack getBorderStyle() {

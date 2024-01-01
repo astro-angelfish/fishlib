@@ -43,7 +43,7 @@ public class ItemFrameFinder {
 	public ItemFrameFinder startFinding() {
 		ItemFrame current = startItemFrame;
 
-		for (int i = 0; i < maxSize.getY(); i ++) {
+		for (int i = 0; i < maxSize.getY(); i++) {
 			findHorizontally(current, new Vector2i(0, i));
 			Collection<Entity> entityList = current.getWorld().getNearbyEntities(current.getLocation(), 1, 1, 1, (e) -> e instanceof ItemFrame);
 			boolean found = false;
@@ -101,7 +101,7 @@ public class ItemFrameFinder {
 				maxSize.setX(i);
 				return;
 			}
-			i ++;
+			i++;
 		}
 	}
 

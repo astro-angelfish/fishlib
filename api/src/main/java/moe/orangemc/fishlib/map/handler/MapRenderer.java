@@ -24,5 +24,6 @@ import moe.orangemc.fishlib.map.MapRenderContext;
 @CanImplement
 public interface MapRenderer {
 	void render(MapRenderContext context);
+
 	void postRender(MapRenderContext context);
 }

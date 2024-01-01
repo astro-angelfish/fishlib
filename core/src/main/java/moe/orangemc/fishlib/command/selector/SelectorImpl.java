@@ -44,15 +44,14 @@ public class SelectorImpl implements Selector {
 	private final CommandSender sender;
 
 	private final Map<Class<? extends SelectorContext>, SelectorContext> contextMap = new HashMap<>();
-	private StringReader prompt;
-	private String entitySelectionCachedPrompt;
-
 	private final Map<Character, SelectMode> selectModeMap;
 	@SuppressWarnings("rawtypes")
 	private final Map<String, SelectorArgument> argumentNameMap;
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, SelectorArgumentTypeAdapter> argumentAdapterMap;
 	private final Map<String, Sorter> sorterMap;
+	private StringReader prompt;
+	private String entitySelectionCachedPrompt;
 
 	@SuppressWarnings("rawtypes")
 	public SelectorImpl(Plugin owner, CommandSender sender, Map<Character, SelectMode> selectModeMap, Map<String, SelectorArgument> argumentNameMap, Map<Class, SelectorArgumentTypeAdapter> argumentAdapterMap, Map<String, Sorter> sorterMap) {

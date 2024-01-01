@@ -41,7 +41,7 @@ public class VolumeDistanceYArgument implements SelectorArgument<Double> {
 
 		VolumeDistanceContext volumeDistanceContext = selector.getContext(VolumeDistanceContext.class, VolumeDistanceContextImpl.class);
 		volumeDistanceContext.setY(value);
-		
+
 		return volumeDistanceContext.checkEntity(entity);
 	}
 

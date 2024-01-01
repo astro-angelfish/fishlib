@@ -41,14 +41,6 @@ public class FishLibCommandReader extends StringReader {
 	}
 
 	@Override
-	public void setCursor(int cursor) {
-		if (cursor >= this.getTotalLength()) {
-			throw new StringIndexOutOfBoundsException(cursor);
-		}
-		super.setCursor(cursor);
-	}
-
-	@Override
 	public int getRemainingLength() {
 		return super.getRemainingLength();
 	}
@@ -61,6 +53,14 @@ public class FishLibCommandReader extends StringReader {
 	@Override
 	public int getCursor() {
 		return super.getCursor();
+	}
+
+	@Override
+	public void setCursor(int cursor) {
+		if (cursor >= this.getTotalLength()) {
+			throw new StringIndexOutOfBoundsException(cursor);
+		}
+		super.setCursor(cursor);
 	}
 
 	@Override

@@ -35,6 +35,7 @@ public class MapItemStackFactory extends AbstractItemStackFactory<MapItemStackFa
 
 	/**
 	 * Set whether the map is scaling.
+	 *
 	 * @param scaling Whether the map is scaling
 	 * @return The factory itself
 	 */
@@ -45,6 +46,7 @@ public class MapItemStackFactory extends AbstractItemStackFactory<MapItemStackFa
 
 	/**
 	 * Set the map view of the map.
+	 *
 	 * @param mapView The map view
 	 * @return The factory itself
 	 */
@@ -55,6 +57,7 @@ public class MapItemStackFactory extends AbstractItemStackFactory<MapItemStackFa
 
 	/**
 	 * Set the color of the map.
+	 *
 	 * @param color The color
 	 * @return The factory itself
 	 */

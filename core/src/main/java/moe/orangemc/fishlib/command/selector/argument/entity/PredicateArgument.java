@@ -43,7 +43,7 @@ public class PredicateArgument implements SelectorArgument<NamespacedKey> {
 		try {
 			Object handle = ReflectionUtil.invokeMethod(entity, "getHandle");
 			Object server = ReflectionUtil.invokeMethod(Bukkit.getServer(), "getServer");
-			Object predicateManager = ReflectionUtil.invokeMethod(server.getClass().getSuperclass() ,server, "aH");
+			Object predicateManager = ReflectionUtil.invokeMethod(server.getClass().getSuperclass(), server, "aH");
 
 			Class<?> craftKeyClass = ReflectionUtil.getServerMapping().getBukkitClass("util.CraftNamespacedKey");
 			Object predicate = ReflectionUtil.invokeMethod(predicateManager, "a", ReflectionUtil.invokeMethod(craftKeyClass, (Object) null, "toMinecraft", value));

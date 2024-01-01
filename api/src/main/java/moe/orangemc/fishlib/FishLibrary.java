@@ -34,11 +34,11 @@ import org.bukkit.plugin.Plugin;
  */
 @ShouldNotBeImplemented
 public final class FishLibrary {
+	private static FishLibraryService fishLibraryService = null;
+
 	private FishLibrary() {
 		throw new UnsupportedOperationException();
 	}
-
-	private static FishLibraryService fishLibraryService = null;
 
 	public static void setFishLibraryService(FishLibraryService fishLibraryService) {
 		if (FishLibrary.fishLibraryService != null) {
@@ -49,6 +49,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get a {@see PluginInventoryManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see PluginInventoryManager} of the plugin.
 	 */
@@ -58,6 +59,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get a {@see MessagingManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see MessagingManager} of the plugin.
 	 */
@@ -67,6 +69,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get a {@see ScoreboardListManager} of the plugin
+	 *
 	 * @param plugin the plugin.
 	 * @return the {@see ScoreboardListManager} of the plugin.
 	 */
@@ -76,6 +79,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get a {@see LanguageManager} of the plugin
+	 *
 	 * @param plugin the plugin
 	 * @return the {@see LanguageManager} of the plugin, or null if failed to initialize language manager.
 	 */
@@ -85,6 +89,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get a {@see MapManager} of the plugin
+	 *
 	 * @param plugin the plugin
 	 * @return the {@see MapManager} of the plugin.
 	 */
@@ -98,6 +103,7 @@ public final class FishLibrary {
 
 	/**
 	 * Get the instance of the standalone plugin
+	 *
 	 * @return null if this library is compressed along with the caller plugin. Otherwise, the instance of the plugin instance is returned
 	 */
 	public static Plugin getStandalonePlugin() {

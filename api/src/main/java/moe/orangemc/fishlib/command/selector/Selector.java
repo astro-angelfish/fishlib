@@ -34,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 @ShouldNotBeImplemented
 public interface Selector {
 	Plugin getOwner();
+
 	CommandSender getSender();
 
 	void updatePrompt(StringReader prompt);
@@ -44,5 +45,6 @@ public interface Selector {
 
 
 	<T extends SelectorContext, U extends T> T getContext(Class<T> clazz, Class<U> defaultImplementation);
+
 	<T extends SelectorContext> T getContext(Class<T> clazz);
 }

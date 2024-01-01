@@ -34,6 +34,7 @@ public class AxolotlBucketItemStackFactory extends AbstractItemStackFactory<Axol
 
 	/**
 	 * Set the variant of the axolotl.
+	 *
 	 * @param variant The variant of the axolotl
 	 * @return The factory itself
 	 */

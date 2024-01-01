@@ -28,12 +28,14 @@ import java.util.List;
 public interface ScoreboardList extends List<String> {
 	/**
 	 * Display the scoreboard to player
+	 *
 	 * @param player the player to display the scoreboard
 	 */
 	void displayToPlayer(Player player);
 
 	/**
 	 * Reset the displaying scoreboard of player
+	 *
 	 * @param player the player to reset scoreboard
 	 * @throws IllegalArgumentException when player is not displaying the scoreboard that belongs to the list.
 	 */
@@ -41,6 +43,7 @@ public interface ScoreboardList extends List<String> {
 
 	/**
 	 * Set the title of the scoreboard
+	 *
 	 * @param title the new title of scoreboard
 	 */
 	void setTitle(String title);

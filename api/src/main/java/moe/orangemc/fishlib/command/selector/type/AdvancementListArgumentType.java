@@ -58,6 +58,7 @@ public class AdvancementListArgumentType implements ComplexSelectorArgumentType<
 		public AdvancementArgumentType(Advancement advancement, boolean invert) {
 			this(advancement, null, invert);
 		}
+
 		public AdvancementArgumentType(Advancement advancement, Map<String, Boolean> criteriaMap) {
 			this(advancement, criteriaMap, false);
 		}

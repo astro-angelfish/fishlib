@@ -22,8 +22,9 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 @ShouldNotBeImplemented
 public interface MapListWidgetItem extends MapClickable {
-	void setText(String text);
 	String getText();
+
+	void setText(String text);
 
 	boolean isClicked();
 

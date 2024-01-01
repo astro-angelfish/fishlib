@@ -40,6 +40,7 @@ public class EnchantedBookItemStackFactory extends AbstractItemStackFactory<Ench
 
 	/**
 	 * Set the stored enchantments of the book.
+	 *
 	 * @param storedEnchantments The stored enchantments
 	 * @return The factory itself
 	 */
@@ -50,8 +51,9 @@ public class EnchantedBookItemStackFactory extends AbstractItemStackFactory<Ench
 
 	/**
 	 * Add a stored enchantment to the book.
+	 *
 	 * @param enchantment The enchantment
-	 * @param level The level of the enchantment
+	 * @param level       The level of the enchantment
 	 * @return The factory itself
 	 */
 	public EnchantedBookItemStackFactory addStoredEnchantment(Enchantment enchantment, int level) {

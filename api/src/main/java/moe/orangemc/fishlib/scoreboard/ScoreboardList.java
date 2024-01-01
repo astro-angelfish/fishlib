@@ -24,6 +24,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+/**
+ * A scoreboard that can be operated like a string {@link List}
+ *
+ * @see List
+ */
 @ShouldNotBeImplemented
 public interface ScoreboardList extends List<String> {
 	/**

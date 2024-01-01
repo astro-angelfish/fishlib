@@ -22,11 +22,16 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
 /**
  * The manager of the custom inventory
+ * <br>
+ * Fetch this instance with {@link moe.orangemc.fishlib.FishLibrary#getPluginInventoryManager(Plugin)}
+ *
+ * @see PluginInventory
  */
 @ShouldNotBeImplemented
 public interface PluginInventoryManager {

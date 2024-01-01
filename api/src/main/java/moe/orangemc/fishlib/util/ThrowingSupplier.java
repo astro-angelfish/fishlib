@@ -18,6 +18,11 @@
 
 package moe.orangemc.fishlib.util;
 
+/**
+ * A supplier that can throw exception
+ * @param <T> the type of results supplied by this supplier
+ * @see java.util.function.Supplier
+ */
 public interface ThrowingSupplier<T> {
 	T get() throws Throwable;
 }

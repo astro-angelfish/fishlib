@@ -18,6 +18,8 @@
 
 package moe.orangemc.fishlib.command.argument.type;
 
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+
 import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import java.util.List;
 /**
  * A wrapper class in order to utilize generic types.
  */
+@ShouldNotBeImplemented
 public class EntityList extends ArrayList<Entity> {
 	public EntityList() {
 	}

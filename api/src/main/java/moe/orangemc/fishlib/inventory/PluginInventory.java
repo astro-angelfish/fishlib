@@ -33,6 +33,8 @@ import java.util.List;
 
 /**
  * Customizable inventory
+ * <br>
+ * Create an instance of this inventory with {@link PluginInventoryManager#createInventory(Player, String, int)}
  */
 @ShouldNotBeImplemented
 public interface PluginInventory {

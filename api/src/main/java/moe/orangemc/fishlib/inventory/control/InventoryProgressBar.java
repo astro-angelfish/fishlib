@@ -19,18 +19,43 @@
 package moe.orangemc.fishlib.inventory.control;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import moe.orangemc.fishlib.inventory.handler.ProgressBarUpdater;
 
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Progress bar in the inventory UI
+ * <br>
+ * Update the progress bar with {@link ProgressBarUpdater}
+ */
 @ShouldNotBeImplemented
 public interface InventoryProgressBar extends InventoryControl {
+	/**
+	 * Forcefully update the progress bar
+	 */
 	void update();
 
+	/**
+	 * Get the item that the progress bar wants to sign that the progress is empty
+	 * @return the item
+	 */
 	ItemStack getEmptyItem();
 
+	/**
+	 * Set the item that the progress bar wants to sign that the progress is empty
+	 * @param item the item
+	 */
 	void setEmptyItem(ItemStack item);
 
+	/**
+	 * Get the item that the progress bar wants to sign that the progress is filled
+	 * @return the item
+	 */
 	ItemStack getFilledItem();
 
+	/**
+	 * Set the item that the progress bar wants to sign that the progress is filled
+	 * @param item the item
+	 */
 	void setFilledItem(ItemStack item);
 }

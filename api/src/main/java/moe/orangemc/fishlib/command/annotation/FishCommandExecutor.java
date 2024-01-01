@@ -18,6 +18,7 @@
 
 package moe.orangemc.fishlib.command.annotation;
 
+import com.mojang.brigadier.arguments.ArgumentType;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import java.lang.annotation.ElementType;
@@ -25,9 +26,30 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
+/**
+ * Indicates that a method under {@link moe.orangemc.fishlib.command.SubCommandBase} is a command executor.
+ * <br>
+ *
+ * The method should always have a {@link org.bukkit.command.CommandSender} as the first parameter.
+ * <br>
+ * The rest of parameters should be annotated with {@link FishCommandParameter}, and their types should be registered with {@link moe.orangemc.fishlib.command.argument.ArgumentTypeManager#registerCommandArgumentType(ArgumentType, Class)}.
+ * <br>
+ * Otherwise, you'll receive an {@link IllegalArgumentException} with corresponding message.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @ShouldNotBeImplemented
 public @interface FishCommandExecutor {
+	/**
+	 * The permission required to execute this command.
+	 * <br>
+	 * If empty, no permission is required.
+	 * <br>
+	 * Fishlib uses {@link org.bukkit.permissions.Permissible#hasPermission(String)} to check whether the sender has the permission.
+	 *
+	 * @see org.bukkit.permissions.Permissible#hasPermission(String)
+	 * @return the permission required to execute this command
+	 */
 	String permission() default "";
 }

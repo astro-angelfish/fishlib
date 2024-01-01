@@ -21,6 +21,14 @@ package moe.orangemc.fishlib.util;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * A {@link HashSet} that is thread-safe.
+ *
+ * @param <E> the type of the elements
+ *
+ * @see ConcurrentHashMap
+ * @see HashSet
+ */
 public class ConcurrentHashSet<E> extends AbstractSet<E> implements Set<E> {
 	private final Map<E, Object> map = new ConcurrentHashMap<>();
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.command;
+package moe.orangemc.fishlib.command.util;
 
 import moe.orangemc.fishlib.FishLibrary;
 import moe.orangemc.fishlib.language.LanguageManager;

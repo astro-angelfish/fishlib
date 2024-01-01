@@ -20,19 +20,45 @@ package moe.orangemc.fishlib.util;
 
 import java.util.function.Function;
 
+/**
+ * Math utilities that {@link java.lang.Math} does not provide.
+ */
 public final class MathUtil {
 	private MathUtil() {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Checks if the given number is in the range.
+	 * @param toCheck the number to check
+	 * @param min the minimum value
+	 * @param max the maximum value
+	 * @return true if the number is in the range
+	 */
 	public static boolean isInRange(int toCheck, int min, int max) {
 		return toCheck >= min && toCheck <= max;
 	}
 
+	/**
+	 * Performs bisection to find the root of the given function.
+	 * <br>
+	 * The tolerance of the error is 1e-6.
+	 *
+	 * @param min the minimum value
+	 * @param max the maximum value
+	 * @param function the function
+	 */
 	public static double performBisection(double min, double max, Function<Double, Double> function) {
 		return performBisection(min, max, function, 1e-6);
 	}
 
+	/**
+	 * Performs bisection to find the root of the given function.
+	 * @param min the minimum value
+	 * @param max the maximum value
+	 * @param function the function
+	 * @param epsilon the maximum tolerance
+	 */
 	public static double performBisection(double min, double max, Function<Double, Double> function, double epsilon) {
 		double mid = (min + max) / 2;
 		while (max - min > epsilon) {

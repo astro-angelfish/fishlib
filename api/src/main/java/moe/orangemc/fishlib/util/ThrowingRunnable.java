@@ -20,6 +20,10 @@ package moe.orangemc.fishlib.util;
 
 import moe.orangemc.fishlib.annotation.CanImplement;
 
+/**
+ * A runnable that can throw exception
+ * @see java.lang.Runnable
+ */
 @CanImplement
 public interface ThrowingRunnable {
 	void run() throws Throwable;

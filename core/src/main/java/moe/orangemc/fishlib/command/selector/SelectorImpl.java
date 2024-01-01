@@ -21,12 +21,12 @@ package moe.orangemc.fishlib.command.selector;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
-import moe.orangemc.fishlib.command.CommandFailException;
 import moe.orangemc.fishlib.command.argument.type.EntityList;
 import moe.orangemc.fishlib.command.selector.argument.trait.LimitArgument;
 import moe.orangemc.fishlib.command.selector.context.*;
 import moe.orangemc.fishlib.command.selector.type.SelectorArgumentTypeAdapter;
 import moe.orangemc.fishlib.command.selector.util.Sorter;
+import moe.orangemc.fishlib.command.util.CommandFailException;
 import moe.orangemc.fishlib.command.util.CommandSyntaxExceptionBuilder;
 
 import org.bukkit.Bukkit;

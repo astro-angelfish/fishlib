@@ -23,10 +23,20 @@ public class StringUtil {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Checks if the character is a blank character.
+	 * @param c the character
+	 * @return true if the character is a blank character
+	 */
 	public static boolean isBlankChar(char c) {
 		return Character.isWhitespace(c) || c == '\ufeff' || c == '\u202a' || c == '\0' || c == '\u3164' || c == '\u2800' || c == '\u180e';
 	}
 
+	/**
+	 * Checks if the string is blank.
+	 * @param s the string
+	 * @return true if the string is blank
+	 */
 	public static boolean isBlank(String s) {
 		if (s == null) return true;
 		for (char c : s.toCharArray()) {

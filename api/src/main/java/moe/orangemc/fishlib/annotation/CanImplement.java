@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * This usually means that the interface can be implemented by plugin.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @ShouldNotBeImplemented
 public @interface CanImplement {
 }

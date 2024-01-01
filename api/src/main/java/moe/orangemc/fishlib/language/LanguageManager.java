@@ -21,14 +21,39 @@ package moe.orangemc.fishlib.language;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Language manager written in mind.
+ *
+ * <br>
+ * To use this, you need to place a language file named <b><i>xx_xx.json</i></b> (like <i>en_us.json</i>) into <b><i>lang</i></b> folder under
+ * the data folder of your plugin.
+ * <br>
+ * The format of language file is very similar to <a href="https://minecraft.fandom.com/wiki/Resource_pack#Language">original language file of Minecraft</a>.
+ * <br>
+ * It uses key-pair values to store the translation data. The key is the translation key, and the value is the translated string.
+ * <br>
+ * An example is following:
+ * <pre><code>
+ * {
+ *     "fishlib.command.no_permission": "You don't have permission to do this!",
+ *     "fishlib.command.no_player": "You must be a player to do this!",
+ *     "fishlib.command.no_subcommand": "No such sub-command!",
+ *     "fishlib.command.no_subcommand_permission": "You don't have permission to do this sub-command!",
+ * }
+ * </code></pre>
+ *
+ * @see Player#getLocale()
  */
 @ShouldNotBeImplemented
 public interface LanguageManager {
 	/**
-	 * Get translation string from a command sender
+	 * Get translation string using the locale from the command sender
+	 * <br>
+	 * If the command sender is not a player or the locale file is not found, en_us will be used
+	 * <br>
+	 * If the command sender is a player, the locale will be fetched by using {@link Player#getLocale()}
 	 *
 	 * @param commandSender command sender to get translation
 	 * @param key           translation key
@@ -38,7 +63,9 @@ public interface LanguageManager {
 	String getTranslationBySender(CommandSender commandSender, String key, Object... args);
 
 	/**
-	 * Get translation string by direct locale string
+	 * Get translation string by direct locale string.
+	 * <br>
+	 * If the locale file is not found, en_us will be used.
 	 *
 	 * @param locale locale string
 	 * @param key    translation key

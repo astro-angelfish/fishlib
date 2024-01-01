@@ -22,6 +22,9 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Button in the inventory UI
+ */
 @ShouldNotBeImplemented
 public interface InventoryButton extends InventoryControl {
 	ItemStack getItem();

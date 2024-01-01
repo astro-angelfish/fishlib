@@ -18,6 +18,11 @@
 
 package moe.orangemc.fishlib.util;
 
+/**
+ * A consumer that can throw exception
+ * @param <T> the type of the input to the operation
+ * @see java.util.function.Consumer
+ */
 public interface ThrowingConsumer<T> {
 	void accept(T t) throws Throwable;
 }

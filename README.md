@@ -74,7 +74,7 @@ public class TestCommand implements SubCommandBase {
 And in the main class:
 
 ```java
-import moe.orangemc.fishlib.command.CommonCommand;
+import moe.orangemc.fishlib.command.FishBaseCommandImpl;
 
 public class Main extends JavaPlugin {
 	@Override

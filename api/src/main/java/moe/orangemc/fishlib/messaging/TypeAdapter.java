@@ -25,6 +25,29 @@ import moe.orangemc.fishlib.annotation.CanImplement;
 /**
  * The type adapter
  * inspired by Gson
+ * <br>
+ * Default adapted types:
+ * <ul>
+ *     <li>{@link String}</li>
+ *     <li>int</li>
+ *     <li>long</li>
+ *     <li>double</li>
+ *     <li>float</li>
+ *     <li>byte</li>
+ *     <li>short</li>
+ *     <li>boolean</li>
+ *     <li>char</li>
+ *     <li>byte[]</li>
+ *     <li>int[]</li>
+ *     <li>long[]</li>
+ *     <li>double[]</li>
+ *     <li>float[]</li>
+ *     <li>short[]</li>
+ *     <li>boolean[]</li>
+ *     <li>char[]</li>
+ *     <li>{@link java.util.UUID}</li>
+ *
+ * @param <T> the type to be adapted
  */
 @CanImplement
 public interface TypeAdapter<T> {
@@ -32,15 +55,15 @@ public interface TypeAdapter<T> {
 	 * Writes an object to byte array stream
 	 *
 	 * @param target the object to be written
-	 * @param bado   the output stream being written to
+	 * @param output   the output stream being written to
 	 */
-	void writeToStream(T target, ByteArrayDataOutput bado);
+	void writeToStream(T target, ByteArrayDataOutput output);
 
 	/**
 	 * Reads an object from byte array stream
 	 *
-	 * @param badi the input stream being read
+	 * @param input the input stream being read
 	 * @return the object read.
 	 */
-	T readFromStream(ByteArrayDataInput badi);
+	T readFromStream(ByteArrayDataInput input);
 }

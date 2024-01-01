@@ -23,11 +23,20 @@ import org.apache.commons.lang3.Validate;
 import org.bukkit.block.BlockFace;
 import org.bukkit.util.Vector;
 
+/**
+ * A utility class for {@link BlockFace}
+ * @see BlockFace
+ */
 public class BlockFaceUtil {
 	private BlockFaceUtil() {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Get the block face from a direction vector
+	 * @param direction the direction vector
+	 * @return the closest block face
+	 */
 	public static BlockFace fromDirection(Vector direction) {
 		Validate.notNull(direction, "direction cannot be null");
 
@@ -95,6 +104,11 @@ public class BlockFaceUtil {
 		}
 	}
 
+	/**
+	 * Get the block face from a direction vector
+	 * @param direction the direction vector
+	 * @return the closest block face
+	 */
 	public static BlockFace fromDirectionTo8Faces(Vector direction) {
 		Validate.notNull(direction, "direction cannot be null");
 
@@ -116,6 +130,11 @@ public class BlockFaceUtil {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Get the block face from a direction vector
+	 * @param direction the direction vector
+	 * @return the closest block face
+	 */
 	public static BlockFace fromDirectionToCartesian(Vector direction) {
 		Validate.notNull(direction, "direction cannot be null");
 

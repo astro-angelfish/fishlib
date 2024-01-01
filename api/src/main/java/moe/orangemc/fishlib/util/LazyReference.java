@@ -18,18 +18,45 @@
 
 package moe.orangemc.fishlib.util;
 
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Advanced lazy reference.
+ * <br>
+ * Initiates the value when {@link #get()} is called and the value is null or invalid.
+ * @param <T> the type of the value
+ */
 public class LazyReference<T> {
 	private final Supplier<T> supplier;
+	private final Function<T, Boolean> validator;
 	private T value;
 
+	/**
+	 * Creates a new lazy reference.
+	 * @param supplier the supplier to supply the value
+	 */
 	public LazyReference(Supplier<T> supplier) {
-		this.supplier = supplier;
+		this(supplier, Objects::nonNull);
 	}
 
+	/**
+	 * Creates a new lazy reference.
+	 * @param supplier the supplier to supply the value
+	 * @param validator the validator to validate the value
+	 */
+	public LazyReference(Supplier<T> supplier, Function<T, Boolean> validator) {
+		this.supplier = supplier;
+		this.validator = validator;
+	}
+
+	/**
+	 * Gets the value.
+	 * @return the value
+	 */
 	public T get() {
-		if (value == null) {
+		if (validator.apply(value)) {
 			value = supplier.get();
 		}
 		return value;

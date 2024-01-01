@@ -24,6 +24,11 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
+/**
+ * A placeable field in the inventory UI
+ * <br>
+ * Placeable = Being able to place and consume items in the field of this control
+ */
 @ShouldNotBeImplemented
 public interface InventoryPlaceableField extends InventoryControl {
 	int getWidth();

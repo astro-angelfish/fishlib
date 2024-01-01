@@ -19,9 +19,9 @@
 package moe.orangemc.fishlib.command.selector.argument.entity;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import moe.orangemc.fishlib.command.CommandFailException;
 import moe.orangemc.fishlib.command.selector.Selector;
 import moe.orangemc.fishlib.command.selector.SelectorArgument;
+import moe.orangemc.fishlib.command.util.CommandFailException;
 import moe.orangemc.fishlib.reflection.ReflectionUtil;
 
 import org.bukkit.Bukkit;

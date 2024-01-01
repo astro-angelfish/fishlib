@@ -20,8 +20,8 @@ package moe.orangemc.fishlib.command.selector.type;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import moe.orangemc.fishlib.command.CommandFailException;
 import moe.orangemc.fishlib.command.selector.Selector;
+import moe.orangemc.fishlib.command.util.CommandFailException;
 import moe.orangemc.fishlib.command.util.CommandSyntaxExceptionBuilder;
 
 import org.bukkit.Bukkit;

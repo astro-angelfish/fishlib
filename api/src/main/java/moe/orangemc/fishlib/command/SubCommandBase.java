@@ -18,13 +18,27 @@
 
 package moe.orangemc.fishlib.command;
 
-import moe.orangemc.fishlib.FishLibrary;
+import com.mojang.brigadier.arguments.ArgumentType;
 import moe.orangemc.fishlib.annotation.CanImplement;
 
-import org.bukkit.plugin.Plugin;
-
 /**
- * The base of the sub-command
+ * The base of the sub-command, basic element of command in fishlib
+ * <br>
+ * Use {@link moe.orangemc.fishlib.command.annotation.FishCommandExecutor} and {@link moe.orangemc.fishlib.command.annotation.FishCommandParameter} on a method
+ * to define a behavior of the command with specified argument.
+ * <br>
+ * The first parameter of the method should be {@link org.bukkit.command.CommandSender}
+ * <br>
+ * Rest of the parameters should be annotated with {@link moe.orangemc.fishlib.command.annotation.FishCommandParameter} and
+ * their types should be registered using {@link moe.orangemc.fishlib.command.argument.ArgumentTypeManager#registerCommandArgumentType(ArgumentType, Class)}
+ * <br>
+ * The method should have a void return type.
+ * <br>
+ * The following is an example of proper definition of a command
+ * <pre>
+ *   {@literal @}FishCommandExecutor public void testCommand(CommandSender sender, {@literal @}FishCommandParameter("entity") EntityList entities)
+ *   { /* implementation *&#47 }
+ * </pre>
  *
  * @see org.bukkit.command.CommandExecutor
  * @see org.bukkit.command.TabCompleter
@@ -47,7 +61,7 @@ public interface SubCommandBase {
 	String getDescription();
 
 	/**
-	 * Get the aliases of the sub-command
+	 * Get the aliases of the sub-command. Very similar to aliases in plugin.yml
 	 *
 	 * @return aliases of the sub-command
 	 */
@@ -56,20 +70,15 @@ public interface SubCommandBase {
 	}
 
 	/**
-	 * Get the permission of the sub-command
+	 * Get the permission of the sub-command.
+	 * <p>
 	 *
+	 * Will be checked with {@link org.bukkit.permissions.Permissible#hasPermission(String)}
+	 *
+	 * @see org.bukkit.permissions.Permissible
 	 * @return permission of the sub-command, null if no permission is required.
 	 */
 	default String getPermissionRequired() {
 		return null;
-	}
-
-	/**
-	 * Called when the plugin is needed.
-	 *
-	 * @return the plugin provided the command.
-	 */
-	default Plugin getProvidingPlugin() {
-		return FishLibrary.getStandalonePlugin();
 	}
 }

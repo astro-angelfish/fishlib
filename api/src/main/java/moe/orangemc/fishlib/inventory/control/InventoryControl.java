@@ -20,6 +20,9 @@ package moe.orangemc.fishlib.inventory.control;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * Basic control element of this inventory UI
+ */
 @ShouldNotBeImplemented
 public interface InventoryControl {
 }

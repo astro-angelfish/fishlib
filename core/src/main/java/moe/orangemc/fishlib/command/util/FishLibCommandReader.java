@@ -20,19 +20,15 @@ package moe.orangemc.fishlib.command.util;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
-public class FishLibCommandReader extends StringReader {
+@ShouldNotBeImplemented
+public final class FishLibCommandReader extends StringReader {
 	private final Plugin owner;
 	private final CommandSender sender;
-
-	public FishLibCommandReader(StringReader other, Plugin owner, CommandSender sender) {
-		super(other);
-		this.owner = owner;
-		this.sender = sender;
-	}
 
 	public FishLibCommandReader(String string, Plugin owner, CommandSender sender) {
 		super(string);

@@ -18,6 +18,7 @@
 
 package moe.orangemc.fishlib.command.annotation;
 
+import com.mojang.brigadier.arguments.ArgumentType;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
 import java.lang.annotation.ElementType;
@@ -25,6 +26,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The parameter of a command.
+ * <br>
+ * The command parameter should be annotated with this annotation.
+ * <br>
+ * The parameter type should be registered with {@link moe.orangemc.fishlib.command.argument.ArgumentTypeManager#registerCommandArgumentType(ArgumentType, Class)}.
+ * <br>
+ * If no valid parameter type found, an {@link IllegalArgumentException} will be thrown with corresponding message.
+ * <br>
+ * Built-in types:
+ * <ul>
+ *     <li>{@link org.bukkit.entity.Player}</li>
+ *     <li>int</li>
+ *     <li>double</li>
+ *     <li>float</li>
+ *     <li>long</li>
+ *     <li>boolean</li>
+ *     <li>{@link String}</li>
+ *     <li>{@link moe.orangemc.fishlib.command.argument.type.EntityList}</li>
+ *     <li>{@link String}[] for greedy parameter receptors</li>
+ * </ul>
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 @ShouldNotBeImplemented

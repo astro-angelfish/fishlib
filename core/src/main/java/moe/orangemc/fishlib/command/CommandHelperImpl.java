@@ -22,15 +22,19 @@ import moe.orangemc.fishlib.command.argument.ArgumentTypeManager;
 import moe.orangemc.fishlib.command.argument.ArgumentTypeManagerImpl;
 import moe.orangemc.fishlib.command.selector.SelectorManager;
 import moe.orangemc.fishlib.command.selector.SelectorManagerImpl;
+import org.apache.commons.lang.Validate;
 
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 
 public class CommandHelperImpl implements CommandHelper {
-
+	private final Plugin owner;
 	private final SelectorManager selectorManager;
 	private final ArgumentTypeManager argumentTypeManager;
 
 	public CommandHelperImpl(Plugin owner) {
+		this.owner = owner;
+
 		this.selectorManager = new SelectorManagerImpl(owner);
 		this.argumentTypeManager = new ArgumentTypeManagerImpl();
 	}
@@ -43,5 +47,21 @@ public class CommandHelperImpl implements CommandHelper {
 	@Override
 	public ArgumentTypeManager getArgumentTypeManager() {
 		return argumentTypeManager;
+	}
+
+	@Override
+	public FishBaseCommand buildAndRegisterCommand(PluginCommand command) {
+		return buildAndRegisterCommand(command, "");
+	}
+
+	@Override
+	public FishBaseCommand buildAndRegisterCommand(PluginCommand command, String prefix) {
+		Validate.notNull(command, "command cannot be null");
+
+		FishBaseCommandImpl result = new FishBaseCommandImpl(owner, prefix);
+		command.setExecutor(result);
+		command.setTabCompleter(result);
+
+		return result;
 	}
 }

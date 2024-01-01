@@ -22,9 +22,9 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
-import moe.orangemc.fishlib.command.CommandFailException;
 import moe.orangemc.fishlib.command.argument.type.EntityList;
 import moe.orangemc.fishlib.command.selector.context.SelectorContext;
+import moe.orangemc.fishlib.command.util.CommandFailException;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;

@@ -20,6 +20,12 @@ package moe.orangemc.fishlib.scoreboard;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * A manager for scoreboards.
+ * <br>
+ *
+ * @see ScoreboardList
+ */
 @ShouldNotBeImplemented
 public interface ScoreboardListManager {
 	/**

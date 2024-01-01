@@ -16,16 +16,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package moe.orangemc.fishlib.util;
+package moe.orangemc.fishlib.command;
 
-import moe.orangemc.fishlib.annotation.CanImplement;
+import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
+import moe.orangemc.fishlib.command.annotation.FishCommandExecutor;
+import moe.orangemc.fishlib.command.annotation.FishCommandParameter;
 
 /**
- * A callable that can throw exception
- * @param <V> the return type
- * @see java.util.concurrent.Callable
+ * Common command, a wrapper of Bukkit command with brigadier.
+ *
+ * @see SubCommandBase
+ * @see FishCommandExecutor
+ * @see FishCommandParameter
+ * @see org.bukkit.command.CommandExecutor
+ * @see org.bukkit.command.TabCompleter
  */
-@CanImplement
-public interface ThrowingCallable<V> {
-	V call() throws Throwable;
+@ShouldNotBeImplemented
+public interface FishBaseCommand {
+	/**
+	 * Register a sub-command that should be executed.
+	 *
+	 * @param commandBase the sub-command to be registered.
+	 */
+	void registerCommand(SubCommandBase commandBase);
 }

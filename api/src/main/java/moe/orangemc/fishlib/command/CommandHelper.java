@@ -22,9 +22,40 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import moe.orangemc.fishlib.command.argument.ArgumentTypeManager;
 import moe.orangemc.fishlib.command.selector.SelectorManager;
 
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
+
+/**
+ * A helper class for commands.
+ */
 @ShouldNotBeImplemented
 public interface CommandHelper {
+	/**
+	 * Get the selector manager.
+	 * @return the selector manager.
+	 */
 	SelectorManager getSelectorManager();
 
+	/**
+	 * Get the argument type manager.
+	 * @return the argument type manager.
+	 */
 	ArgumentTypeManager getArgumentTypeManager();
+
+	/**
+	 * Build and register a command using {@link PluginCommand#setTabCompleter(TabCompleter)} and {@link PluginCommand#setExecutor(org.bukkit.command.CommandExecutor)}
+	 * with an empty prefix.
+	 *
+	 * @param command the command to register
+	 * @return the command instance.
+	 */
+	FishBaseCommand buildAndRegisterCommand(PluginCommand command);
+
+	/**
+	 * Build and register a command using {@link PluginCommand#setTabCompleter(TabCompleter)} and {@link PluginCommand#setExecutor(org.bukkit.command.CommandExecutor)}
+	 * @param command the command to register
+	 * @param prefix the prefix of the command
+	 * @return the command instance.
+	 */
+	FishBaseCommand buildAndRegisterCommand(PluginCommand command, String prefix);
 }

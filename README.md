@@ -20,10 +20,10 @@ sure it is not a compatibility issue.
 in `dependencies` tag of pom.xml
 
 ```xml
-		<repository>
-			<id>bunnytime-public</id>
-			<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
-		</repository>
+<repository>
+	<id>bunnytime-public</id>
+	<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
+</repository>
 ```
 
 in `repositories` tag of pom.xml. We are temporarily borrowing the repository of *BunnyTime*.
@@ -39,7 +39,7 @@ import moe.orangemc.fishlib.command.annotation.FishCommandParameter;
 
 
 public class TestCommand implements SubCommandBase {
-		@Override
+	@Override
 	public String getName() {
 		return "test";
 	}

@@ -54,5 +54,11 @@ import java.lang.annotation.Target;
 public @interface FishCommandParameter {
 	String languageKey() default "";
 
+	/**
+	 * The name of the parameter.
+	 * <br>
+	 * Parameter name in class are replaced by JVM stack operators and cannot be retrieved by reflection.
+	 * @return the name of the parameter
+	 */
 	String name();
 }

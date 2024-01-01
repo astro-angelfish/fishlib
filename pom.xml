@@ -90,38 +90,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-				<executions>
-					<execution>
-						<id>default-deploy</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.5.1</version>
-				<executions>
-					<execution>
-						<id>default-deploy</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<serverId>bunnytime-public</serverId>
-					<nexusUrl>http://maven.bunnytime.top/repository/bunnytime-public/</nexusUrl>
-					<skipStaging>true</skipStaging>
-				</configuration>
-			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -172,11 +140,4 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>bunnytime-public</id>
-			<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

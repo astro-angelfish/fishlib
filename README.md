@@ -6,27 +6,26 @@ plugins.
 Still under construction. No compatibility is guaranteed. But feel free to contribute if you have encountered a bug and
 sure it is not a compatibility issue.
 
-## Maven
+## Get Started
+
+You might need to clone this repository directly because we don't have a maven repository yet.
+
+```shell
+git clone https://github.com/astro-angelfish/fishlib.git
+cd fishlib
+mvn clean install
+```
+
+Then add the dependency to your pom.xml:
 
 ```xml
 <dependency>
-	<groupId>moe.orangemc</groupId>
-	<artifactId>fishlib-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<scope>provided</scope>
+    <groupId>moe.orangemc</groupId>
+    <artifactId>fishlib</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <scope>provided</scope>
 </dependency>
 ```
-
-in `dependencies` tag of pom.xml
-
-```xml
-<repository>
-	<id>bunnytime-public</id>
-	<url>http://maven.bunnytime.top/repository/bunnytime-public/</url>
-</repository>
-```
-
-in `repositories` tag of pom.xml. We are temporarily borrowing the repository of *BunnyTime*.
 
 ## Usage
 

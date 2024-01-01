@@ -74,14 +74,15 @@ public class TestCommand implements SubCommandBase {
 And in the main class:
 
 ```java
-import moe.orangemc.fishlib.command.FishBaseCommandImpl;
+import moe.orangemc.fishlib.command.FishBaseCommand;
+import moe.orangemc.fishlib.command.CommandHelper;
+import moe.orangemc.fishlib.FishLibrary;
 
 public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
-		CommonCommand cmd = new CommonCommand("test");
+		FishBaseCommand cmd = FishLibrary.getCommandHelper(this).buildAndRegisterCommand(getCommand("test"));
 		cmd.registerCommand(new TestCommand());
-		getCommand("test").setExecutor(cmd);
 	}
 }
 ```

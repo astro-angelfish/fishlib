@@ -18,11 +18,14 @@
 
 package moe.orangemc.fishlib.util;
 
+import moe.orangemc.fishlib.annotation.CanImplement;
+
 /**
  * A supplier that can throw exception
  * @param <T> the type of results supplied by this supplier
  * @see java.util.function.Supplier
  */
+@CanImplement
 public interface ThrowingSupplier<T> {
 	T get() throws Throwable;
 }

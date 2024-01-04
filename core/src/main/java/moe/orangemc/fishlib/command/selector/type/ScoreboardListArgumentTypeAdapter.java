@@ -20,7 +20,9 @@ package moe.orangemc.fishlib.command.selector.type;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.selector.Selector;
+import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 
 import org.bukkit.Bukkit;
 
@@ -35,7 +37,7 @@ public class ScoreboardListArgumentTypeAdapter implements SelectorArgumentTypeAd
 
 		char lastPeek;
 		do {
-			String scoreName = value.readUnquotedString();
+			String scoreName = FishUTFStringArgumentType.readUTFString(value, CharFilterUtil::charNotSelectorSpecial);
 			value.expect('=');
 
 			scoreboardArgumentTypes.add(new ScoreboardListArgumentType.ScoreboardArgumentType(Bukkit.getScoreboardManager().getMainScoreboard().getObjective(scoreName), new IntegerRangeTypeAdapter().fromStringReader(selector, value)));

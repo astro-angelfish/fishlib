@@ -22,18 +22,15 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.selector.Selector;
-import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 
-import org.bukkit.NamespacedKey;
-
-public class NamespacedKeyTypeAdapter implements SelectorArgumentTypeAdapter<NamespacedKey> {
+public class StringTypeAdapter implements SelectorArgumentTypeAdapter<String> {
 	@Override
-	public NamespacedKey fromStringReader(Selector selector, StringReader prompt) throws CommandSyntaxException {
-		return NamespacedKey.fromString(FishUTFStringArgumentType.readUTFString(prompt, CharFilterUtil::charNotSelectorSpecial));
+	public String fromStringReader(Selector selector, StringReader sr) throws CommandSyntaxException {
+		return FishUTFStringArgumentType.readUTFString(sr);
 	}
 
 	@Override
-	public Class<NamespacedKey> getProvidingClass() {
-		return NamespacedKey.class;
+	public Class<String> getProvidingClass() {
+		return String.class;
 	}
 }

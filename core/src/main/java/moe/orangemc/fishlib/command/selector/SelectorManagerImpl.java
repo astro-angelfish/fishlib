@@ -152,6 +152,7 @@ public class SelectorManagerImpl implements SelectorManager {
 		registerTypeAdapter(new NBTTypeAdapter());
 		registerTypeAdapter(new SorterTypeAdapter());
 		registerTypeAdapter(new StringReaderAdapter());
+		registerTypeAdapter(new StringTypeAdapter());
 		registerTypeAdapter(new TeamTypeAdapter());
 		registerTypeAdapter(new ScoreboardListArgumentTypeAdapter());
 		registerTypeAdapter(new AdvancementListTypeAdapter());

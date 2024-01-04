@@ -21,10 +21,12 @@ package moe.orangemc.fishlib.command.selector;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
+import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.argument.type.EntityList;
 import moe.orangemc.fishlib.command.selector.argument.trait.LimitArgument;
 import moe.orangemc.fishlib.command.selector.context.*;
 import moe.orangemc.fishlib.command.selector.type.SelectorArgumentTypeAdapter;
+import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 import moe.orangemc.fishlib.command.selector.util.Sorter;
 import moe.orangemc.fishlib.command.util.CommandFailException;
 import moe.orangemc.fishlib.command.util.CommandSyntaxExceptionBuilder;
@@ -144,7 +146,7 @@ public class SelectorImpl implements Selector {
 			List<ArgumentContext> argumentContextList = new ArrayList<>();
 
 			do {
-				String key = promptReader.readString();
+				String key = FishUTFStringArgumentType.readUTFString(promptReader, CharFilterUtil::charNotSelectorSpecial);
 				promptReader.expect('=');
 				boolean invert = prompt.peek() == '!';
 				if (invert) {

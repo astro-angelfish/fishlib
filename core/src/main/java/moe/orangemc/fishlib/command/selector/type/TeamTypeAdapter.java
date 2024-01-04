@@ -20,7 +20,9 @@ package moe.orangemc.fishlib.command.selector.type;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.selector.Selector;
+import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Team;
@@ -28,7 +30,7 @@ import org.bukkit.scoreboard.Team;
 public class TeamTypeAdapter implements SelectorArgumentTypeAdapter<Team> {
 	@Override
 	public Team fromStringReader(Selector selector, StringReader sr) throws CommandSyntaxException {
-		return Bukkit.getScoreboardManager().getMainScoreboard().getTeam(sr.readString());
+		return Bukkit.getScoreboardManager().getMainScoreboard().getTeam(FishUTFStringArgumentType.readUTFString(sr, CharFilterUtil::charNotSelectorSpecial));
 	}
 
 	@Override

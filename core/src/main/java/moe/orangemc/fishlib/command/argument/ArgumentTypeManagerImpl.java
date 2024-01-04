@@ -65,6 +65,6 @@ public class ArgumentTypeManagerImpl implements ArgumentTypeManager {
 		registerCommandArgumentType(BoolArgumentType.bool(), boolean.class);
 		registerCommandArgumentType(FloatArgumentType.floatArg(), float.class);
 		registerCommandArgumentType(LongArgumentType.longArg(), long.class);
-		registerCommandArgumentType(StringArgumentType.string(), String.class);
+		registerCommandArgumentType(new FishUTFStringArgumentType(), String.class);
 	}
 }

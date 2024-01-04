@@ -20,14 +20,16 @@ package moe.orangemc.fishlib.command.selector.type;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.selector.Selector;
 import moe.orangemc.fishlib.command.selector.SelectorImpl;
+import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 import moe.orangemc.fishlib.command.selector.util.Sorter;
 
 public class SorterTypeAdapter implements SelectorArgumentTypeAdapter<Sorter> {
 	@Override
 	public Sorter fromStringReader(Selector selector, StringReader sr) throws CommandSyntaxException {
-		return ((SelectorImpl) selector).getSorter(sr.readString());
+		return ((SelectorImpl) selector).getSorter(FishUTFStringArgumentType.readUTFString(sr, CharFilterUtil::charNotSelectorSpecial));
 	}
 
 	@Override

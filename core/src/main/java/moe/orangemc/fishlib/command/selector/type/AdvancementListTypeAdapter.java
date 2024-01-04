@@ -20,7 +20,9 @@ package moe.orangemc.fishlib.command.selector.type;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import moe.orangemc.fishlib.command.argument.FishUTFStringArgumentType;
 import moe.orangemc.fishlib.command.selector.Selector;
+import moe.orangemc.fishlib.command.selector.util.CharFilterUtil;
 import moe.orangemc.fishlib.command.util.CommandFailException;
 import moe.orangemc.fishlib.command.util.CommandSyntaxExceptionBuilder;
 
@@ -41,34 +43,19 @@ public class AdvancementListTypeAdapter implements SelectorArgumentTypeAdapter<A
 		prompt.expect('{');
 		char lastPeek;
 		do {
-			String namespace = "";
-			StringBuilder name = new StringBuilder(prompt.readUnquotedString());
-			if (prompt.peek() == ':') {
-				namespace = name.toString();
-				prompt.skip();
-				name = new StringBuilder(prompt.readUnquotedString());
-			}
-			while (prompt.peek() == '/') {
-				prompt.skip();
-				name.append("/").append(prompt.readUnquotedString());
-			}
-			if (namespace.isBlank()) {
-				namespace = NamespacedKey.MINECRAFT;
-			}
-
-			NamespacedKey achievementKey = NamespacedKey.fromString(namespace + ":" + name);
-			if (achievementKey == null) {
+			NamespacedKey advancementKey = NamespacedKey.fromString(FishUTFStringArgumentType.readUTFString(prompt, CharFilterUtil::charNotSelectorSpecial));
+			if (advancementKey == null) {
 				throw new CommandFailException(selector.getOwner(), "command.notfound", "Target not found.");
 			}
-			Advancement advancement = Bukkit.getAdvancement(achievementKey);
+			Advancement advancement = Bukkit.getAdvancement(advancementKey);
 			if (advancement == null) {
-				CommandSyntaxExceptionBuilder.raise(selector.getOwner(), selector.getSender(), "command.advancement.notfound", "Advancement " + namespace + ":" + name + " is not found.", namespace, name);
+				CommandSyntaxExceptionBuilder.raise(selector.getOwner(), selector.getSender(), "command.advancement.notfound", "Advancement " + advancementKey + " is not found.", advancementKey.getNamespace(), advancementKey.getKey());
 			}
 
 			if (prompt.peek() == '{') {
 				Map<String, Boolean> criteriaMap = new HashMap<>();
 				while (prompt.peek() != '}') {
-					String criteriaName = prompt.readUnquotedString();
+					String criteriaName = FishUTFStringArgumentType.readUTFString(prompt, CharFilterUtil::charNotSelectorSpecial);
 					prompt.expect('=');
 					boolean invertCriteria = !prompt.readBoolean();
 

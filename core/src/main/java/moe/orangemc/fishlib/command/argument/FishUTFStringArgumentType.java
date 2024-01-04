@@ -42,7 +42,7 @@ public class FishUTFStringArgumentType implements ArgumentType<String> {
 		}
 
 		int start = reader.getCursor();
-		while (matcher.test(reader.peek()) && reader.canRead()) {
+		while (reader.canRead() && matcher.test(reader.peek())) {
 			reader.skip();
 		}
 

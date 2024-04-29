@@ -22,6 +22,9 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * The version of the Minecraft server.
+ */
 @ShouldNotBeImplemented
 public final class ServerVersion implements Comparable<ServerVersion> {
 	private final String serverVersionString;
@@ -30,6 +33,11 @@ public final class ServerVersion implements Comparable<ServerVersion> {
 	private final int minecraftMinorVersion;
 	private final int bukkitVersion;
 
+	/**
+	 * Create a server version from the version string.
+	 *
+	 * @param serverVersionString the version string
+	 */
 	public ServerVersion(String serverVersionString) {
 		this.serverVersionString = serverVersionString;
 
@@ -47,11 +55,23 @@ public final class ServerVersion implements Comparable<ServerVersion> {
 		}
 	}
 
+	/**
+	 * Get the string representation of the server version.
+	 *
+	 * @return the string representation of the server version
+	 */
 	@Override
 	public String toString() {
 		return serverVersionString;
 	}
 
+	/**
+	 * Compare this server version with another.
+	 *
+	 * @param o the other server version
+	 * @return a negative integer, zero, or a positive integer as this server version is younger than, equal to, or older than the other
+	 * @see Comparable#compareTo(Object)
+	 */
 	@Override
 	public int compareTo(ServerVersion o) {
 		if (o.minecraftMajorVersion > this.minecraftMajorVersion) {
@@ -75,6 +95,12 @@ public final class ServerVersion implements Comparable<ServerVersion> {
 		return 0;
 	}
 
+	/**
+	 * Check if this server version is equal to another.
+	 *
+	 * @param o the other object
+	 * @return whether this server version is equal to the other
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -87,10 +113,22 @@ public final class ServerVersion implements Comparable<ServerVersion> {
 		return bukkitVersion == that.bukkitVersion;
 	}
 
+	/**
+	 * Check if this server version is newer than another.
+	 *
+	 * @param serverVersion the other server version
+	 * @return whether this server version is newer than the other
+	 */
 	public boolean newer(ServerVersion serverVersion) {
 		return this.compareTo(serverVersion) > 0;
 	}
 
+	/**
+	 * Check if this server version is older than another.
+	 *
+	 * @param serverVersion the other server version
+	 * @return whether this server version is older than the other
+	 */
 	public boolean older(ServerVersion serverVersion) {
 		return this.compareTo(serverVersion) < 0;
 	}

@@ -30,7 +30,7 @@ import moe.orangemc.fishlib.service.FishLibraryService;
 import org.bukkit.plugin.Plugin;
 
 /**
- * General commons.
+ * General library for the fish. Provides features that bukkit does not have.
  */
 @ShouldNotBeImplemented
 public final class FishLibrary {

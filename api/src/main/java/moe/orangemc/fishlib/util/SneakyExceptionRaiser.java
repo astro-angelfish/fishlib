@@ -22,6 +22,8 @@ package moe.orangemc.fishlib.util;
  * A utility class to raise checked exceptions without throws declaration because always check a checked exception is annoying.
  * <br>
  * It abuses generics to bypass the compiler.
+ * <br>
+ * Abusing this is not recommended, but it is useful in some cases like I/O operations.
  */
 public final class SneakyExceptionRaiser {
 	private SneakyExceptionRaiser() {

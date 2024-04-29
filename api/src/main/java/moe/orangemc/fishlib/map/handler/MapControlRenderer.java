@@ -22,7 +22,18 @@ import moe.orangemc.fishlib.annotation.CanImplement;
 import moe.orangemc.fishlib.map.MapRenderContext;
 import moe.orangemc.fishlib.map.control.MapControl;
 
+/**
+ * A renderer for map controls.
+ */
 @CanImplement
 public interface MapControlRenderer {
+	/**
+	 * Render the control.
+	 * <br>
+	 * The context has been mapped to the control's location.
+	 *
+	 * @param control the control to render
+	 * @param context the context to render in
+	 */
 	void render(MapControl control, MapRenderContext context);
 }

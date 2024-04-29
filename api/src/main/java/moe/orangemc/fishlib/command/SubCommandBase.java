@@ -37,7 +37,9 @@ import moe.orangemc.fishlib.annotation.CanImplement;
  * The following is an example of proper definition of a command
  * <pre>
  *   {@literal @}FishCommandExecutor public void testCommand(CommandSender sender, {@literal @}FishCommandParameter("entity") EntityList entities)
- *   { /* implementation *&#47 }
+ *   {
+ *       // implementation
+ *   }
  * </pre>
  *
  * @see org.bukkit.command.CommandExecutor

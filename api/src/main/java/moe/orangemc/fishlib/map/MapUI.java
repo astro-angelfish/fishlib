@@ -25,6 +25,13 @@ import moe.orangemc.fishlib.map.control.MapListWidget;
 import moe.orangemc.fishlib.map.handler.MapRenderer;
 import moe.orangemc.fishlib.util.Vector2i;
 
+/**
+ * A wrapped ui on a map.
+ *
+ * @see org.bukkit.map.MapRenderer
+ * @see org.bukkit.inventory.meta.MapMeta
+ * @see org.bukkit.map.MapCanvas
+ */
 @ShouldNotBeImplemented
 public interface MapUI {
 	void setRenderer(MapRenderer renderer);

@@ -21,9 +21,22 @@ package moe.orangemc.fishlib.map.handler;
 import moe.orangemc.fishlib.annotation.CanImplement;
 import moe.orangemc.fishlib.map.MapRenderContext;
 
+/**
+ * A renderer for the map.
+ */
 @CanImplement
 public interface MapRenderer {
+	/**
+	 * Render the map.
+	 *
+	 * @param context the context to render in
+	 */
 	void render(MapRenderContext context);
 
+	/**
+	 * Called after rendering the map.
+	 *
+	 * @param context the context to render in
+	 */
 	void postRender(MapRenderContext context);
 }

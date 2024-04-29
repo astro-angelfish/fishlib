@@ -21,7 +21,17 @@ package moe.orangemc.fishlib.map.control;
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import moe.orangemc.fishlib.map.handler.MapClickHandler;
 
+/**
+ * A control that can be clicked on the map.
+ * <br>
+ * Fishlib uses ray-tracing to detect the click on the map.
+ */
 @ShouldNotBeImplemented
 public interface MapClickable extends MapControl {
+	/**
+	 * Set the click handler for this clickable.
+	 *
+	 * @param clickHandler the click handler to set
+	 */
 	void setClickHandler(MapClickHandler clickHandler);
 }

@@ -20,9 +20,26 @@ package moe.orangemc.fishlib.reflection;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * A mapping between Minecraft and Bukkit classes.
+ */
 @ShouldNotBeImplemented
 public interface Mapping {
+	/**
+	 * Get the Minecraft class by its full name.
+	 *
+	 * @param fullName the full name of the class
+	 * @return the class in Minecraft
+	 * @throws ClassNotFoundException if the class is not found
+	 */
 	Class<?> getMinecraftClass(String fullName) throws ClassNotFoundException;
 
+	/**
+	 * Get the Bukkit class by its name.
+	 *
+	 * @param name the name of the class
+	 * @return the class in Bukkit
+	 * @throws ClassNotFoundException if the class is not found
+	 */
 	Class<?> getBukkitClass(String name) throws ClassNotFoundException;
 }

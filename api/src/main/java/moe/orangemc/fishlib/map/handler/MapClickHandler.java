@@ -24,7 +24,18 @@ import moe.orangemc.fishlib.util.Vector2i;
 
 import org.bukkit.entity.Player;
 
+/**
+ * A handler for map click events.
+ */
 @CanImplement
 public interface MapClickHandler {
+	/**
+	 * Called when a player clicks on a control.
+	 *
+	 * @param player the player who clicked
+	 * @param clickedControl the control that was clicked
+	 * @param rightClick whether the player right-clicked
+	 * @param clickedLocation the location on the map that was clicked
+	 */
 	void onClick(Player player, MapControl clickedControl, boolean rightClick, Vector2i clickedLocation);
 }

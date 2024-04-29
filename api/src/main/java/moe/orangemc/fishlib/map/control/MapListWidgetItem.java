@@ -20,13 +20,34 @@ package moe.orangemc.fishlib.map.control;
 
 import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 
+/**
+ * A list item in the list widget.
+ */
 @ShouldNotBeImplemented
 public interface MapListWidgetItem extends MapClickable {
+	/**
+	 * Get the text of the item.
+	 * @return the text of the item
+	 */
 	String getText();
 
+	/**
+	 * Set the text of the item.
+	 * @param text the text to set
+	 */
 	void setText(String text);
 
+	/**
+	 * Get whether the item is clicked.
+	 * @return whether the item is clicked
+	 */
 	boolean isClicked();
 
+	/**
+	 * <b>Should be for internal usage</b>
+	 * <br>
+	 * Set whether the item is clicked.
+	 * @param clicked whether the item is clicked
+	 */
 	void setClicked(boolean clicked);
 }

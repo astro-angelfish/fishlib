@@ -39,15 +39,13 @@ import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapView;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MapUIImpl implements MapUI {
 	private final BukkitMapCanvasRenderer[][] bukkitMapCanvasRenderers;
 	private final Map<ItemFrame, Vector2i> itemFrameMap = new HashMap<>();
+	private final Set<ItemFrame> itemFrames = new HashSet<>();
 	private final Vector2i corner;
 
 	private final BufferedImage buffer;
@@ -60,6 +58,7 @@ public class MapUIImpl implements MapUI {
 	public MapUIImpl(ItemFrame[][] frames, Vector2i corner) {
 		bukkitMapCanvasRenderers = new BukkitMapCanvasRenderer[corner.getX() + 1][corner.getY() + 1];
 		this.corner = corner;
+		this.itemFrames.addAll(Arrays.stream(frames).flatMap(Arrays::stream).toList());
 		buffer = new BufferedImage(corner.getX() * 128 + 128, corner.getY() * 128 + 128, BufferedImage.TYPE_INT_RGB);
 
 		for (int x = 0; x <= corner.getX(); x++) {
@@ -186,5 +185,9 @@ public class MapUIImpl implements MapUI {
 	@Override
 	public Vector2i getSize() {
 		return corner.clone().add(1, 1).multiply(128);
+	}
+
+	public Set<ItemFrame> getItemFrames() {
+		return itemFrames;
 	}
 }

@@ -22,15 +22,38 @@ import moe.orangemc.fishlib.annotation.ShouldNotBeImplemented;
 import moe.orangemc.fishlib.map.handler.MapControlRenderer;
 import moe.orangemc.fishlib.util.Vector2i;
 
+/**
+ * A control on the map.
+ */
 @ShouldNotBeImplemented
 public interface MapControl {
+	/**
+	 * Get the location of the control.
+	 * @return the location of the control
+	 */
 	Vector2i getLocation();
 
+	/**
+	 * Get the size of the control.
+	 * @return the size of the control
+	 */
 	Vector2i getSize();
 
+	/**
+	 * Move the control to the given location.
+	 * @param location the location to move to
+	 */
 	void moveTo(Vector2i location);
 
+	/**
+	 * Resize the control to the given size.
+	 * @param newSize the new size to resize to
+	 */
 	void resize(Vector2i newSize);
 
+	/**
+	 * Set the renderer for this control.
+	 * @param handler the renderer to set
+	 */
 	void setRenderer(MapControlRenderer handler);
 }

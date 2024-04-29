@@ -49,7 +49,6 @@ public class DefaultListWidgetClickHandler implements MapClickHandler {
 				widget.setSelectedIndex(i);
 				item.setClicked(true);
 				found = true;
-
 			} else {
 				item.setClicked(false);
 			}

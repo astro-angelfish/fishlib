@@ -67,6 +67,29 @@ public class MapManagerImpl implements MapManager {
 		return addMapUI(new MapUIImpl(itemFrames, actualSize), itemFrames);
 	}
 
+	@Override
+	public void destroyMapUI(MapUI ui) {
+		Validate.notNull(ui, "The map ui cannot be null");
+		Validate.isInstanceOf(MapUIImpl.class, ui, "The map ui must be managed by fishlib");
+
+		MapUIImpl mapUI = (MapUIImpl) ui;
+		mapUIs.remove(mapUI);
+		for (ItemFrame frame : mapUI.getItemFrames()) {
+			itemFrameMap.remove(frame);
+			frame.remove();
+		}
+	}
+
+	@Override
+	public void destroyMapUI(ItemFrame part) {
+		Validate.notNull(part, "The frame cannot be null");
+		MapUIImpl mapUI = itemFrameMap.get(part);
+		Validate.notNull(mapUI, "The item frame is not part of map ui");
+		Validate.isInstanceOf(MapUIImpl.class, mapUI, "The map ui must be managed by fishlib");
+
+		destroyMapUI(mapUI);
+	}
+
 	private MapUI addMapUI(MapUIImpl mapUI, ItemFrame[][] itemFrames) {
 		this.mapUIs.add(mapUI);
 		for (ItemFrame[] if1 : itemFrames) {

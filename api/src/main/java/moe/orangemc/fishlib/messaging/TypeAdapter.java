@@ -46,6 +46,7 @@ import moe.orangemc.fishlib.annotation.CanImplement;
  *     <li>boolean[]</li>
  *     <li>char[]</li>
  *     <li>{@link java.util.UUID}</li>
+ * </ul>
  *
  * @param <T> the type to be adapted
  */

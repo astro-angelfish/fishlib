@@ -25,9 +25,41 @@ import org.bukkit.entity.ItemFrame;
 
 import java.util.Map;
 
+/**
+ * A manager for managing map ui.
+ *
+ * @see MapUI
+ * @see ItemFrame
+ */
 @ShouldNotBeImplemented
 public interface MapManager {
+	/**
+	 * Create a map ui with the given frames.
+	 * @param framesToDisplay the frames to display, with matching coordinates
+	 * @return the created map ui
+	 */
 	MapUI createMapUI(Map<Vector2i, ItemFrame> framesToDisplay);
 
+	/**
+	 * Create a map ui with the given start frame and max size.
+	 * <br>
+	 * This method would automatically calculate the frames to display, until the max size is reached.
+	 *
+	 * @param start the start frame to display
+	 * @param maxSize the max size of the map ui
+	 * @return the created map ui
+	 */
 	MapUI createMapUI(ItemFrame start, Vector2i maxSize);
+
+	/**
+	 * Destroy the given map ui.
+	 * @param ui the map ui to destroy
+	 */
+	void destroyMapUI(MapUI ui);
+
+	/**
+	 * Destroy the map ui of the given part.
+	 * @param part the part to destroy
+	 */
+	void destroyMapUI(ItemFrame part);
 }
